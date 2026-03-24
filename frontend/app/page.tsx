@@ -105,7 +105,7 @@ export default function HomePage() {
       {/* 桌面端标题栏 */}
       <div className="hidden lg:flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">小红书自动发布</h1>
+          <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-art)" }}>小红书自动发布</h1>
           <p className="text-gray-500 mt-1">AI 驱动的内容管理平台</p>
         </div>
         <Link
@@ -139,7 +139,7 @@ export default function HomePage() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-2xl font-bold">自动发布任务</h2>
+            <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-art)" }}>自动发布任务</h2>
             <p className="text-gray-500 text-sm mt-1">管理和监控所有自动发布任务</p>
           </div>
         </div>

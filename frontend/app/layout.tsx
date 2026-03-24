@@ -1,9 +1,17 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Plus } from "lucide-react"
+import { ZCOOL_XiaoWei } from "next/font/google"
 import { SidebarDock } from "@/components/sidebar-dock"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
+
+const artFont = ZCOOL_XiaoWei({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-art",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "小红书自动化",
@@ -12,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" className="h-full antialiased">
+    <html lang="zh-CN" className={`h-full antialiased ${artFont.variable}`}>
       <body className="min-h-full bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <Toaster />
         <SidebarDock />
