@@ -1,8 +1,9 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Sparkles, LayoutDashboard, Image, History, CheckCircle, XCircle, Plus } from "lucide-react"
+import { LayoutDashboard, Image, History, CheckCircle, XCircle, Plus } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
 interface SidebarDockProps {
@@ -17,18 +18,21 @@ const navItems = [
 
 export function SidebarDock({ isLoggedIn = true }: SidebarDockProps) {
   const pathname = usePathname()
+  const [avatar, setAvatar] = useState("")
+  const [nickname, setNickname] = useState("用户")
+
+  useEffect(() => {
+    fetch("/api/me")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.avatar) setAvatar(data.avatar)
+        if (data.nickname) setNickname(data.nickname)
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-20 flex-col items-center py-6 bg-white dark:bg-gray-900 border-r z-20">
-      {/* Logo */}
-      <Link href="/">
-        <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center mb-8 cursor-pointer hover:scale-105 transition-transform">
-          <Sparkles className="w-7 h-7 text-white" />
-        </div>
-      </Link>
-
-      <Separator className="w-10 mb-6" />
-
       {/* 导航 */}
       <nav className="flex-1 flex flex-col items-center gap-4">
         {navItems.map(({ href, icon: Icon, label }) => {
@@ -60,12 +64,20 @@ export function SidebarDock({ isLoggedIn = true }: SidebarDockProps) {
 
       <Separator className="w-10 mb-6" />
 
-      {/* 登录状态 */}
+      {/* 用户头像 */}
       <div className="flex flex-col items-center gap-3">
         <div className="relative">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-100 to-pink-100 dark:from-red-900/40 dark:to-pink-900/40 flex items-center justify-center">
-            <span className="text-lg font-bold text-red-600">XHS</span>
-          </div>
+          {avatar ? (
+            <img
+              src={avatar}
+              alt={nickname}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-100 to-pink-100 dark:from-red-900/40 dark:to-pink-900/40 flex items-center justify-center">
+              <span className="text-lg font-bold text-red-600">XHS</span>
+            </div>
+          )}
           {isLoggedIn ? (
             <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center">
               <CheckCircle className="w-3 h-3 text-white" />

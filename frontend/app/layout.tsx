@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Plus, Sparkles } from "lucide-react"
+import { Plus } from "lucide-react"
 import { SidebarDock } from "@/components/sidebar-dock"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
@@ -22,9 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
                 <div>
                   <h1 className="text-xl font-bold">小红书自动发布</h1>
                   <p className="text-sm text-gray-500">AI 驱动的内容管理平台</p>
