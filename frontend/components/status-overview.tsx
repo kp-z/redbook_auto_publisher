@@ -23,7 +23,7 @@ export function StatusOverview({
   const taskProgress = totalTasks > 0 ? (activeTasks / totalTasks) * 100 : 0
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <>
       {/* 发布统计 */}
       <Card className="overflow-hidden">
         <CardHeader className="pb-3">
@@ -105,6 +105,6 @@ export function StatusOverview({
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   )
 }

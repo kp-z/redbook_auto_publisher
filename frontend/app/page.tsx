@@ -118,8 +118,8 @@ export default function HomePage() {
       </div>
 
       {/* 统计概览 + 热力图 */}
-      <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
-        <Card className="flex flex-col">
+      <div className="grid gap-4 lg:grid-cols-[2.4fr_1fr_1fr]">
+        <Card className="lg:row-span-2 flex flex-col">
           <CardHeader className="pb-3 shrink-0">
             <CardTitle className="text-sm font-medium text-gray-500">发布活动</CardTitle>
           </CardHeader>
@@ -128,13 +128,11 @@ export default function HomePage() {
           </CardContent>
         </Card>
 
-        <div className="h-full">
-          <StatusOverview
-            totalPosts={totalPosts}
-            activeTasks={activeTasks}
-            totalTasks={tasks.length}
-          />
-        </div>
+        <StatusOverview
+          totalPosts={totalPosts}
+          activeTasks={activeTasks}
+          totalTasks={tasks.length}
+        />
       </div>
 
       {/* 任务列表 */}
