@@ -89,8 +89,8 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
 
   if (compact) {
     return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-4 gap-4">
+      <div className="h-full flex flex-col gap-4">
+        <div className="grid grid-cols-4 gap-4 shrink-0">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-gray-500 text-xs">
               <Flame className="w-3.5 h-3.5" />
@@ -125,11 +125,10 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
           </div>
         </div>
 
-        <div className="space-y-3">
-          <div className="text-sm font-medium text-gray-700 dark:text-gray-300">过去 90 天的发布记录</div>
-          <div className="w-full overflow-x-auto pb-2">
+        <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+          <div className="flex-1 overflow-hidden">
             <TooltipProvider>
-              <div className="inline-flex gap-1 min-w-full">
+              <div className="inline-flex gap-1 min-w-full h-full">
                 {weeks.map((week, weekIndex) => (
                   <div key={weekIndex} className="flex flex-col gap-1 flex-1">
                     {week.map((day) => (
