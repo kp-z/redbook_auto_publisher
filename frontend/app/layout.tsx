@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Plus } from "lucide-react"
 import { ZCOOL_XiaoWei } from "next/font/google"
 import { SidebarDock } from "@/components/sidebar-dock"
+import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
@@ -20,20 +21,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" className={`h-full antialiased ${artFont.variable}`}>
-      <body className="min-h-full bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <html lang="zh-CN" className={`h-full antialiased ${artFont.variable}`} suppressHydrationWarning>
+      <body className="min-h-full">
+        <ThemeProvider>
         <Toaster />
         <SidebarDock />
 
         {/* 移动端顶部 Header */}
-        <header className="lg:hidden bg-white dark:bg-gray-900 border-b sticky top-0 z-10">
+        <header className="sticky top-0 z-10 border-b border-border bg-card lg:hidden">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div>
-                  <h1 className="text-xl font-bold">小红书自动发布</h1>
-                  <p className="text-sm text-gray-500">AI 驱动的内容管理平台</p>
-                </div>
+                <img src="/logo.png" alt="小红书" className="h-8 w-auto" />
               </div>
               <Link
                 href="/tasks/new"
@@ -48,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* 主内容区（桌面端左移 80px 避让 Sidebar） */}
         <main className="lg:ml-20">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   )

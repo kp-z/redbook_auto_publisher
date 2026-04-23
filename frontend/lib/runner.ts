@@ -1,15 +1,44 @@
 import { generateXhsContent } from "./claude-client"
 import { pickRandomImage } from "./helpers"
 import { publishContent } from "./xhs-client"
-import { getTask, updateTask, appendHistory, type Task } from "./store"
+import { getTask, updateTask, appendHistory, PROFILE_SYNC_TASK_ID, DEV_DAILY_TASK_ID } from "./store"
+import { syncProfile } from "./profile-sync"
+import { runDevDaily } from "./dev-daily"
 
 export async function runTask(taskId: string): Promise<{ success: boolean; error?: string }> {
   const task = getTask(taskId)
   if (!task) return { success: false, error: "任务不存在" }
   if (!task.enabled) return { success: false, error: "任务已禁用" }
 
-  // 标记运行中
   updateTask(taskId, { lastRunAt: new Date().toISOString(), lastStatus: "running" })
+
+  // Profile 数据同步任务走专属逻辑
+  if (task.id === PROFILE_SYNC_TASK_ID) {
+    const result = await syncProfile()
+    updateTask(taskId, { lastStatus: result.success ? "success" : "failed" })
+    appendHistory({
+      taskId,
+      taskName: task.name,
+      runAt: new Date().toISOString(),
+      status: result.success ? "success" : "failed",
+      error: result.error,
+    })
+    return result
+  }
+
+  // AI 开发日报走专属逻辑
+  if (task.id === DEV_DAILY_TASK_ID) {
+    const result = await runDevDaily()
+    updateTask(taskId, { lastStatus: result.success ? "success" : "failed" })
+    appendHistory({
+      taskId,
+      taskName: task.name,
+      runAt: new Date().toISOString(),
+      status: result.success ? "success" : "failed",
+      error: result.error,
+    })
+    return result
+  }
 
   try {
     // 1. AI 生成内容

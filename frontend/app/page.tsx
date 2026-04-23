@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { Great_Vibes } from "next/font/google"
 import { toast } from "sonner"
 import { Plus, Sparkles } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -10,9 +11,37 @@ import { StatusOverview } from "@/components/status-overview"
 import { TaskCard } from "@/components/task-card"
 import type { Task, HistoryRecord } from "@/lib/store"
 
+const cursiveFont = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+})
+
+// interactions 数组中 type 对应的值
+interface XhsInteraction {
+  type: string
+  count: string
+}
+
+interface XhsProfile {
+  interactions?: XhsInteraction[]
+  feeds?: { id: string; title: string; type: string; liked_count: number; cover?: string }[]
+  updatedAt?: string
+}
+
+// 从 interactions 数组中按 type 取 count（字符串转数字，支持 "1.2万" 等格式）
+function parseCount(interactions: XhsInteraction[], type: string): number {
+  const item = interactions.find((i) => i.type === type)
+  if (!item) return 0
+  const s = item.count.replace(/,/g, "")
+  if (s.includes("万")) return Math.round(parseFloat(s) * 10000)
+  return parseInt(s, 10) || 0
+}
+
 export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [history, setHistory] = useState<HistoryRecord[]>([])
+  const [profile, setProfile] = useState<XhsProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const [runningId, setRunningId] = useState<string | null>(null)
 
@@ -26,8 +55,29 @@ export default function HomePage() {
     setHistory(await res.json())
   }
 
+  async function fetchProfile() {
+    try {
+      const res = await fetch("/api/profile")
+      if (res.ok) {
+        const json = await res.json()
+        // 缓存模式：{ data: { data: { interactions, updatedAt } }, updatedAt }
+        // 实时模式：{ data: { data: { interactions } } }
+        const data = json.data?.data ?? null
+        if (data) {
+          setProfile({
+            interactions: data.interactions,
+            feeds: data.feeds ?? [],
+            updatedAt: json.updatedAt ?? data.updatedAt,
+          })
+        }
+      }
+    } catch {
+      // MCP 未启动或未登录时静默失败，保持默认 0
+    }
+  }
+
   useEffect(() => {
-    Promise.all([fetchTasks(), fetchHistory()]).finally(() => setLoading(false))
+    Promise.all([fetchTasks(), fetchHistory(), fetchProfile()]).finally(() => setLoading(false))
   }, [])
 
   async function toggleEnabled(task: Task) {
@@ -47,10 +97,13 @@ export default function HomePage() {
     const res = await fetch(`/api/tasks/${task.id}/run`, { method: "POST" })
     const json = await res.json()
     setRunningId(null)
+    const isProfileSync = task.id === "__profile_sync__"
     if (json.success) {
-      toast.success("发布成功！", { description: `"${task.name}" 已成功发布` })
+      toast.success(isProfileSync ? "同步成功！" : "发布成功！", {
+        description: isProfileSync ? `"${task.name}" 已完成同步` : `"${task.name}" 已成功发布`,
+      })
     } else {
-      toast.error("发布失败", { description: json.error ?? "请检查配置后重试" })
+      toast.error(isProfileSync ? "同步失败" : "发布失败", { description: json.error ?? "请检查配置后重试" })
     }
     await Promise.all([fetchTasks(), fetchHistory()])
   }
@@ -92,6 +145,14 @@ export default function HomePage() {
   const activeTasks = tasks.filter((t) => t.enabled).length
   const totalPosts = history.filter((r) => r.status === "success").length
 
+  const interactions = profile?.interactions ?? []
+  const profileStats = {
+    followers: parseCount(interactions, "fans"),
+    follows: parseCount(interactions, "follows"),
+    interaction: parseCount(interactions, "interaction"),
+    feeds: profile?.feeds ?? [],
+  }
+
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-6">
@@ -104,9 +165,13 @@ export default function HomePage() {
     <div className="container mx-auto px-4 py-6 space-y-6">
       {/* 桌面端标题栏 */}
       <div className="hidden lg:flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-art)" }}>小红书自动发布</h1>
-          <p className="text-gray-500 mt-1">AI 驱动的内容管理平台</p>
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="小红书" className="h-10 w-auto" />
+          <div className="flex h-10 items-center">
+            <span className={`${cursiveFont.className} text-3xl leading-none tracking-wide text-gray-700 dark:text-gray-200`}>
+              Auto Publishing Platform
+            </span>
+          </div>
         </div>
         <Link
           href="/tasks/new"
@@ -118,12 +183,13 @@ export default function HomePage() {
       </div>
 
       {/* 统计概览 + 热力图 */}
-      <div className="grid gap-4 lg:grid-cols-[2.4fr_1fr_1fr]">
-        <Card className="lg:row-span-2 flex flex-col">
+      {/* lg: 两行等高 + 固定高度；min-h-0 让子项可在 grid 内收缩，避免卡片撑破布局 */}
+      <div className="grid h-[400px] min-h-0 gap-4 lg:grid-cols-[3fr_1fr_1fr] lg:grid-rows-[1fr_1fr]">
+        <Card className="min-h-0 h-full lg:row-span-2 flex flex-col">
           <CardHeader className="pb-3 shrink-0">
             <CardTitle className="text-sm font-medium text-gray-500">发布活动</CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 overflow-hidden">
+          <CardContent className="min-h-0 flex-1 overflow-hidden">
             <ActivityCalendar data={activityData} compact={true} />
           </CardContent>
         </Card>
@@ -132,41 +198,21 @@ export default function HomePage() {
           totalPosts={totalPosts}
           activeTasks={activeTasks}
           totalTasks={tasks.length}
+          stats={profileStats}
         />
       </div>
 
       {/* 任务列表 */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-art)" }}>自动发布任务</h2>
-            <p className="text-gray-500 text-sm mt-1">管理和监控所有自动发布任务</p>
-          </div>
-        </div>
-
-        {tasks.length > 0 ? (
-          <div className="space-y-3">
-            {tasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                isRunning={runningId === task.id}
-                totalPosts={taskPostCounts[task.id] || 0}
-                onToggle={toggleEnabled}
-                onDelete={deleteTask}
-                onRunNow={runNow}
-              />
-            ))}
-          </div>
-        ) : (
-          <Card className="border-dashed">
-            <CardHeader className="text-center py-12">
+      {tasks.length === 0 ? (
+        <Card>
+          <CardContent className="p-0">
+            <div className="text-center py-12">
               <div className="flex justify-center mb-4">
                 <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
                   <Sparkles className="w-8 h-8 text-gray-400" />
                 </div>
               </div>
-              <CardTitle>还没有任务</CardTitle>
+              <CardTitle className="text-base">还没有任务</CardTitle>
               <CardDescription className="mt-2">
                 创建您的第一个自动发布任务，让 AI 帮您管理内容
               </CardDescription>
@@ -179,10 +225,24 @@ export default function HomePage() {
                   创建第一个任务
                 </Link>
               </div>
-            </CardHeader>
-          </Card>
-        )}
-      </div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="flex flex-col gap-3">
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              isRunning={runningId === task.id}
+              totalPosts={taskPostCounts[task.id] || 0}
+              onToggle={toggleEnabled}
+              onDelete={deleteTask}
+              onRunNow={runNow}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

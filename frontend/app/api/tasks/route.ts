@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getTasks, saveTask, deleteTask } from "@/lib/store"
+import { getTasks, saveTask, deleteTask, ensureProfileSyncTask, ensureDevDailyTask } from "@/lib/store"
 import { generateWebhookToken } from "@/lib/helpers"
 
 export async function GET() {
+  ensureProfileSyncTask()
+  ensureDevDailyTask()
   return NextResponse.json(getTasks())
 }
 

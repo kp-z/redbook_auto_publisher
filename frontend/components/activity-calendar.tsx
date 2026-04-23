@@ -89,7 +89,7 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
 
   if (compact) {
     return (
-      <div className="h-full flex flex-col gap-4">
+      <div className="h-full min-h-0 flex flex-col gap-4">
         <div className="grid grid-cols-4 gap-4 shrink-0">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-gray-500 text-xs">
@@ -125,18 +125,29 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col gap-2 overflow-hidden">
-          <div className="flex-1 overflow-hidden">
+        {/* min-h-0：参与 flex 高度分配；热力图区 overflow-visible 避免圆点被裁切（Card 外层仍可做裁剪） */}
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
+          <div className="min-h-0 min-w-0 flex-1 overflow-visible">
             <TooltipProvider>
-              <div className="inline-flex gap-1 min-w-full h-full">
+              {/* 块级 flex 占满父级；列 flex-1 均分宽度，随容器变窄/变矮自动缩放 */}
+              <div className="flex h-full min-h-0 w-full min-w-0 gap-1">
                 {weeks.map((week, weekIndex) => (
-                  <div key={weekIndex} className="flex flex-col gap-1 flex-1">
+                  <div
+                    key={weekIndex}
+                    className="flex min-h-0 min-w-0 flex-1 flex-col gap-1"
+                  >
                     {week.map((day) => (
                       <Tooltip key={day.date}>
                         <TooltipTrigger asChild>
                           <div
-                            className={`w-full aspect-square rounded-sm ${getColorClass(day.count)} transition-colors hover:ring-2 hover:ring-red-400 cursor-pointer min-w-[10px]`}
-                          />
+                            className="group relative min-h-0 min-w-0 flex-1 cursor-pointer outline-none [container-type:size]"
+                            tabIndex={0}
+                          >
+                            {/* 单元格内最大内接圆：随父级宽高变化，避免 aspect-square + w-full 在矮区域内溢出被 hidden 裁掉 */}
+                            <div
+                              className={`absolute left-1/2 top-1/2 h-[min(100cqw,100cqh)] w-[min(100cqw,100cqh)] min-h-[6px] min-w-[6px] max-h-full max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full transition-[filter,box-shadow] group-hover:brightness-110 group-hover:ring-2 group-hover:ring-red-400 group-hover:ring-inset ${getColorClass(day.count)}`}
+                            />
+                          </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="font-medium">{formatDate(day.date)}</p>
@@ -153,10 +164,10 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span>少</span>
               <div className="flex gap-1">
-                <div className="w-3 h-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
-                <div className="w-3 h-3 rounded-sm bg-red-200 dark:bg-red-900/40" />
-                <div className="w-3 h-3 rounded-sm bg-red-400 dark:bg-red-700/60" />
-                <div className="w-3 h-3 rounded-sm bg-red-600 dark:bg-red-600" />
+                <div className="w-3 h-3 rounded-full bg-gray-100 dark:bg-gray-800" />
+                <div className="w-3 h-3 rounded-full bg-red-200 dark:bg-red-900/40" />
+                <div className="w-3 h-3 rounded-full bg-red-400 dark:bg-red-700/60" />
+                <div className="w-3 h-3 rounded-full bg-red-600 dark:bg-red-600" />
               </div>
               <span>多</span>
             </div>
@@ -196,7 +207,7 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
                   <Tooltip key={day.date}>
                     <TooltipTrigger asChild>
                       <div
-                        className={`w-3 h-3 rounded-sm ${getColorClass(day.count)} transition-colors hover:ring-2 hover:ring-red-400 cursor-pointer`}
+                        className={`w-3 h-3 rounded-full ${getColorClass(day.count)} transition-colors hover:ring-2 hover:ring-red-400 cursor-pointer`}
                       />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -213,10 +224,10 @@ export function ActivityCalendar({ data, compact = false }: ActivityCalendarProp
       <div className="flex items-center gap-2 text-xs text-gray-500">
         <span>少</span>
         <div className="flex gap-1">
-          <div className="w-3 h-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
-          <div className="w-3 h-3 rounded-sm bg-red-200 dark:bg-red-900/40" />
-          <div className="w-3 h-3 rounded-sm bg-red-400 dark:bg-red-700/60" />
-          <div className="w-3 h-3 rounded-sm bg-red-600 dark:bg-red-600" />
+          <div className="w-3 h-3 rounded-full bg-gray-100 dark:bg-gray-800" />
+          <div className="w-3 h-3 rounded-full bg-red-200 dark:bg-red-900/40" />
+          <div className="w-3 h-3 rounded-full bg-red-400 dark:bg-red-700/60" />
+          <div className="w-3 h-3 rounded-full bg-red-600 dark:bg-red-600" />
         </div>
         <span>多</span>
       </div>
