@@ -12,10 +12,14 @@ type ImageProcessor struct {
 }
 
 // NewImageProcessor 创建图片处理器
-func NewImageProcessor() *ImageProcessor {
-	return &ImageProcessor{
-		downloader: NewImageDownloader(configs.GetImagesPath()),
+func NewImageProcessor() (*ImageProcessor, error) {
+	downloader, err := NewImageDownloader(configs.GetImagesPath())
+	if err != nil {
+		return nil, err
 	}
+	return &ImageProcessor{
+		downloader: downloader,
+	}, nil
 }
 
 // ProcessImages 处理图片列表，返回本地文件路径

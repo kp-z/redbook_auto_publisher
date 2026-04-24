@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/go-rod/rod"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/xpzouying/headless_browser"
 	"github.com/xpzouying/xiaohongshu-mcp/browser"
@@ -240,7 +241,10 @@ func (s *XiaohongshuService) PublishContent(ctx context.Context, req *PublishReq
 
 // processImages 处理图片列表，支持URL下载和本地路径
 func (s *XiaohongshuService) processImages(images []string) ([]string, error) {
-	processor := downloader.NewImageProcessor()
+	processor, err := downloader.NewImageProcessor()
+	if err != nil {
+		return nil, errors.Wrap(err, "创建图片处理器失败")
+	}
 	return processor.ProcessImages(images)
 }
 

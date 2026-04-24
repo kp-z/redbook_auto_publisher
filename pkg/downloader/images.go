@@ -22,10 +22,10 @@ type ImageDownloader struct {
 }
 
 // NewImageDownloader 创建图片下载器
-func NewImageDownloader(savePath string) *ImageDownloader {
+func NewImageDownloader(savePath string) (*ImageDownloader, error) {
 	// 确保保存目录存在
 	if err := os.MkdirAll(savePath, 0755); err != nil {
-		panic(fmt.Sprintf("failed to create save path: %v", err))
+		return nil, errors.Wrapf(err, "failed to create save path: %s", savePath)
 	}
 
 	return &ImageDownloader{
@@ -33,7 +33,7 @@ func NewImageDownloader(savePath string) *ImageDownloader {
 		httpClient: &http.Client{
 			Timeout: 30 * time.Second,
 		},
-	}
+	}, nil
 }
 
 // DownloadImage 下载图片
@@ -70,10 +70,16 @@ func (d *ImageDownloader) DownloadImage(imageURL string) (string, error) {
 		return "", fmt.Errorf("download failed with status %d for URL: %s", resp.StatusCode, imageURL)
 	}
 
-	// 读取图片数据
-	imageData, err := io.ReadAll(resp.Body)
+	// 读取图片数据，限制最大读取大小防止内存溢出
+	limitedReader := io.LimitReader(resp.Body, 20*1024*1024) // 20MB 限制
+	imageData, err := io.ReadAll(limitedReader)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to read image data")
+	}
+
+	// 检查是否读取完整
+	if len(imageData) == 0 {
+		return "", errors.New("downloaded image is empty")
 	}
 
 	// 检测图片格式
@@ -90,14 +96,26 @@ func (d *ImageDownloader) DownloadImage(imageURL string) (string, error) {
 	fileName := d.generateFileName(imageURL, kind.Extension)
 	filePath := filepath.Join(d.savePath, fileName)
 
-	// 如果文件已存在，直接返回路径
-	if _, err := os.Stat(filePath); err == nil {
-		return filePath, nil
+	// 如果文件已存在，验证文件完整性
+	if existingInfo, err := os.Stat(filePath); err == nil {
+		// 检查文件大小是否匹配
+		if existingInfo.Size() == int64(len(imageData)) {
+			return filePath, nil
+		}
+		// 文件大小不匹配，删除旧文件重新下载
+		os.Remove(filePath)
 	}
 
-	// 保存到文件
-	if err := os.WriteFile(filePath, imageData, 0644); err != nil {
+	// 保存到文件，使用原子写入
+	tmpPath := filePath + ".tmp"
+	if err := os.WriteFile(tmpPath, imageData, 0644); err != nil {
 		return "", errors.Wrap(err, "failed to save image")
+	}
+
+	// 原子重命名
+	if err := os.Rename(tmpPath, filePath); err != nil {
+		os.Remove(tmpPath) // 清理临时文件
+		return "", errors.Wrap(err, "failed to rename temp file")
 	}
 
 	return filePath, nil

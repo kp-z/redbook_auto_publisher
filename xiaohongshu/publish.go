@@ -2,6 +2,7 @@ package xiaohongshu
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"math/rand"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/input"
 	"github.com/go-rod/rod/lib/proto"
+	"github.com/h2non/filetype"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
@@ -71,6 +73,12 @@ func NewPublishImageAction(page *rod.Page) (*PublishAction, error) {
 func (p *PublishAction) Publish(ctx context.Context, content PublishImageContent) error {
 	if len(content.ImagePaths) == 0 {
 		return errors.New("图片不能为空")
+	}
+
+	// 验证所有图片文件
+	validator := &fileValidator{}
+	if err := validator.ValidateImages(content.ImagePaths); err != nil {
+		return errors.Wrap(err, "图片验证失败")
 	}
 
 	page := p.page.Context(ctx)
@@ -1099,4 +1107,52 @@ func waitForModalClose(page *rod.Page) error {
 	}
 
 	return errors.New("等待弹窗关闭超时")
+}
+
+// fileValidator 简化的文件验证器（内部使用）
+type fileValidator struct{}
+
+func (v *fileValidator) ValidateImages(paths []string) error {
+	if len(paths) == 0 {
+		return fmt.Errorf("图片列表为空")
+	}
+	if len(paths) > 9 {
+		return fmt.Errorf("图片数量超过限制 (%d > 9)", len(paths))
+	}
+
+	for i, path := range paths {
+		if err := v.validateImage(path); err != nil {
+			return errors.Wrapf(err, "第 %d 张图片验证失败", i+1)
+		}
+	}
+	return nil
+}
+
+func (v *fileValidator) validateImage(path string) error {
+	info, err := os.Stat(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return errors.Wrapf(err, "图片文件不存在: %s", path)
+		}
+		return errors.Wrap(err, "无法访问图片文件")
+	}
+
+	if info.Size() == 0 {
+		return fmt.Errorf("图片文件为空: %s", path)
+	}
+	if info.Size() > 20*1024*1024 {
+		return fmt.Errorf("图片文件过大 (%.2fMB > 20MB): %s",
+			float64(info.Size())/1024/1024, path)
+	}
+
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return errors.Wrap(err, "读取图片文件失败")
+	}
+
+	if !filetype.IsImage(data) {
+		return fmt.Errorf("文件不是有效的图片格式: %s", path)
+	}
+
+	return nil
 }

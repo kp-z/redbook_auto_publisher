@@ -19,7 +19,8 @@ type localCookie struct {
 
 func NewLoadCookie(path string) Cookier {
 	if path == "" {
-		panic("path is required")
+		// 使用默认路径而不是 panic
+		path = "cookies.json"
 	}
 
 	return &localCookie{
