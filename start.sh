@@ -31,13 +31,22 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-# 检查端口是否被占用
-check_port() {
+# 检查并关闭占用端口的进程
+check_and_kill_port() {
     local port=$1
-    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
-        echo -e "${RED}错误: 端口 $port 已被占用${NC}"
-        echo -e "请先停止占用该端口的进程，或运行 ./stop.sh"
-        exit 1
+    local pids=$(lsof -Pi :$port -sTCP:LISTEN -t 2>/dev/null)
+    if [ -n "$pids" ]; then
+        echo -e "${YELLOW}端口 $port 已被占用，正在关闭进程...${NC}"
+        echo $pids | xargs kill 2>/dev/null || true
+        sleep 1
+        # 再次检查，如果还在则强制关闭
+        pids=$(lsof -Pi :$port -sTCP:LISTEN -t 2>/dev/null)
+        if [ -n "$pids" ]; then
+            echo -e "${YELLOW}强制关闭进程...${NC}"
+            echo $pids | xargs kill -9 2>/dev/null || true
+            sleep 1
+        fi
+        echo -e "${GREEN}✓ 端口 $port 已释放${NC}"
     fi
 }
 
@@ -80,9 +89,11 @@ cleanup_on_error() {
 
 trap cleanup_on_error ERR
 
-# 检查端口
-check_port $BACKEND_PORT
-check_port $FRONTEND_PORT
+# 检查并关闭占用端口的进程（临时禁用 set -e）
+set +e
+check_and_kill_port $BACKEND_PORT
+check_and_kill_port $FRONTEND_PORT
+set -e
 
 # 检查前端依赖
 if [ ! -d "frontend/node_modules" ]; then
@@ -108,9 +119,8 @@ fi
 
 # 启动前端
 echo -e "${GREEN}启动前端服务 (端口 $FRONTEND_PORT)...${NC}"
-cd frontend && npm run dev > ../logs/frontend.log 2>&1 &
+(cd frontend && npm run dev > ../logs/frontend.log 2>&1) &
 FRONTEND_PID=$!
-cd ..
 echo $FRONTEND_PID > logs/frontend.pid
 echo "前端 PID: $FRONTEND_PID"
 

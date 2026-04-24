@@ -2,6 +2,38 @@
   {
     "taskId": "__dev_daily__",
     "taskName": "AI 开发日报",
+    "runAt": "2026-04-24T11:25:20.565Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNWimfxdfBy7y2Vfk4T2\"}",
+    "id": "f3572307-3efc-4c9c-a004-fb7f9aa32788"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-04-24T11:23:16.122Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNWZcPc3hKR13khuesQz\"}",
+    "id": "8be741d2-4b3d-4032-8389-770f05e43316"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-04-24T11:22:41.166Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNWX2svbnD1ApQjebF9E\"}",
+    "id": "e767a219-1fc0-4c7b-beb6-772c9b21b5ba"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-04-24T11:22:35.055Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNWWaPyGWeTpD2eHfRqZ\"}",
+    "id": "7000260e-1fb0-4613-8555-d35a0ec9e40b"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
     "runAt": "2026-04-24T11:03:56.047Z",
     "status": "failed",
     "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNV66Wtbe5bTvx77PH4G\"}",
