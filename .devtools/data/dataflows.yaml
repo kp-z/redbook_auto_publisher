@@ -1,0 +1,460 @@
+# xiaohongshu-mcp 核心业务流程图
+# 项目：小红书 MCP (Model Context Protocol) 服务
+# 架构：Go 后端 + 无头浏览器自动化 + MCP 协议 + REST API 双入口
+# 说明：通过 go-rod 操控 Chromium 浏览器与小红书 Web 端交互
+
+flows:
+  # ============================================================
+  # 流程 1：用户登录（二维码扫码登录）
+  # ============================================================
+  login-qrcode:
+    name: "扫码登录流程"
+    nodes:
+      - id: "login-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "发起登录请求的 MCP 客户端（如 Claude Desktop）或 REST API 调用方"
+        details:
+          stats:
+            - label: "入口协议"
+              value: "MCP Tool / REST API"
+      - id: "login-entry"
+        name: "路由层"
+        type: "process"
+        description: "Gin 路由分发：MCP 走 /mcp 端点的 get_login_qrcode 工具调用；REST 走 GET /api/v1/login/qrcode"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+      - id: "login-handler"
+        name: "Handler 层"
+        type: "process"
+        description: "MCP handler (handleGetLoginQrcode) 或 API handler (getLoginQrcodeHandler) 处理请求，调用 Service 层"
+        files:
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "login-service"
+        name: "XiaohongshuService"
+        type: "process"
+        description: "GetLoginQrcode() 方法：创建浏览器实例、导航到小红书首页、获取二维码图片 Base64 数据，启动 goroutine 等待扫码完成"
+        details:
+          schema: "LoginQrcodeResponse { Timeout, IsLoggedIn, Img(base64) }"
+          stats:
+            - label: "扫码超时"
+              value: "4 分钟"
+        files:
+          - "service.go"
+      - id: "login-browser"
+        name: "无头浏览器 (go-rod)"
+        type: "process"
+        description: "LoginAction：通过 rod 驱动 Chromium 浏览器，导航至 xiaohongshu.com/explore，提取 .qrcode-img 元素的 src 属性获取二维码，后台轮询 .channel 元素判断登录是否成功"
+        files:
+          - "xiaohongshu/login.go"
+          - "browser/browser.go"
+      - id: "login-xhs"
+        name: "小红书 Web 端"
+        type: "external-entity"
+        description: "小红书官方网站，返回登录二维码页面，用户通过 App 扫码后完成登录态注入"
+      - id: "login-cookies"
+        name: "Cookies 持久化"
+        type: "data-store"
+        description: "登录成功后将浏览器 Cookies 序列化为 JSON 保存到本地文件，后续所有操作复用此 Cookies 维持登录态"
+        details:
+          schema: "cookies.json (浏览器 Cookie 序列化)"
+          stats:
+            - label: "存储路径"
+              value: "cookies.json 或 /tmp/cookies.json"
+        files:
+          - "cookies/cookies.go"
+    connections:
+      - from: "login-client"
+        to: "login-entry"
+        label: "MCP tool call: get_login_qrcode / GET /api/v1/login/qrcode"
+      - from: "login-entry"
+        to: "login-handler"
+        label: "路由分发"
+      - from: "login-handler"
+        to: "login-service"
+        label: "调用 GetLoginQrcode()"
+      - from: "login-service"
+        to: "login-browser"
+        label: "创建浏览器实例，调用 LoginAction.FetchQrcodeImage()"
+      - from: "login-browser"
+        to: "login-xhs"
+        label: "HTTP 导航至 xiaohongshu.com/explore"
+      - from: "login-xhs"
+        to: "login-browser"
+        label: "返回登录二维码页面 HTML"
+      - from: "login-browser"
+        to: "login-cookies"
+        label: "扫码成功后 saveCookies() 持久化"
+      - from: "login-service"
+        to: "login-client"
+        label: "返回二维码 Base64 图片 + 超时时间"
+
+  # ============================================================
+  # 流程 2：发布图文笔记
+  # ============================================================
+  publish-image:
+    name: "发布图文笔记流程"
+    nodes:
+      - id: "pub-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "通过 MCP 工具 publish_content 或 POST /api/v1/publish 发起图文发布请求"
+        details:
+          schema: "PublishContentArgs { Title, Content, Images[], Tags[], ScheduleAt, IsOriginal, Visibility, Products[] }"
+      - id: "pub-entry"
+        name: "路由与参数解析"
+        type: "process"
+        description: "MCP 注册工具 publish_content 解析参数；REST 路由 POST /api/v1/publish 使用 Gin BindJSON 绑定 PublishRequest"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "pub-service"
+        name: "PublishContent 业务逻辑"
+        type: "process"
+        description: "验证标题长度（≤20字）、处理图片（下载远程 URL 或校验本地路径）、解析定时发布时间（1h~14d）、构建 PublishImageContent 结构体"
+        details:
+          stats:
+            - label: "标题限制"
+              value: "≤ 20 个中文字/英文词"
+            - label: "定时范围"
+              value: "1 小时 ~ 14 天"
+        files:
+          - "service.go"
+      - id: "pub-downloader"
+        name: "图片处理器"
+        type: "process"
+        description: "ImageProcessor：判断图片来源，HTTP URL 自动下载到本地（SHA256 命名防重复），本地路径直接使用"
+        files:
+          - "pkg/downloader/processor.go"
+          - "pkg/downloader/images.go"
+      - id: "pub-browser"
+        name: "浏览器发布自动化"
+        type: "process"
+        description: "PublishAction：导航到 creator.xiaohongshu.com 发布页，切换「上传图文」Tab，逐张上传图片（等待预览出现），填写标题/正文/标签（联想选择），设置定时/原创/可见范围/商品绑定，点击发布按钮"
+        details:
+          stats:
+            - label: "图片上传"
+              value: "逐张上传，每张等待 60s 超时"
+            - label: "标签上限"
+              value: "10 个"
+        files:
+          - "xiaohongshu/publish.go"
+      - id: "pub-xhs"
+        name: "小红书创作平台"
+        type: "external-entity"
+        description: "creator.xiaohongshu.com 创作者发布页面，接收图片上传和表单提交"
+    connections:
+      - from: "pub-client"
+        to: "pub-entry"
+        label: "MCP: publish_content / POST /api/v1/publish"
+      - from: "pub-entry"
+        to: "pub-service"
+        label: "调用 PublishContent(req)"
+      - from: "pub-service"
+        to: "pub-downloader"
+        label: "processImages(): 处理图片列表"
+      - from: "pub-downloader"
+        to: "pub-service"
+        label: "返回本地图片路径列表"
+      - from: "pub-service"
+        to: "pub-browser"
+        label: "调用 publishContent(ctx, content)"
+      - from: "pub-browser"
+        to: "pub-xhs"
+        label: "浏览器自动化：上传图片 → 填写表单 → 点击发布"
+      - from: "pub-xhs"
+        to: "pub-client"
+        label: "返回发布结果 PublishResponse { Title, Status }"
+
+  # ============================================================
+  # 流程 3：搜索笔记
+  # ============================================================
+  search-feeds:
+    name: "搜索笔记流程"
+    nodes:
+      - id: "search-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "发起搜索请求，传入关键词和可选筛选条件（排序/类型/时间/范围/位置）"
+        details:
+          schema: "SearchFeedsArgs { Keyword, Filters { SortBy, NoteType, PublishTime, SearchScope, Location } }"
+      - id: "search-entry"
+        name: "路由与参数解析"
+        type: "process"
+        description: "MCP 工具 search_feeds 或 REST GET/POST /api/v1/feeds/search 路由处理"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "search-service"
+        name: "SearchFeeds 服务"
+        type: "process"
+        description: "创建浏览器实例和 SearchAction，调用 Search(keyword, filters...) 方法"
+        files:
+          - "service.go"
+      - id: "search-browser"
+        name: "浏览器搜索自动化"
+        type: "process"
+        description: "SearchAction：构造搜索 URL 导航、等待 __INITIAL_STATE__ 注入、应用筛选条件（悬停筛选按钮→点击筛选标签）、从 JS 全局变量提取 Feed 数据 JSON"
+        details:
+          stats:
+            - label: "筛选维度"
+              value: "5 个（排序/类型/时间/范围/位置）"
+            - label: "数据提取"
+              value: "window.__INITIAL_STATE__.search.feeds"
+        files:
+          - "xiaohongshu/search.go"
+      - id: "search-xhs"
+        name: "小红书搜索页"
+        type: "external-entity"
+        description: "xiaohongshu.com/search_result 页面，服务端渲染搜索结果到 __INITIAL_STATE__"
+      - id: "search-result"
+        name: "搜索结果"
+        type: "data-store"
+        description: "返回 Feed 列表，包含笔记 ID、标题、作者、互动数据、封面等"
+        details:
+          schema: "[]Feed { ID, XsecToken, NoteCard { Title, User, InteractInfo, Cover } }"
+    connections:
+      - from: "search-client"
+        to: "search-entry"
+        label: "MCP: search_feeds / GET|POST /api/v1/feeds/search"
+      - from: "search-entry"
+        to: "search-service"
+        label: "调用 SearchFeeds(keyword, filters)"
+      - from: "search-service"
+        to: "search-browser"
+        label: "创建 SearchAction 并执行 Search()"
+      - from: "search-browser"
+        to: "search-xhs"
+        label: "导航至搜索 URL + 应用筛选条件"
+      - from: "search-xhs"
+        to: "search-browser"
+        label: "__INITIAL_STATE__ 注入搜索结果"
+      - from: "search-browser"
+        to: "search-result"
+        label: "JSON 反序列化为 []Feed"
+      - from: "search-result"
+        to: "search-client"
+        label: "返回 FeedsListResponse { Feeds, Count }"
+
+  # ============================================================
+  # 流程 4：获取笔记详情与评论
+  # ============================================================
+  feed-detail:
+    name: "获取笔记详情与评论流程"
+    nodes:
+      - id: "detail-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "传入笔记 ID 和 xsecToken，可选配置是否加载全部评论、评论数量限制、滚动速度等"
+        details:
+          schema: "FeedDetailArgs { FeedID, XsecToken, LoadAllComments, Limit, ClickMoreReplies, ReplyLimit, ScrollSpeed }"
+      - id: "detail-entry"
+        name: "路由与参数解析"
+        type: "process"
+        description: "MCP 工具 get_feed_detail 或 REST POST /api/v1/feeds/detail"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "detail-service"
+        name: "GetFeedDetailWithConfig 服务"
+        type: "process"
+        description: "构建 CommentLoadConfig 配置（评论加载策略），创建浏览器实例和 FeedDetailAction"
+        details:
+          schema: "CommentLoadConfig { ClickMoreReplies, MaxRepliesThreshold, MaxCommentItems, ScrollSpeed }"
+        files:
+          - "service.go"
+      - id: "detail-browser"
+        name: "浏览器详情页自动化"
+        type: "process"
+        description: "FeedDetailAction：导航到笔记详情页（带 retry），检查页面可访问性，如需加载全部评论则启动 commentLoader（智能滚动+点击展开回复+停滞检测），最终从 DOM 提取笔记内容和评论数据"
+        details:
+          stats:
+            - label: "页面超时"
+              value: "10 分钟"
+            - label: "导航重试"
+              value: "3 次"
+            - label: "滚动速度"
+              value: "slow/normal/fast"
+        files:
+          - "xiaohongshu/feed_detail.go"
+      - id: "detail-xhs"
+        name: "小红书笔记详情页"
+        type: "external-entity"
+        description: "xiaohongshu.com/explore/{feedID} 笔记详情页面，包含笔记内容、图片、评论区"
+      - id: "detail-result"
+        name: "详情数据"
+        type: "data-store"
+        description: "提取的笔记详情和评论列表，包含嵌套子评论"
+        details:
+          schema: "FeedDetailResponse { Note { Title, Desc, User, InteractInfo, ImageList }, Comments { List[]Comment, HasMore } }"
+    connections:
+      - from: "detail-client"
+        to: "detail-entry"
+        label: "MCP: get_feed_detail / POST /api/v1/feeds/detail"
+      - from: "detail-entry"
+        to: "detail-service"
+        label: "解析参数，构建 CommentLoadConfig"
+      - from: "detail-service"
+        to: "detail-browser"
+        label: "调用 GetFeedDetailWithConfig()"
+      - from: "detail-browser"
+        to: "detail-xhs"
+        label: "导航至笔记详情页 + 智能滚动加载评论"
+      - from: "detail-xhs"
+        to: "detail-browser"
+        label: "页面 DOM 渲染笔记内容与评论"
+      - from: "detail-browser"
+        to: "detail-result"
+        label: "extractFeedDetail(): 从 DOM 提取并序列化"
+      - from: "detail-result"
+        to: "detail-client"
+        label: "返回 JSON 格式的笔记详情与评论"
+
+  # ============================================================
+  # 流程 5：互动操作（评论/回复/点赞/收藏）
+  # ============================================================
+  interaction:
+    name: "笔记互动操作流程（评论/点赞/收藏）"
+    nodes:
+      - id: "interact-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "发起互动操作请求：发表评论、回复评论、点赞/取消点赞、收藏/取消收藏"
+        details:
+          stats:
+            - label: "MCP 工具"
+              value: "post_comment / reply_comment / like_feed / favorite_feed"
+      - id: "interact-entry"
+        name: "路由与参数解析"
+        type: "process"
+        description: "MCP 工具注册 4 种互动工具；REST 路由：POST /api/v1/feeds/comment, /feeds/comment/reply"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+      - id: "interact-handler"
+        name: "Handler 处理层"
+        type: "process"
+        description: "各互动 Handler：handlePostComment / handleReplyComment / handleLikeFeed / handleFavoriteFeed，解析参数并调用 Service 层"
+        files:
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "interact-service"
+        name: "互动 Service 方法"
+        type: "process"
+        description: "PostCommentToFeed / ReplyCommentToFeed / LikeFeed / FavoriteFeed 等方法，创建浏览器实例和对应 Action"
+        files:
+          - "service.go"
+      - id: "interact-browser"
+        name: "浏览器互动自动化"
+        type: "process"
+        description: "CommentFeedAction：导航至详情页→点击评论框→输入内容→提交；LikeAction：读取 interactState→判断是否已点赞→点击按钮→验证状态；FavoriteAction：类似点赞逻辑，操作收藏按钮"
+        details:
+          stats:
+            - label: "评论回复"
+              value: "支持滚动查找目标评论（最多 100 次尝试）"
+            - label: "幂等保护"
+              value: "已点赞/已收藏时自动跳过"
+        files:
+          - "xiaohongshu/comment_feed.go"
+          - "xiaohongshu/like_favorite.go"
+      - id: "interact-xhs"
+        name: "小红书笔记详情页"
+        type: "external-entity"
+        description: "笔记详情页面，提供评论输入框、点赞/收藏按钮等交互元素"
+    connections:
+      - from: "interact-client"
+        to: "interact-entry"
+        label: "MCP tool call / REST API 请求"
+      - from: "interact-entry"
+        to: "interact-handler"
+        label: "路由分发到对应 Handler"
+      - from: "interact-handler"
+        to: "interact-service"
+        label: "调用 Service 层方法"
+      - from: "interact-service"
+        to: "interact-browser"
+        label: "创建浏览器和 Action 实例"
+      - from: "interact-browser"
+        to: "interact-xhs"
+        label: "导航至笔记页 → 执行 DOM 操作（输入/点击）"
+      - from: "interact-xhs"
+        to: "interact-client"
+        label: "返回操作结果（成功/失败/已操作跳过）"
+
+  # ============================================================
+  # 流程 6：发布视频笔记
+  # ============================================================
+  publish-video:
+    name: "发布视频笔记流程"
+    nodes:
+      - id: "vid-client"
+        name: "AI 客户端 / 前端"
+        type: "external-entity"
+        description: "通过 MCP 工具 publish_with_video 或 POST /api/v1/publish_video 发起视频发布请求（仅支持本地视频文件）"
+        details:
+          schema: "PublishVideoArgs { Title, Content, Video(本地路径), Tags[], ScheduleAt, Visibility, Products[] }"
+      - id: "vid-entry"
+        name: "路由与参数解析"
+        type: "process"
+        description: "MCP 注册 publish_with_video 工具；REST 路由 POST /api/v1/publish_video"
+        files:
+          - "routes.go"
+          - "mcp_server.go"
+          - "mcp_handlers.go"
+          - "handlers_api.go"
+      - id: "vid-service"
+        name: "PublishVideo 业务逻辑"
+        type: "process"
+        description: "验证视频路径存在、验证标题长度、解析定时发布时间和可见范围、构建 PublishVideoContent 结构体"
+        files:
+          - "service.go"
+      - id: "vid-browser"
+        name: "浏览器视频发布自动化"
+        type: "process"
+        description: "PublishAction（视频模式）：导航到创作者发布页，切换「上传视频」Tab，通过 file input 上传视频文件，等待发布按钮可点击（视频处理完成），填写标题/正文/标签/定时/可见范围/商品，点击发布"
+        details:
+          stats:
+            - label: "上传超时"
+              value: "5 分钟"
+            - label: "按钮等待"
+              value: "最长 10 分钟"
+        files:
+          - "xiaohongshu/publish_video.go"
+          - "xiaohongshu/publish.go"
+      - id: "vid-xhs"
+        name: "小红书创作平台"
+        type: "external-entity"
+        description: "creator.xiaohongshu.com 视频上传与发布页面"
+      - id: "vid-result"
+        name: "发布结果"
+        type: "data-store"
+        description: "视频发布完成后的响应数据"
+        details:
+          schema: "PublishVideoResponse { Title, Content, Video, Status }"
+    connections:
+      - from: "vid-client"
+        to: "vid-entry"
+        label: "MCP: publish_with_video / POST /api/v1/publish_video"
+      - from: "vid-entry"
+        to: "vid-service"
+        label: "解析参数，调用 PublishVideo(req)"
+      - from: "vid-service"
+        to: "vid-browser"
+        label: "创建浏览器 + NewPublishVideoAction → PublishVideo()"
+      - from: "vid-browser"
+        to: "vid-xhs"
+        label: "浏览器自动化：上传视频 → 等待处理 → 填写表单 → 发布"
+      - from: "vid-xhs"
+        to: "vid-result"
+        label: "发布完成"
+      - from: "vid-result"
+        to: "vid-client"
+        label: "返回 PublishVideoResponse"

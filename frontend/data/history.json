@@ -1,0 +1,145 @@
+[
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T17:36:03.003Z",
+    "status": "success",
+    "id": "6bfb9ea6-b5b6-4ebb-9907-b92b541c85aa"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T17:35:35.809Z",
+    "status": "success",
+    "id": "835f4a64-e032-4d50-9654-5049bcdbf9fc"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T17:08:24.165Z",
+    "status": "success",
+    "id": "ff3737cc-487e-432c-9462-4daa4a2aaec5"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T17:08:05.015Z",
+    "status": "success",
+    "id": "9db93c2d-5c7c-40fa-b09d-685808e3755e"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T11:47:43.515Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CZb71pA3DyXRQwEyd28dp\"}",
+    "id": "8db31596-caba-4717-b41c-f16ca2d56ebd"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T11:37:15.191Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CZb6DVbJYpSKeBrjTsfVW\"}",
+    "id": "1e2f2996-6768-4172-87ae-ad068482e28a"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T11:36:07.306Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CZb68VViBvGw5zFdfCpnp\"}",
+    "id": "a98964e2-15f7-42e5-9124-40de9bb0c919"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T11:35:20.130Z",
+    "status": "failed",
+    "error": "503 {\"error\":{\"code\":\"model_not_found\",\"message\":\"分组 default 下模型 claude-opus-4-1-20250805 无可用渠道（distributor） (request id: 20260331113520148228677TJmivyQ8)\",\"type\":\"new_api_error\"}}",
+    "id": "b53e2400-acde-4920-bb7b-c131097708f3"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T10:35:33.335Z",
+    "status": "failed",
+    "error": "Command failed: /Users/kp/.local/bin/claude -p --bare --model sonnet --output-format json --json-schema {\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\",\"description\":\"小红书标题，不超过20字，可以用emoji\"},\"content\":{\"type\":\"string\",\"description\":\"小红书正文，纯文本，禁止使用任何 Markdown 语法（不要用 # * - > ` 等符号），多用 emoji 表情符号让内容生动有趣，用换行分段\"}},\"required\":[\"title\",\"content\"]} 你是一位程序员博主，每天在小红书分享今天的开发进展。这条小红书由 AI 定时自动扫描 git commit 后生成。\n\n以下是今天各项目的 git commit 记录：\n\n项目：Claude Manager\n- 14b5952 refactor: 统一模型名称映射到 ModelRegistry 并改进配置热更新\n- c4f2055 feat: support commit-scoped devtools diffs\n- ad01fb6 # Diff 分析总结\n- 313c7b6 bugfix\n\n要求：\n- title：不超过20字，必须包含\"AI 开发日报\"或\"AI 自动发布\"，可以加 emoji\n- content：输出为正常文字，不要 Markdown，不要标题层级、列表符号、代码块、加粗等格式\n- 正文开头固定加一句：\"Agen 自动总结发布。\"\n- 全文口语化、像程序员当天复盘，按项目自然分段\n- 适当加入丰富的表情符号，提高可读性\n- 末尾可自然补一句这是 AI 自动生成发布的内容，但也保持普通文本风格\n- 控制在 1000 字以内\n\n额外要求：\n1. 输出内容必须是适合小红书发布的自然中文。\n2. 正文必须是纯文本，禁止使用 Markdown、代码块、标题符号、列表符号。\n3. 正文开头必须加上“🤖 由 Agent 自动总结发布”。\n4. 正文请加入丰富但不过度的 emoji，让内容更有活力。\n5. 图片将优先使用 AI 生成图片，图片提示词会基于当天修改内容自动总结，所以正文无需再单独解释配图策略。",
+    "id": "dd11cef2-3d18-422d-87d9-1a09fa05f235"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-31T10:27:46.261Z",
+    "status": "failed",
+    "error": "spawnSync /Users/kp/.local/bin/claude ETIMEDOUT",
+    "id": "976c676f-43b1-433c-8073-408d834c7532"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-27T05:41:22.707Z",
+    "status": "success",
+    "id": "98318577-4780-4a0a-a261-4d8002620562"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-26T12:00:43.863Z",
+    "status": "failed",
+    "error": "未配置扫描项目，请在编辑页面配置 projects",
+    "id": "bea6ee2b-ea75-4a5c-8d6b-e6e1e5bcb197"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-26T12:00:07.163Z",
+    "status": "failed",
+    "error": "未配置扫描项目，请在编辑页面配置 projects",
+    "id": "7d0ecc4a-bcb5-46bf-8922-ce419b827764"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-25T07:43:55.690Z",
+    "status": "success",
+    "id": "51201441-289a-409a-aaed-ae4e7b5fd5fe"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-25T07:05:14.651Z",
+    "status": "failed",
+    "error": "Connection error.",
+    "id": "8cffe7b1-a1b2-4ca9-a81e-98fabfd98500"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-03-25T07:02:44.927Z",
+    "status": "failed",
+    "error": "Connection error.",
+    "id": "19323b63-a088-4a65-885d-96b0c8d2033a"
+  },
+  {
+    "taskId": "__profile_sync__",
+    "taskName": "Profile 数据同步",
+    "runAt": "2026-03-24T16:28:51.813Z",
+    "status": "success",
+    "id": "2305b1f9-0cc6-492a-8e2e-7d9ebdb59329"
+  },
+  {
+    "taskId": "__profile_sync__",
+    "taskName": "Profile 数据同步",
+    "runAt": "2026-03-24T16:24:34.743Z",
+    "status": "success",
+    "id": "e6c0645c-b83c-4e7f-a563-1e7cce8ae7e7"
+  },
+  {
+    "taskId": "__profile_sync__",
+    "taskName": "Profile 数据同步",
+    "runAt": "2026-03-24T16:22:41.453Z",
+    "status": "success",
+    "id": "26cff846-3149-4aeb-880e-d3f28e2d04ca"
+  }
+]

@@ -1,0 +1,517 @@
+# xiaohongshu-mcp 系统架构描述文件
+# 自动生成时间: 2025-07-11
+# 项目: 小红书 MCP (Model Context Protocol) 自动化工具
+
+layers:
+  - id: 1
+    title: "Frontend Dashboard"
+    titleZh: "前端管理面板"
+    desc: "基于 Next.js 16 的自动化任务管理面板，提供任务调度、数据可视化、AI 图文生成等功能"
+    modules:
+      - id: "frontend-pages"
+        icon: "🖥️"
+        name: "Pages & UI"
+        badge: "Next.js 16 + React 19"
+        description: "小红书自动化管理面板的页面层，包含首页仪表盘（任务列表/活跃日历/数据概览）、任务管理（新建/编辑）、MCP 状态监控、AI 图片生成对话、发布历史等页面。使用 Radix UI + Tailwind CSS 构建响应式布局。"
+        tree: |
+          <span class="dir">frontend/app/</span>
+          ├── <span class="file">page.tsx</span>              (首页仪表盘)
+          ├── <span class="file">layout.tsx</span>            (全局布局+Sidebar)
+          ├── <span class="dir">tasks/</span>
+          │   ├── <span class="dir">new/</span>               (新建任务)
+          │   └── <span class="dir">[id]/</span>              (编辑任务)
+          ├── <span class="dir">mcp/</span>
+          │   └── <span class="file">page.tsx</span>           (MCP 状态监控)
+          ├── <span class="dir">image-gen/</span>
+          │   └── <span class="file">page.tsx</span>           (AI 图片生成)
+          └── <span class="dir">history/</span>
+              └── <span class="file">page.tsx</span>           (发布历史)
+          <span class="dir">frontend/components/</span>
+          ├── <span class="file">task-form.tsx</span>
+          ├── <span class="file">task-card.tsx</span>
+          ├── <span class="file">activity-calendar.tsx</span>
+          ├── <span class="file">status-overview.tsx</span>
+          ├── <span class="file">sidebar-dock.tsx</span>
+          └── <span class="dir">ui/</span>                    (Radix UI 组件)
+        apis: []
+        protocol: "Browser DOM"
+        tech:
+          - "Next.js 16"
+          - "React 19"
+          - "TypeScript"
+          - "Tailwind CSS 4"
+          - "Radix UI"
+          - "Lucide Icons"
+          - "next-themes"
+          - "sonner (Toast)"
+        files:
+          - "frontend/app/"
+          - "frontend/components/"
+          - "frontend/public/"
+        deps:
+          up: []
+          down: ["frontend-api-routes"]
+
+      - id: "frontend-api-routes"
+        icon: "🔀"
+        name: "API Routes (BFF)"
+        badge: "Next.js API Routes"
+        description: "Next.js 服务端 API 路由层，作为 BFF（Backend for Frontend），负责任务 CRUD、Webhook 触发、AI 图片生成代理、MCP 后端状态探测、用户 Profile 缓存读取等。直接操作本地 JSON 文件存储，并代理调用 Go 后端 API。"
+        tree: |
+          <span class="dir">frontend/app/api/</span>
+          ├── <span class="dir">tasks/</span>
+          │   └── <span class="file">route.ts</span>          (任务 CRUD)
+          ├── <span class="dir">webhook/</span>              (Webhook 触发入口)
+          ├── <span class="dir">mcp-status/</span>
+          │   └── <span class="file">route.ts</span>          (MCP 后端健康探测)
+          ├── <span class="dir">me/</span>
+          │   └── <span class="file">route.ts</span>          (当前用户信息)
+          ├── <span class="dir">profile/</span>
+          │   └── <span class="file">route.ts</span>          (Profile 缓存)
+          ├── <span class="dir">history/</span>
+          │   └── <span class="file">route.ts</span>          (发布历史)
+          └── <span class="dir">generate-image/</span>
+              └── <span class="file">route.ts</span>          (AI 图片生成代理)
+        apis:
+          - method: "GET"
+            path: "/api/tasks"
+            desc: "获取所有任务列表"
+          - method: "POST"
+            path: "/api/tasks"
+            desc: "新建/更新任务"
+          - method: "DELETE"
+            path: "/api/tasks"
+            desc: "删除任务"
+          - method: "GET"
+            path: "/api/history"
+            desc: "获取发布历史记录"
+          - method: "GET"
+            path: "/api/mcp-status"
+            desc: "探测 MCP 后端健康状态和登录信息"
+          - method: "GET"
+            path: "/api/me"
+            desc: "获取当前登录用户信息"
+          - method: "GET"
+            path: "/api/profile"
+            desc: "获取缓存的 Profile 数据"
+          - method: "POST"
+            path: "/api/generate-image"
+            desc: "调用 AI Agent 生成图片"
+        protocol: "HTTP (内部 Next.js 路由)"
+        tech:
+          - "Next.js API Routes"
+          - "TypeScript"
+        files:
+          - "frontend/app/api/"
+        deps:
+          up: ["frontend-pages"]
+          down: ["frontend-libs", "frontend-data-store"]
+
+      - id: "frontend-libs"
+        icon: "🤖"
+        name: "AI & Automation Libs"
+        badge: "Claude SDK + Replicate"
+        description: "前端服务端核心业务逻辑库：包括 Claude API 内容生成（generateXhsContent）、AI 图片 Agent（支持 FLUX Pro/Dev、SD3.5）、任务执行引擎（runner）、定时调度（node-cron）、Profile 数据同步、AI 开发日报生成（调用 claude CLI + git log），以及小红书后端 API 客户端封装。"
+        tree: |
+          <span class="dir">frontend/lib/</span>
+          ├── <span class="file">claude-client.ts</span>     (Claude AI 内容生成)
+          ├── <span class="file">image-agent.ts</span>       (AI 图片 Agent)
+          ├── <span class="file">image-api-clients.ts</span> (FLUX/SD3.5 API)
+          ├── <span class="file">runner.ts</span>            (任务执行引擎)
+          ├── <span class="file">xhs-client.ts</span>        (Go 后端 API 客户端)
+          ├── <span class="file">profile-sync.ts</span>      (Profile 数据同步)
+          ├── <span class="file">dev-daily.ts</span>         (AI 开发日报)
+          ├── <span class="file">store.ts</span>             (JSON 文件数据存储)
+          ├── <span class="file">helpers.ts</span>           (工具函数)
+          ├── <span class="file">cron-humanize.ts</span>     (Cron 表达式友好化)
+          └── <span class="file">utils.ts</span>             (通用工具)
+          <span class="file">frontend/instrumentation.ts</span> (定时调度注册)
+        apis: []
+        protocol: "HTTP (调用外部 API)"
+        tech:
+          - "@anthropic-ai/sdk"
+          - "Replicate API (FLUX/SD3.5)"
+          - "node-cron"
+          - "playwright"
+        files:
+          - "frontend/lib/"
+          - "frontend/instrumentation.ts"
+        deps:
+          up: ["frontend-api-routes"]
+          down: ["go-rest-api"]
+
+  - id: 2
+    title: "Go Backend Server"
+    titleZh: "Go 后端服务"
+    desc: "Go 语言实现的核心后端，同时提供 MCP (Model Context Protocol) 和 RESTful API 两种接入方式，处理小红书所有业务操作"
+    modules:
+      - id: "go-app-server"
+        icon: "⚙️"
+        name: "App Server & Router"
+        badge: "Gin Web Framework"
+        description: "应用服务器入口，基于 Gin 框架搭建 HTTP 服务。负责路由注册（MCP 端点 + REST API 端点）、中间件挂载（CORS、错误恢复）、优雅关闭。默认监听 :18060 端口。"
+        tree: |
+          <span class="file">main.go</span>           (程序入口, CLI 参数解析)
+          <span class="file">app_server.go</span>     (AppServer 结构体, 启动/关闭)
+          <span class="file">routes.go</span>         (路由配置: MCP + REST)
+          <span class="file">middleware.go</span>     (CORS / 错误恢复中间件)
+        apis:
+          - method: "GET"
+            path: "/health"
+            desc: "健康检查"
+          - method: "ANY"
+            path: "/mcp"
+            desc: "MCP Streamable HTTP 端点 (官方 SDK)"
+        protocol: "HTTP / Streamable HTTP (MCP)"
+        tech:
+          - "Go 1.24"
+          - "Gin v1.10"
+          - "modelcontextprotocol/go-sdk"
+        files:
+          - "main.go"
+          - "app_server.go"
+          - "routes.go"
+          - "middleware.go"
+        deps:
+          up: []
+          down: ["go-mcp-server", "go-rest-api"]
+
+      - id: "go-mcp-server"
+        icon: "🔌"
+        name: "MCP Server"
+        badge: "MCP Protocol v2"
+        description: "基于 modelcontextprotocol/go-sdk 实现的 MCP Server，注册 13 个工具供 AI 客户端（Cursor/Claude/VS Code 等）调用。工具包括：登录管理（check_login_status、get_login_qrcode、delete_cookies）、内容发布（publish_content、publish_with_video）、内容浏览（list_feeds、search_feeds、get_feed_detail）、用户信息（user_profile）、互动操作（post_comment、reply_comment、like_feed、favorite_feed）。"
+        tree: |
+          <span class="file">mcp_server.go</span>    (MCP Server 初始化 + 13 个工具注册)
+          <span class="file">mcp_handlers.go</span>  (MCP 工具处理函数实现)
+        apis:
+          - method: "POST"
+            path: "/mcp (check_login_status)"
+            desc: "检查小红书登录状态"
+          - method: "POST"
+            path: "/mcp (get_login_qrcode)"
+            desc: "获取登录二维码图片"
+          - method: "POST"
+            path: "/mcp (delete_cookies)"
+            desc: "删除 Cookies 重置登录"
+          - method: "POST"
+            path: "/mcp (publish_content)"
+            desc: "发布图文内容到小红书"
+          - method: "POST"
+            path: "/mcp (publish_with_video)"
+            desc: "发布视频到小红书"
+          - method: "POST"
+            path: "/mcp (list_feeds)"
+            desc: "获取首页推荐 Feed 列表"
+          - method: "POST"
+            path: "/mcp (search_feeds)"
+            desc: "搜索小红书笔记"
+          - method: "POST"
+            path: "/mcp (get_feed_detail)"
+            desc: "获取笔记详情及评论"
+          - method: "POST"
+            path: "/mcp (user_profile)"
+            desc: "获取用户主页信息"
+          - method: "POST"
+            path: "/mcp (post_comment_to_feed)"
+            desc: "发表评论"
+          - method: "POST"
+            path: "/mcp (reply_comment_in_feed)"
+            desc: "回复评论"
+          - method: "POST"
+            path: "/mcp (like_feed)"
+            desc: "点赞/取消点赞笔记"
+          - method: "POST"
+            path: "/mcp (favorite_feed)"
+            desc: "收藏/取消收藏笔记"
+        protocol: "MCP (Streamable HTTP + JSON-RPC)"
+        tech:
+          - "modelcontextprotocol/go-sdk v0.7"
+          - "MCP Tool Annotations"
+        files:
+          - "mcp_server.go"
+          - "mcp_handlers.go"
+        deps:
+          up: ["go-app-server"]
+          down: ["go-service-layer"]
+
+      - id: "go-rest-api"
+        icon: "🌐"
+        name: "REST API"
+        badge: "Gin RESTful"
+        description: "RESTful HTTP API 层，为前端面板和第三方集成提供标准化接口。所有端点在 /api/v1 路径组下，返回统一格式的 JSON 响应（SuccessResponse/ErrorResponse）。覆盖登录、发布、Feed 浏览、用户信息、评论等全部功能。"
+        tree: |
+          <span class="file">handlers_api.go</span>  (REST API Handler 实现)
+          <span class="file">types.go</span>          (请求/响应类型定义)
+        apis:
+          - method: "GET"
+            path: "/api/v1/login/status"
+            desc: "检查登录状态"
+          - method: "GET"
+            path: "/api/v1/login/qrcode"
+            desc: "获取登录二维码"
+          - method: "DELETE"
+            path: "/api/v1/login/cookies"
+            desc: "删除 Cookies"
+          - method: "POST"
+            path: "/api/v1/publish"
+            desc: "发布图文内容"
+          - method: "POST"
+            path: "/api/v1/publish_video"
+            desc: "发布视频内容"
+          - method: "GET"
+            path: "/api/v1/feeds/list"
+            desc: "获取推荐 Feed 列表"
+          - method: "GET|POST"
+            path: "/api/v1/feeds/search"
+            desc: "搜索笔记"
+          - method: "POST"
+            path: "/api/v1/feeds/detail"
+            desc: "获取笔记详情"
+          - method: "POST"
+            path: "/api/v1/user/profile"
+            desc: "获取用户主页"
+          - method: "GET"
+            path: "/api/v1/user/me"
+            desc: "获取当前登录用户信息"
+          - method: "POST"
+            path: "/api/v1/feeds/comment"
+            desc: "发表评论"
+          - method: "POST"
+            path: "/api/v1/feeds/comment/reply"
+            desc: "回复评论"
+        protocol: "HTTP REST JSON"
+        tech:
+          - "Gin v1.10"
+          - "JSON Binding & Validation"
+        files:
+          - "handlers_api.go"
+          - "types.go"
+        deps:
+          up: ["go-app-server"]
+          down: ["go-service-layer"]
+
+  - id: 3
+    title: "Business Service Layer"
+    titleZh: "业务服务层"
+    desc: "封装所有小红书业务逻辑的服务层，协调浏览器自动化操作、图片处理、Cookie 管理等"
+    modules:
+      - id: "go-service-layer"
+        icon: "🧩"
+        name: "XiaohongshuService"
+        badge: "Go Service"
+        description: "核心业务服务层，封装所有小红书操作的完整业务流程。包括：登录状态检查与二维码获取、图文/视频内容发布（含标题校验、图片下载、定时发布、原创声明、可见范围、商品绑定）、Feed 列表/搜索/详情获取、用户主页查询、评论/回复、点赞/收藏。每次操作创建独立的浏览器实例，操作完毕后释放。"
+        tree: |
+          <span class="file">service.go</span>       (XiaohongshuService 全部业务方法)
+        apis: []
+        protocol: "Go 内部调用"
+        tech:
+          - "go-rod (浏览器自动化)"
+          - "headless_browser 封装"
+        files:
+          - "service.go"
+        deps:
+          up: ["go-mcp-server", "go-rest-api"]
+          down: ["xhs-browser-actions", "go-pkg-utils"]
+
+  - id: 4
+    title: "Browser Automation Layer"
+    titleZh: "浏览器自动化层"
+    desc: "基于 go-rod 的小红书网页自动化操作实现，通过 Chrome DevTools Protocol 控制无头浏览器完成各种页面交互"
+    modules:
+      - id: "xhs-browser-actions"
+        icon: "🌍"
+        name: "XHS Page Actions"
+        badge: "go-rod"
+        description: "小红书网页自动化操作的核心实现包，每个文件对应一种页面操作 Action。包括：登录（QR 码扫描等待）、内容发布（图文/视频上传、标签输入、定时/原创/可见性/商品设置）、Feed 列表（首页 __INITIAL_STATE__ 数据提取）、搜索（关键词+多维度筛选）、笔记详情（评论滚动加载、回复展开）、用户主页、评论发表/回复、点赞/收藏切换。所有操作通过 CSS 选择器定位元素并模拟用户交互。"
+        tree: |
+          <span class="dir">xiaohongshu/</span>
+          ├── <span class="file">login.go</span>          (登录检查 / QR 码获取 / 等待扫码)
+          ├── <span class="file">publish.go</span>        (图文发布 Action)
+          ├── <span class="file">publish_video.go</span>  (视频发布 Action)
+          ├── <span class="file">feeds.go</span>          (首页 Feed 列表)
+          ├── <span class="file">search.go</span>         (搜索 + 多维度筛选)
+          ├── <span class="file">feed_detail.go</span>    (笔记详情 + 评论加载)
+          ├── <span class="file">user_profile.go</span>   (用户主页数据提取)
+          ├── <span class="file">comment_feed.go</span>   (发表/回复评论)
+          ├── <span class="file">like_favorite.go</span>  (点赞/收藏操作)
+          ├── <span class="file">navigate.go</span>       (页面导航辅助)
+          └── <span class="file">types.go</span>          (数据结构定义)
+        apis: []
+        protocol: "Chrome DevTools Protocol (CDP)"
+        tech:
+          - "go-rod v0.116"
+          - "go-rod/stealth (反检测)"
+          - "CSS Selectors"
+          - "JavaScript Eval (页面数据提取)"
+          - "avast/retry-go"
+        files:
+          - "xiaohongshu/"
+        deps:
+          up: ["go-service-layer"]
+          down: ["go-browser-infra"]
+
+  - id: 5
+    title: "Infrastructure Layer"
+    titleZh: "基础设施层"
+    desc: "浏览器实例管理、Cookie 持久化、配置管理、图片处理、工具函数等底层基础设施"
+    modules:
+      - id: "go-browser-infra"
+        icon: "🔧"
+        name: "Browser Infrastructure"
+        badge: "headless_browser"
+        description: "浏览器基础设施层，封装 headless_browser 库创建 Chrome 浏览器实例。支持无头/有头模式切换、自定义 Chrome 二进制路径、HTTP 代理配置（XHS_PROXY 环境变量）、Cookie 自动加载。为所有页面操作提供统一的浏览器实例。"
+        tree: |
+          <span class="dir">browser/</span>
+          └── <span class="file">browser.go</span>       (NewBrowser 工厂函数)
+        apis: []
+        protocol: "CDP (Chrome DevTools Protocol)"
+        tech:
+          - "xpzouying/headless_browser"
+          - "go-rod"
+          - "Proxy 支持"
+        files:
+          - "browser/"
+        deps:
+          up: ["xhs-browser-actions", "go-service-layer"]
+          down: ["go-cookies"]
+
+      - id: "go-cookies"
+        icon: "🍪"
+        name: "Cookie Manager"
+        badge: "File-based"
+        description: "Cookie 持久化管理模块，通过 Cookier 接口实现 Cookie 的加载、保存、删除。支持向后兼容路径策略（优先 /tmp/cookies.json，其次环境变量 COOKIES_PATH，最后当前目录 cookies.json）。确保登录态跨重启持久化。"
+        tree: |
+          <span class="dir">cookies/</span>
+          └── <span class="file">cookies.go</span>       (Cookier 接口 + localCookie 实现)
+          <span class="file">cookies.json</span>          (Cookie 持久化文件)
+        apis: []
+        protocol: "File I/O"
+        tech:
+          - "JSON 文件存储"
+          - "环境变量配置"
+        files:
+          - "cookies/"
+          - "cookies.json"
+        deps:
+          up: ["go-browser-infra"]
+          down: []
+
+      - id: "go-pkg-utils"
+        icon: "📦"
+        name: "Packages & Utilities"
+        badge: "Go Packages"
+        description: "通用工具包集合。pkg/downloader 提供图片下载器（URL→本地文件）和图片处理器（自动区分 URL/本地路径）。pkg/xhsutil 提供小红书标题长度计算（中文2字节/ASCII 1字节规则）。configs 管理全局配置（无头模式、浏览器路径、图片存储路径、用户名）。errors 定义业务错误类型。"
+        tree: |
+          <span class="dir">pkg/</span>
+          ├── <span class="dir">downloader/</span>
+          │   ├── <span class="file">images.go</span>     (图片下载器)
+          │   └── <span class="file">processor.go</span>  (URL/本地路径处理器)
+          └── <span class="dir">xhsutil/</span>
+              └── <span class="file">title.go</span>      (标题长度计算)
+          <span class="dir">configs/</span>
+          ├── <span class="file">browser.go</span>         (headless/binPath 配置)
+          ├── <span class="file">username.go</span>        (用户名常量)
+          └── <span class="file">image.go</span>           (图片存储路径)
+          <span class="dir">errors/</span>
+          └── <span class="file">errors.go</span>          (业务错误定义)
+        apis: []
+        protocol: "Go 内部调用"
+        tech:
+          - "h2non/filetype (文件类型检测)"
+          - "SHA256 哈希文件命名"
+          - "Unicode UTF-16 编码处理"
+        files:
+          - "pkg/"
+          - "configs/"
+          - "errors/"
+        deps:
+          up: ["go-service-layer", "xhs-browser-actions", "go-browser-infra"]
+          down: []
+
+      - id: "frontend-data-store"
+        icon: "💾"
+        name: "Frontend Data Store"
+        badge: "JSON Files"
+        description: "前端使用本地 JSON 文件作为轻量级数据存储，存储任务配置、发布历史记录和用户 Profile 缓存。由 store.ts 封装读写逻辑，支持 CRUD 操作。"
+        tree: |
+          <span class="dir">frontend/data/</span>
+          ├── <span class="file">tasks.json</span>         (任务配置列表)
+          ├── <span class="file">history.json</span>       (发布历史记录)
+          └── <span class="file">profile-cache.json</span> (小红书 Profile 缓存)
+          <span class="dir">frontend/lib/</span>
+          └── <span class="file">store.ts</span>           (数据存储封装)
+        apis: []
+        protocol: "File I/O (Node.js fs)"
+        tech:
+          - "JSON 文件存储"
+          - "Node.js fs 模块"
+        files:
+          - "frontend/data/"
+          - "frontend/lib/store.ts"
+        deps:
+          up: ["frontend-api-routes", "frontend-libs"]
+          down: []
+
+  - id: 6
+    title: "DevOps & Deployment"
+    titleZh: "部署与运维"
+    desc: "Docker 容器化部署、GitHub Actions CI/CD、跨平台构建和启动脚本"
+    modules:
+      - id: "docker-deploy"
+        icon: "🐳"
+        name: "Docker & CI/CD"
+        badge: "Docker + GitHub Actions"
+        description: "多阶段 Docker 构建（golang:1.24 编译 → ubuntu:22.04 + Google Chrome 运行）。docker-compose 编排支持 Docker Hub 和阿里云镜像源。GitHub Actions 包含：自动 Release（tag-release、docker-release、aliyun-docker-release）和 Claude Code Review。macOS 提供 launchd plist 和 fish 脚本做系统级自启。"
+        tree: |
+          <span class="file">Dockerfile</span>               (amd64 多阶段构建)
+          <span class="file">Dockerfile.arm64</span>          (arm64 构建)
+          <span class="dir">docker/</span>
+          └── <span class="file">docker-compose.yml</span>    (编排配置)
+          <span class="dir">.github/workflows/</span>
+          ├── <span class="file">release.yml</span>
+          ├── <span class="file">tag-release.yml</span>
+          ├── <span class="file">docker-release.yml</span>
+          ├── <span class="file">aliyun-docker-release.yml</span>
+          └── <span class="file">claude-code-review.yml</span>
+          <span class="dir">deploy/macos/</span>
+          ├── <span class="file">xhsmcp.plist</span>          (launchd 自启)
+          └── <span class="file">xhsmcp.fish</span>           (fish 启动脚本)
+          <span class="dir">bin/</span>                       (预编译二进制)
+        apis: []
+        protocol: "Docker / GitHub Actions / launchd"
+        tech:
+          - "Docker 多阶段构建"
+          - "docker-compose"
+          - "GitHub Actions"
+          - "Google Chrome (headless)"
+          - "macOS launchd"
+        files:
+          - "Dockerfile"
+          - "Dockerfile.arm64"
+          - "docker/"
+          - ".github/"
+          - "deploy/"
+          - "bin/"
+        deps:
+          up: []
+          down: ["go-app-server"]
+
+      - id: "login-cli"
+        icon: "🔑"
+        name: "Login CLI Tool"
+        badge: "Go CLI"
+        description: "独立的登录命令行工具，以有界面（非无头）模式启动浏览器，让用户直接在 Chrome 窗口中扫码登录小红书，登录成功后自动保存 Cookie 到本地文件。适用于首次部署或 Cookie 过期后重新登录。"
+        tree: |
+          <span class="dir">cmd/login/</span>
+          └── <span class="file">main.go</span>       (登录 CLI 入口)
+        apis: []
+        protocol: "CLI"
+        tech:
+          - "go-rod (有界面模式)"
+          - "flag 参数解析"
+        files:
+          - "cmd/login/"
+        deps:
+          up: []
+          down: ["xhs-browser-actions", "go-browser-infra", "go-cookies"]

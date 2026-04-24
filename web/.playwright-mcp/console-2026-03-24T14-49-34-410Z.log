@@ -1,0 +1,40 @@
+[  786680ms] [ERROR] ./app/page.tsx:204:16
+Expression expected
+  202 |               onRunNow={runNow}
+  203 |             />
+> 204 |               />
+      |                ^
+  205 |             ))}
+  206 |           </div>
+  207 |         ) : (
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component] @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[  786763ms] [ERROR] ./app/page.tsx:204:16
+Expression expected
+  202 |               onRunNow={runNow}
+  203 |             />
+> 204 |               />
+      |                ^
+  205 |             ))}
+  206 |           </div>
+  207 |         ) : (
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component] @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272

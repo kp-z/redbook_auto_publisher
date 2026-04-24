@@ -1,0 +1,907 @@
+# ============================================================
+# xiaohongshu-mcp Domain Model
+# Generated: 2025-03-30
+# ============================================================
+
+project:
+  name: "xiaohongshu-mcp"
+  description: "小红书 MCP (Model Context Protocol) 服务器 & 自动化运营平台：通过无头浏览器自动化操控小红书 Web 端，提供内容发布、Feed 浏览、搜索、评论、点赞/收藏等能力，同时集成 AI 内容生成与定时任务调度"
+  version: "2.0.0"
+  git:
+    remote: "git@github.com:kp-z/redbook_auto_publisher.git"
+    branch: "feat/frontend-ui-redesign"
+
+# ============================================================
+# Bounded Contexts
+# ============================================================
+contexts:
+  - id: "ctx-content"
+    name: "内容管理 (Content)"
+    color: "#8b5cf6"
+    description: "小红书笔记(Feed)的核心领域：Feed 列表、详情、发布图文/视频、搜索等"
+
+  - id: "ctx-interaction"
+    name: "社交互动 (Interaction)"
+    color: "#f59e0b"
+    description: "用户与笔记之间的互动行为：评论、回复、点赞、收藏"
+
+  - id: "ctx-user"
+    name: "用户与认证 (User & Auth)"
+    color: "#10b981"
+    description: "用户身份、登录认证（扫码登录）、Cookie 管理、个人主页"
+
+  - id: "ctx-task"
+    name: "任务调度 (Task Scheduling)"
+    color: "#3b82f6"
+    description: "前端 Dashboard 中的定时/手动/Webhook 触发任务编排与执行历史记录"
+
+  - id: "ctx-ai"
+    name: "AI 内容生成 (AI Generation)"
+    color: "#ec4899"
+    description: "Claude AI 文案生成、Replicate 图片生成（FLUX/SD3.5）、AI Agent 对话式生成"
+
+  - id: "ctx-mcp"
+    name: "MCP 协议层 (MCP Protocol)"
+    color: "#6366f1"
+    description: "MCP Server 工具注册与 Streamable HTTP 传输，将业务能力暴露为 13 个 MCP 工具"
+
+# ============================================================
+# Aggregates
+# ============================================================
+aggregates:
+  # ---- ctx-content: 内容管理 ----
+  - id: "agg-feed"
+    contextId: "ctx-content"
+    root:
+      name: "Feed"
+      tableName: "__INITIAL_STATE__.feed"
+      description: "小红书笔记(Feed)聚合根，代表首页推荐流中的一条笔记卡片"
+      attributes:
+        - name: "id"
+          type: "String"
+          isPK: true
+        - name: "xsecToken"
+          type: "String"
+          isRequired: true
+          description: "访问令牌，获取详情/互动操作时必传"
+        - name: "modelType"
+          type: "String"
+          isRequired: true
+          description: "模型类型标识"
+      methods:
+        - name: "GetFeedsList()"
+          description: "获取首页 Feed 推荐列表"
+        - name: "Search(keyword, filters)"
+          description: "按关键词 + 筛选条件搜索笔记"
+      sourceFile: "xiaohongshu/types.go"
+    entities:
+      - name: "NoteCard"
+        description: "笔记卡片详细信息，包含标题、作者、封面、互动数据"
+        attributes:
+          - name: "type"
+            type: "String"
+            isRequired: true
+            description: "笔记类型（图文/视频）"
+          - name: "displayTitle"
+            type: "String"
+            isRequired: true
+          - name: "user"
+            type: "User"
+            isRequired: true
+          - name: "interactInfo"
+            type: "InteractInfo"
+            isRequired: true
+          - name: "cover"
+            type: "Cover"
+            isRequired: true
+          - name: "video"
+            type: "Video"
+            description: "视频信息，仅视频笔记存在"
+        sourceFile: "xiaohongshu/types.go"
+    valueObjects:
+      - name: "InteractInfo"
+        description: "笔记互动统计值对象"
+        attributes:
+          - name: "liked"
+            type: "Boolean"
+          - name: "likedCount"
+            type: "String"
+          - name: "collected"
+            type: "Boolean"
+          - name: "collectedCount"
+            type: "String"
+          - name: "commentCount"
+            type: "String"
+          - name: "sharedCount"
+            type: "String"
+      - name: "Cover"
+        description: "封面图片信息"
+        attributes:
+          - name: "url"
+            type: "String"
+          - name: "width"
+            type: "Integer"
+          - name: "height"
+            type: "Integer"
+      - name: "FilterOption"
+        description: "搜索筛选选项值对象"
+        attributes:
+          - name: "sortBy"
+            type: "SortByEnum"
+          - name: "noteType"
+            type: "NoteTypeEnum"
+          - name: "publishTime"
+            type: "PublishTimeEnum"
+          - name: "searchScope"
+            type: "SearchScopeEnum"
+          - name: "location"
+            type: "LocationEnum"
+      - name: "SortByEnum"
+        values: ["综合", "最新", "最多点赞", "最多评论", "最多收藏"]
+        description: "搜索排序方式"
+      - name: "NoteTypeEnum"
+        values: ["不限", "视频", "图文"]
+        description: "笔记类型筛选"
+      - name: "PublishTimeEnum"
+        values: ["不限", "一天内", "一周内", "半年内"]
+        description: "发布时间筛选"
+      - name: "SearchScopeEnum"
+        values: ["不限", "已看过", "未看过", "已关注"]
+        description: "搜索范围筛选"
+      - name: "LocationEnum"
+        values: ["不限", "同城", "附近"]
+        description: "位置距离筛选"
+    invariants:
+      - "每个 Feed 必须拥有唯一 id 和配套的 xsecToken"
+      - "搜索操作需要已登录状态"
+
+  - id: "agg-feed-detail"
+    contextId: "ctx-content"
+    root:
+      name: "FeedDetail"
+      tableName: "__INITIAL_STATE__.note"
+      description: "笔记详情聚合根，包含完整笔记内容、图片列表及评论列表"
+      attributes:
+        - name: "noteId"
+          type: "String"
+          isPK: true
+        - name: "xsecToken"
+          type: "String"
+          isRequired: true
+        - name: "title"
+          type: "String"
+          isRequired: true
+        - name: "desc"
+          type: "String"
+          isRequired: true
+          description: "笔记正文描述"
+        - name: "type"
+          type: "String"
+          isRequired: true
+          description: "笔记类型（normal/video）"
+        - name: "ipLocation"
+          type: "String"
+          description: "发布时 IP 归属地"
+      methods:
+        - name: "GetFeedDetail(feedID, xsecToken, loadAllComments)"
+          description: "获取笔记详情，可选加载全量评论"
+        - name: "GetFeedDetailWithConfig(feedID, xsecToken, loadAll, config)"
+          description: "使用自定义评论加载配置获取详情"
+      sourceFile: "xiaohongshu/types.go"
+    entities:
+      - name: "Comment"
+        description: "笔记评论实体，支持嵌套子评论"
+        attributes:
+          - name: "id"
+            type: "String"
+            isPK: true
+          - name: "noteId"
+            type: "String"
+            isRequired: true
+            isFK: true
+          - name: "content"
+            type: "String"
+            isRequired: true
+          - name: "likeCount"
+            type: "String"
+          - name: "liked"
+            type: "Boolean"
+          - name: "subCommentCount"
+            type: "String"
+          - name: "subComments"
+            type: "[]Comment"
+            description: "子评论/回复列表"
+        sourceFile: "xiaohongshu/types.go"
+    valueObjects:
+      - name: "DetailImageInfo"
+        description: "详情页图片信息"
+        attributes:
+          - name: "urlDefault"
+            type: "String"
+          - name: "width"
+            type: "Integer"
+          - name: "height"
+            type: "Integer"
+          - name: "livePhoto"
+            type: "Boolean"
+      - name: "CommentLoadConfig"
+        description: "评论加载策略配置"
+        attributes:
+          - name: "clickMoreReplies"
+            type: "Boolean"
+          - name: "maxRepliesThreshold"
+            type: "Integer"
+          - name: "maxCommentItems"
+            type: "Integer"
+          - name: "scrollSpeed"
+            type: "ScrollSpeedEnum"
+      - name: "ScrollSpeedEnum"
+        values: ["slow", "normal", "fast"]
+        description: "评论滚动加载速度"
+    invariants:
+      - "获取详情需提供有效的 feedID + xsecToken 对"
+      - "评论为树形结构，子评论嵌套在父评论的 subComments 中"
+
+  - id: "agg-publish"
+    contextId: "ctx-content"
+    root:
+      name: "PublishImageContent"
+      tableName: "N/A (browser automation)"
+      description: "图文发布聚合根，封装一次小红书图文笔记发布所需的全部信息"
+      attributes:
+        - name: "title"
+          type: "String"
+          isRequired: true
+          description: "标题，最多 20 个中文字"
+        - name: "content"
+          type: "String"
+          isRequired: true
+          description: "正文内容"
+        - name: "imagePaths"
+          type: "[]String"
+          isRequired: true
+          description: "图片路径列表，至少 1 张"
+        - name: "tags"
+          type: "[]String"
+          description: "话题标签"
+        - name: "scheduleTime"
+          type: "Time"
+          description: "定时发布时间，nil 表示立即发布"
+        - name: "isOriginal"
+          type: "Boolean"
+          description: "是否声明原创"
+        - name: "visibility"
+          type: "VisibilityEnum"
+          description: "可见范围"
+        - name: "products"
+          type: "[]String"
+          description: "带货商品关键词列表"
+      methods:
+        - name: "Publish(ctx, content)"
+          description: "通过浏览器自动化执行图文发布"
+        - name: "PublishVideo(ctx, content)"
+          description: "通过浏览器自动化执行视频发布"
+      sourceFile: "xiaohongshu/publish.go"
+    entities:
+      - name: "PublishVideoContent"
+        description: "视频发布实体，与图文类似但使用单个视频文件"
+        attributes:
+          - name: "title"
+            type: "String"
+            isRequired: true
+          - name: "content"
+            type: "String"
+            isRequired: true
+          - name: "videoPath"
+            type: "String"
+            isRequired: true
+          - name: "visibility"
+            type: "VisibilityEnum"
+        sourceFile: "xiaohongshu/publish_video.go"
+    valueObjects:
+      - name: "VisibilityEnum"
+        values: ["公开可见", "仅自己可见", "仅互关好友可见"]
+        description: "笔记可见范围"
+    invariants:
+      - "标题长度不得超过 20 个中文字（CalcTitleLength ≤ 20）"
+      - "图文发布至少需要 1 张图片"
+      - "视频发布必须提供有效的本地视频文件路径"
+      - "定时发布时间须在 1 小时至 14 天内"
+
+  # ---- ctx-interaction: 社交互动 ----
+  - id: "agg-comment"
+    contextId: "ctx-interaction"
+    root:
+      name: "CommentFeedAction"
+      tableName: "N/A (browser automation)"
+      description: "评论互动聚合根，封装对笔记的评论和回复操作"
+      attributes:
+        - name: "feedId"
+          type: "String"
+          isRequired: true
+          isFK: true
+          description: "目标笔记 ID"
+        - name: "xsecToken"
+          type: "String"
+          isRequired: true
+        - name: "content"
+          type: "String"
+          isRequired: true
+          description: "评论/回复文本内容"
+        - name: "commentId"
+          type: "String"
+          description: "回复目标评论 ID（回复评论时使用）"
+        - name: "userId"
+          type: "String"
+          description: "回复目标用户 ID（回复评论时使用）"
+      methods:
+        - name: "PostComment(ctx, feedID, xsecToken, content)"
+          description: "对笔记发表一级评论"
+        - name: "ReplyToComment(ctx, feedID, xsecToken, commentID, userID, content)"
+          description: "回复笔记下的指定评论"
+      sourceFile: "xiaohongshu/comment_feed.go"
+    entities: []
+    valueObjects: []
+    invariants:
+      - "发表评论需要已登录状态"
+      - "回复评论时 commentId 和 userId 至少提供一个"
+
+  - id: "agg-like-favorite"
+    contextId: "ctx-interaction"
+    root:
+      name: "InteractAction"
+      tableName: "N/A (browser automation)"
+      description: "点赞/收藏互动聚合根，封装笔记的点赞与收藏切换操作"
+      attributes:
+        - name: "feedId"
+          type: "String"
+          isRequired: true
+          isFK: true
+          description: "目标笔记 ID"
+        - name: "xsecToken"
+          type: "String"
+          isRequired: true
+        - name: "actionType"
+          type: "InteractActionType"
+          isRequired: true
+      methods:
+        - name: "Like(ctx, feedID, xsecToken)"
+          description: "为笔记点赞"
+        - name: "Unlike(ctx, feedID, xsecToken)"
+          description: "取消点赞"
+        - name: "Favorite(ctx, feedID, xsecToken)"
+          description: "收藏笔记"
+        - name: "Unfavorite(ctx, feedID, xsecToken)"
+          description: "取消收藏"
+      sourceFile: "xiaohongshu/like_favorite.go"
+    entities: []
+    valueObjects:
+      - name: "InteractActionType"
+        values: ["点赞", "取消点赞", "收藏", "取消收藏"]
+        description: "交互动作类型枚举"
+    invariants:
+      - "操作幂等：已点赞时再点赞跳过，未点赞时取消点赞跳过"
+      - "操作需要已登录状态"
+
+  # ---- ctx-user: 用户与认证 ----
+  - id: "agg-user-profile"
+    contextId: "ctx-user"
+    root:
+      name: "UserProfile"
+      tableName: "__INITIAL_STATE__.user"
+      description: "用户画像聚合根，包含基本信息、社交指标及发布的笔记列表"
+      attributes:
+        - name: "redId"
+          type: "String"
+          isPK: true
+          description: "小红书号"
+        - name: "nickname"
+          type: "String"
+          isRequired: true
+        - name: "gender"
+          type: "Integer"
+          description: "性别标识"
+        - name: "ipLocation"
+          type: "String"
+          description: "IP 归属地"
+        - name: "desc"
+          type: "String"
+          description: "个人简介"
+        - name: "images"
+          type: "String"
+          description: "头像 URL"
+      methods:
+        - name: "UserProfile(ctx, userID, xsecToken)"
+          description: "获取指定用户主页信息"
+        - name: "GetMyProfileViaSidebar(ctx)"
+          description: "通过侧边栏导航获取当前登录用户信息"
+      sourceFile: "xiaohongshu/user_profile.go"
+    entities: []
+    valueObjects:
+      - name: "UserInteractions"
+        description: "用户社交指标值对象（关注/粉丝/获赞与收藏）"
+        attributes:
+          - name: "type"
+            type: "String"
+            description: "指标类型：follows / fans / interaction"
+          - name: "name"
+            type: "String"
+            description: "显示名称：关注 / 粉丝 / 获赞与收藏"
+          - name: "count"
+            type: "String"
+      - name: "User"
+        description: "用户简要信息值对象（嵌在 Feed/Comment 中）"
+        attributes:
+          - name: "userId"
+            type: "String"
+          - name: "nickname"
+            type: "String"
+          - name: "avatar"
+            type: "String"
+    invariants:
+      - "获取他人主页需要有效的 userID + xsecToken"
+      - "获取自己主页需要已登录状态"
+
+  - id: "agg-auth"
+    contextId: "ctx-user"
+    root:
+      name: "LoginSession"
+      tableName: "cookies.json (file)"
+      description: "登录会话聚合根，管理扫码登录流程和 Cookie 持久化"
+      attributes:
+        - name: "isLoggedIn"
+          type: "Boolean"
+          isRequired: true
+          description: "当前登录状态"
+        - name: "username"
+          type: "String"
+          description: "登录用户名（来自环境配置）"
+        - name: "cookiePath"
+          type: "String"
+          isRequired: true
+          description: "Cookie 文件持久化路径"
+      methods:
+        - name: "CheckLoginStatus(ctx)"
+          description: "检查当前浏览器是否已登录"
+        - name: "FetchQrcodeImage(ctx)"
+          description: "获取登录二维码图片（Base64）"
+        - name: "WaitForLogin(ctx)"
+          description: "轮询等待用户扫码完成登录"
+        - name: "DeleteCookies()"
+          description: "删除 Cookie 文件，重置登录状态"
+      sourceFile: "xiaohongshu/login.go"
+    entities: []
+    valueObjects:
+      - name: "LoginQrcodeResponse"
+        description: "登录二维码响应"
+        attributes:
+          - name: "timeout"
+            type: "String"
+          - name: "isLoggedIn"
+            type: "Boolean"
+          - name: "img"
+            type: "String"
+            description: "Base64 编码的二维码 PNG 图片"
+    invariants:
+      - "Cookie 文件向后兼容：优先使用 /tmp/cookies.json，否则使用当前目录"
+      - "扫码登录超时时间为 4 分钟"
+
+  # ---- ctx-task: 任务调度 ----
+  - id: "agg-task"
+    contextId: "ctx-task"
+    root:
+      name: "Task"
+      tableName: "data/tasks.json (file)"
+      description: "定时发布任务聚合根，支持 cron / 手动 / webhook 三种触发方式"
+      attributes:
+        - name: "id"
+          type: "String"
+          isPK: true
+          description: "UUID，特殊任务使用固定 ID（__profile_sync__ / __dev_daily__）"
+        - name: "name"
+          type: "String"
+          isRequired: true
+        - name: "enabled"
+          type: "Boolean"
+          isRequired: true
+        - name: "lastStatus"
+          type: "TaskStatus"
+          description: "上次运行结果"
+        - name: "lastRunAt"
+          type: "String"
+          description: "上次运行时间 ISO8601"
+      methods:
+        - name: "runTask(taskId)"
+          description: "执行任务：AI 生成内容 → 选取图片 → 发布到小红书"
+        - name: "saveTask(task)"
+          description: "创建新任务"
+        - name: "updateTask(id, updates)"
+          description: "更新任务配置"
+        - name: "deleteTask(id)"
+          description: "删除任务"
+      sourceFile: "frontend/lib/store.ts"
+    entities:
+      - name: "TaskTrigger"
+        description: "任务触发器配置"
+        attributes:
+          - name: "type"
+            type: "TriggerType"
+            isRequired: true
+          - name: "cron"
+            type: "String"
+            description: "Cron 表达式，如 0 9 * * *"
+          - name: "webhookToken"
+            type: "String"
+            description: "Webhook 触发令牌"
+        sourceFile: "frontend/lib/store.ts"
+      - name: "TaskContent"
+        description: "任务内容配置"
+        attributes:
+          - name: "topicPrompt"
+            type: "String"
+            isRequired: true
+            description: "给 Claude 的内容生成提示词"
+          - name: "imageDir"
+            type: "String"
+            description: "本地图片目录，随机选取"
+          - name: "tags"
+            type: "[]String"
+          - name: "visibility"
+            type: "Visibility"
+          - name: "projects"
+            type: "[]ProjectConfig"
+            description: "AI 开发日报扫描的 git 项目列表"
+        sourceFile: "frontend/lib/store.ts"
+    valueObjects:
+      - name: "TriggerType"
+        values: ["cron", "manual", "webhook"]
+        description: "任务触发类型"
+      - name: "TaskStatus"
+        values: ["success", "failed", "running"]
+        description: "任务执行状态"
+      - name: "ProjectConfig"
+        description: "AI 开发日报项目配置"
+        attributes:
+          - name: "name"
+            type: "String"
+          - name: "repoPath"
+            type: "String"
+          - name: "frontendUrl"
+            type: "String"
+    invariants:
+      - "Profile 同步任务和 AI 开发日报为系统内置任务，使用固定 ID"
+      - "历史记录最多保留 200 条"
+      - "任务禁用后不可执行"
+
+  - id: "agg-history"
+    contextId: "ctx-task"
+    root:
+      name: "HistoryRecord"
+      tableName: "data/history.json (file)"
+      description: "任务执行历史记录聚合根"
+      attributes:
+        - name: "id"
+          type: "String"
+          isPK: true
+        - name: "taskId"
+          type: "String"
+          isRequired: true
+          isFK: true
+          description: "关联的任务 ID"
+        - name: "taskName"
+          type: "String"
+          isRequired: true
+        - name: "status"
+          type: "TaskStatus"
+          isRequired: true
+        - name: "runAt"
+          type: "String"
+          isRequired: true
+          description: "执行时间 ISO8601"
+        - name: "title"
+          type: "String"
+          description: "生成的标题（成功时）"
+        - name: "content"
+          type: "String"
+          description: "生成的正文（成功时）"
+        - name: "images"
+          type: "[]String"
+          description: "使用的图片列表"
+        - name: "error"
+          type: "String"
+          description: "错误信息（失败时）"
+      methods:
+        - name: "appendHistory(record)"
+          description: "追加一条执行记录（FIFO，最多 200 条）"
+        - name: "getHistory()"
+          description: "获取全量历史记录"
+      sourceFile: "frontend/lib/store.ts"
+    entities: []
+    valueObjects: []
+    invariants:
+      - "最多保留 200 条历史记录，超出则截断旧记录"
+
+  # ---- ctx-ai: AI 内容生成 ----
+  - id: "agg-ai-content"
+    contextId: "ctx-ai"
+    root:
+      name: "AIContentGenerator"
+      tableName: "N/A (external API)"
+      description: "AI 文案生成聚合根，调用 Claude API 根据提示词生成小红书标题和正文"
+      attributes:
+        - name: "topicPrompt"
+          type: "String"
+          isRequired: true
+          description: "用户主题提示词"
+      methods:
+        - name: "generateXhsContent(topicPrompt)"
+          description: "调用 Claude Sonnet 生成标题 + 正文 JSON"
+        - name: "generateDevSummary(commits, template)"
+          description: "通过 Claude CLI 生成 AI 开发日报"
+      sourceFile: "frontend/lib/claude-client.ts"
+    entities: []
+    valueObjects:
+      - name: "GeneratedContent"
+        description: "AI 生成结果"
+        attributes:
+          - name: "title"
+            type: "String"
+            description: "生成的标题（≤20 字）"
+          - name: "content"
+            type: "String"
+            description: "生成的正文（≤1000 字）"
+    invariants:
+      - "标题不超过 20 字，正文不超过 1000 字"
+      - "Claude 返回必须是合法 JSON 格式 {title, content}"
+
+  - id: "agg-image-gen"
+    contextId: "ctx-ai"
+    root:
+      name: "ImageAgent"
+      tableName: "N/A (external API)"
+      description: "AI 图片生成 Agent 聚合根，通过 Claude 工具调用选择合适的图片生成模型"
+      attributes:
+        - name: "userInput"
+          type: "String"
+          isRequired: true
+          description: "用户自然语言图片需求描述"
+      methods:
+        - name: "runImageAgent(userInput, history)"
+          description: "Agent 循环：理解需求 → 选模型 → 生成图片 → 返回结果"
+        - name: "generateWithFluxPro(prompt, aspectRatio)"
+          description: "FLUX 1.1 Pro 高质量生成 ($0.04/张)"
+        - name: "generateWithFluxDev(prompt, aspectRatio)"
+          description: "FLUX Dev 快速生成 ($0.025/张)"
+        - name: "generateWithSD35(prompt)"
+          description: "Stable Diffusion 3.5 风格化生成 ($0.065/张)"
+      sourceFile: "frontend/lib/image-agent.ts"
+    entities: []
+    valueObjects:
+      - name: "ImageResult"
+        description: "图片生成结果"
+        attributes:
+          - name: "provider"
+            type: "String"
+          - name: "model"
+            type: "String"
+          - name: "imageUrls"
+            type: "[]String"
+          - name: "cost"
+            type: "String"
+      - name: "AspectRatio"
+        values: ["1:1", "16:9", "9:16", "4:3", "3:4"]
+        description: "图片宽高比"
+    invariants:
+      - "Agent 循环直到无 tool_use 停止"
+      - "对话历史最多保留最近 10 轮（20 条消息）"
+
+  # ---- ctx-mcp: MCP 协议层 ----
+  - id: "agg-mcp-server"
+    contextId: "ctx-mcp"
+    root:
+      name: "MCPServer"
+      tableName: "N/A (runtime)"
+      description: "MCP Server 聚合根，注册 13 个工具并通过 Streamable HTTP 提供服务"
+      attributes:
+        - name: "name"
+          type: "String"
+          isRequired: true
+          description: "固定值 xiaohongshu-mcp"
+        - name: "version"
+          type: "String"
+          isRequired: true
+          description: "MCP Server 版本"
+      methods:
+        - name: "InitMCPServer(appServer)"
+          description: "初始化 MCP Server 并注册全部工具"
+        - name: "registerTools(server, appServer)"
+          description: "注册 13 个 MCP 工具到 Server"
+      sourceFile: "mcp_server.go"
+    entities: []
+    valueObjects:
+      - name: "MCPToolList"
+        description: "已注册的 13 个 MCP 工具"
+        values:
+          - "check_login_status"
+          - "get_login_qrcode"
+          - "delete_cookies"
+          - "publish_content"
+          - "list_feeds"
+          - "search_feeds"
+          - "get_feed_detail"
+          - "user_profile"
+          - "post_comment_to_feed"
+          - "reply_comment_in_feed"
+          - "publish_with_video"
+          - "like_feed"
+          - "favorite_feed"
+    invariants:
+      - "所有工具执行失败时返回 IsError=true 的 CallToolResult"
+      - "工具处理器包含 panic recovery 机制"
+
+# ============================================================
+# Domain Services
+# ============================================================
+services:
+  - name: "XiaohongshuService"
+    contextId: "ctx-content"
+    description: "小红书业务服务门面，编排浏览器实例生命周期并委托具体 Action 执行"
+    methods:
+      - "PublishContent(ctx, req) → PublishResponse"
+      - "PublishVideo(ctx, req) → PublishVideoResponse"
+      - "ListFeeds(ctx) → FeedsListResponse"
+      - "SearchFeeds(ctx, keyword, filters) → FeedsListResponse"
+      - "GetFeedDetail(ctx, feedID, xsecToken, loadAll) → FeedDetailResponse"
+      - "GetFeedDetailWithConfig(ctx, feedID, xsecToken, loadAll, config)"
+      - "UserProfile(ctx, userID, xsecToken) → UserProfileResponse"
+      - "GetMyProfile(ctx) → UserProfileResponse"
+      - "PostCommentToFeed(ctx, feedID, xsecToken, content)"
+      - "ReplyCommentToFeed(ctx, feedID, xsecToken, commentID, userID, content)"
+      - "LikeFeed / UnlikeFeed / FavoriteFeed / UnfavoriteFeed"
+      - "CheckLoginStatus(ctx) → LoginStatusResponse"
+      - "GetLoginQrcode(ctx) → LoginQrcodeResponse"
+      - "DeleteCookies(ctx)"
+    sourceFile: "service.go"
+
+  - name: "TaskRunner"
+    contextId: "ctx-task"
+    description: "任务执行器，根据任务类型分派到对应执行逻辑（普通发布 / Profile 同步 / AI 开发日报）"
+    methods:
+      - "runTask(taskId) → { success, error }"
+    sourceFile: "frontend/lib/runner.ts"
+
+  - name: "ProfileSyncService"
+    contextId: "ctx-task"
+    description: "用户 Profile 数据同步服务，定时拉取粉丝/获赞数据并缓存"
+    methods:
+      - "syncProfile() → { success, error }"
+    sourceFile: "frontend/lib/profile-sync.ts"
+
+  - name: "DevDailyService"
+    contextId: "ctx-task"
+    description: "AI 开发日报服务：扫描 git commit → Claude 生成总结 → 截图/AI 生图 → 发布"
+    methods:
+      - "runDevDaily() → { success, error }"
+      - "scanGitCommits(repoPath) → CommitInfo[]"
+      - "captureImages(projects) → imagePaths[]"
+    sourceFile: "frontend/lib/dev-daily.ts"
+
+  - name: "AppServer"
+    contextId: "ctx-mcp"
+    description: "应用服务器，持有 XiaohongshuService 和 MCP Server，统一管理 HTTP + MCP 路由"
+    methods:
+      - "Start(port)"
+      - "setupRoutes(appServer) → gin.Engine"
+    sourceFile: "app_server.go"
+
+# ============================================================
+# Domain Events (implicit, no event bus)
+# ============================================================
+events:
+  - name: "LoginCompleted"
+    contextId: "ctx-user"
+    description: "扫码登录完成后，Cookie 被保存到本地文件"
+    trigger: "WaitForLogin 检测到用户已登录"
+
+  - name: "ContentPublished"
+    contextId: "ctx-content"
+    description: "图文/视频笔记发布成功"
+    trigger: "Publish / PublishVideo 浏览器自动化流程完成"
+
+  - name: "TaskExecuted"
+    contextId: "ctx-task"
+    description: "定时任务执行完成（成功或失败），追加到历史记录"
+    trigger: "runTask 完成后调用 appendHistory"
+
+  - name: "ProfileSynced"
+    contextId: "ctx-task"
+    description: "Profile 数据同步完成，更新本地缓存"
+    trigger: "syncProfile 成功拉取数据后调用 saveProfileCache"
+
+# ============================================================
+# Relationships
+# ============================================================
+relationships:
+  - from: "agg-feed"
+    to: "agg-feed-detail"
+    type: "id-reference"
+    label: "Feed 卡片 → 笔记详情（通过 feedID + xsecToken 导航）"
+    fkField: "id"
+    cardinality: "1:1"
+
+  - from: "agg-feed-detail"
+    to: "agg-comment"
+    type: "id-reference"
+    label: "笔记详情中的评论列表 → 评论互动操作"
+    fkField: "noteId"
+    cardinality: "1:N"
+
+  - from: "agg-feed"
+    to: "agg-like-favorite"
+    type: "id-reference"
+    label: "Feed → 点赞/收藏操作（通过 feedID 引用）"
+    fkField: "feedId"
+    cardinality: "1:N"
+
+  - from: "agg-feed"
+    to: "agg-user-profile"
+    type: "id-reference"
+    label: "Feed 中的 User → 用户主页"
+    fkField: "userId"
+    cardinality: "N:1"
+
+  - from: "agg-task"
+    to: "agg-history"
+    type: "id-reference"
+    label: "任务 → 执行历史记录"
+    fkField: "taskId"
+    cardinality: "1:N"
+
+  - from: "agg-task"
+    to: "agg-ai-content"
+    type: "dependency"
+    label: "任务执行时调用 AI 生成内容"
+    fkField: ""
+    cardinality: "N:1"
+
+  - from: "agg-task"
+    to: "agg-publish"
+    type: "dependency"
+    label: "任务执行后调用发布聚合完成内容发布"
+    fkField: ""
+    cardinality: "N:1"
+
+  - from: "agg-ai-content"
+    to: "agg-image-gen"
+    type: "dependency"
+    label: "AI 开发日报任务可调用图片生成作为配图"
+    fkField: ""
+    cardinality: "1:1"
+
+  - from: "agg-mcp-server"
+    to: "agg-auth"
+    type: "dependency"
+    label: "MCP 工具 check_login_status / get_login_qrcode / delete_cookies 委托认证聚合"
+    fkField: ""
+    cardinality: "1:1"
+
+  - from: "agg-mcp-server"
+    to: "agg-publish"
+    type: "dependency"
+    label: "MCP 工具 publish_content / publish_with_video 委托发布聚合"
+    fkField: ""
+    cardinality: "1:1"
+
+  - from: "agg-mcp-server"
+    to: "agg-feed"
+    type: "dependency"
+    label: "MCP 工具 list_feeds / search_feeds 委托 Feed 聚合"
+    fkField: ""
+    cardinality: "1:1"
+
+  - from: "agg-auth"
+    to: "agg-user-profile"
+    type: "dependency"
+    label: "登录后可获取自身 Profile"
+    fkField: ""
+    cardinality: "1:1"

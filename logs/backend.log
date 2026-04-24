@@ -1,0 +1,5 @@
+go: downloading github.com/sirupsen/logrus v1.9.3
+go: downloading golang.org/x/sys v0.36.0
+# command-line-arguments
+./main.go:30:24: undefined: NewXiaohongshuService
+./main.go:33:15: undefined: NewAppServer

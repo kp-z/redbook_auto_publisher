@@ -1,0 +1,312 @@
+[  389003ms] ReferenceError: Badge is not defined
+    at ProfileSyncTaskCard (http://localhost:3721/_next/static/chunks/_0urtdkp._.js?id=%255Bproject%255D%252Fcomponents%252Fprofile-sync-task-card.tsx+%255Bapp-client%255D+%2528ecmascript%2529:147:242)
+    at Object.react_stack_bottom_frame (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at flushSyncWork$1 (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9230:86)
+    at Object.scheduleRefresh (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:299:13)
+    at http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:391:33
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:384:38)
+    at applyUpdate (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:878:31)
+    at http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:886:13
+[  504668ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1293873ms] ReferenceError: ProfileSyncTaskCard is not defined
+    at HomePage (http://localhost:3721/_next/static/chunks/_039n90.._.js?id=%255Bproject%255D%252Fapp%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:374:228)
+    at Object.react_stack_bottom_frame (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at http://localhost:3721/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158
+[ 1301475ms] [ERROR] ./app/page.tsx:224:1
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  222 |     </div>
+  223 |   )
+> 224 | }
+      | ^
+  225 |
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component] @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[ 1324165ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 2511300ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[ 2511609ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[ 2511840ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[ 2511843ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3721/?_rsc=wnywt:0
+[ 2511856ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3721/?_rsc=wnywt:0
+[ 2511877ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3721/?_rsc=wnywt:0
+[ 2511902ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[ 2511950ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3721/:0
+[ 2512108ms] Error: ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./lib/store.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file:///Users/kp/项目/Proj/xiaohongshu-mcp/frontend/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1189:59)
+    at DevBundlerService.getCompilationError (file:///Users/kp/项目/Proj/xiaohongshu-mcp/frontend/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///Users/kp/项目/Proj/xiaohongshu-mcp/frontend/node_modules/next/dist/server/dev/next-dev-server.js:719:42)
+    at DevServer.findPageComponents (file:///Users/kp/项目/Proj/xiaohongshu-mcp/frontend/node_modules/next/dist/server/dev/next-dev-server.js:689:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/kp/项目/Proj/xiaohongshu-mcp/frontend/node_modules/next/dist/server/base-server.js:1745:26)
+[ 2512111ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[ 2512161ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[ 2552915ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[ 2553062ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[ 2554162ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[ 2554254ms] [ERROR] ./lib/store.ts:1:1
+Module not found: Can't resolve 'fs'
+> 1 | import fs from "fs"
+    | ^^^^^^^^^^^^^^^^^^^
+  2 | import path from "path"
+  3 | import crypto from "crypto"
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./lib/store.ts [Client Component Browser]
+    ./components/task-card.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/store.ts [Client Component SSR]
+    ./components/task-card.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3721/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945

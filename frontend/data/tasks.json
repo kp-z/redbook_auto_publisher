@@ -1,0 +1,77 @@
+[
+  {
+    "id": "__profile_sync__",
+    "name": "Profile 数据同步",
+    "trigger": {
+      "type": "cron",
+      "cron": "0 20 * * *"
+    },
+    "content": {
+      "topicPrompt": "定时获取粉丝数、获赞与收藏数，更新 Dashboard",
+      "imageDir": "",
+      "tags": [],
+      "visibility": "公开可见"
+    },
+    "enabled": true,
+    "createdAt": "2026-03-24T15:40:19.898Z",
+    "lastRunAt": "2026-03-24T16:28:43.074Z",
+    "lastStatus": "success"
+  },
+  {
+    "id": "__dev_daily__",
+    "name": "AI 开发日报",
+    "trigger": {
+      "type": "cron",
+      "cron": "0 21 * * *"
+    },
+    "content": {
+      "topicPrompt": "你是一位程序员博主，每天在小红书分享今天的开发进展。这条小红书由 AI 定时自动扫描 git commit 后生成。\n\n以下是今天各项目的 git commit 记录：\n\n{{commits}}\n\n要求：\n- title：不超过20字，必须包含\"AI 开发日报\"或\"AI 自动发布\"，可以加 emoji\n- content：输出为正常文字，不要 Markdown，不要标题层级、列表符号、代码块、加粗等格式\n- 正文开头固定加一句：\"Agen 自动总结发布。\"\n- 全文口语化、像程序员当天复盘，按项目自然分段\n- 适当加入丰富的表情符号，提高可读性\n- 末尾可自然补一句这是 AI 自动生成发布的内容，但也保持普通文本风格\n- 控制在 1000 字以内",
+      "imageDir": "",
+      "tags": [
+        "AI开发日报",
+        "程序员日常",
+        "独立开发",
+        "AI自动发布",
+        "代码人生"
+      ],
+      "visibility": "公开可见",
+      "projects": [
+        {
+          "name": "Claude Manager",
+          "repoPath": "/Users/kp/项目/Proj/claude_manager",
+          "frontendUrl": "http://localhost:5173"
+        },
+        {
+          "name": "StockRadar",
+          "repoPath": "/Users/kp/项目/Proj/stockradar-backend",
+          "frontendUrl": "http://localhost:31749"
+        },
+        {
+          "name": "小红书 MCP",
+          "repoPath": "/Users/kp/项目/Proj/xiaohongshu-mcp",
+          "frontendUrl": "http://localhost:3000"
+        }
+      ]
+    },
+    "enabled": true,
+    "createdAt": "2026-03-25T07:01:48.226Z",
+    "lastRunAt": "2026-03-31T17:36:02.905Z",
+    "lastStatus": "success"
+  },
+  {
+    "name": "同步 Mac 相册旅行照片自动发布",
+    "trigger": {
+      "type": "webhook",
+      "webhookToken": "154b39fb673244d73f9388ceb058e637"
+    },
+    "content": {
+      "topicPrompt": "同步 Mac 相册旅行照片自动发布",
+      "imageDir": "/",
+      "tags": [],
+      "visibility": "仅自己可见"
+    },
+    "enabled": false,
+    "id": "451ccd07-3676-4a8b-82c5-e2b6fc3e921a",
+    "createdAt": "2026-03-25T12:30:36.308Z"
+  }
+]
