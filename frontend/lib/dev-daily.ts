@@ -1,6 +1,7 @@
 import { execFileSync } from "child_process"
 import fs from "fs"
 import path from "path"
+import Anthropic from "@anthropic-ai/sdk"
 import { publishContent } from "./xhs-client"
 import { generateWithFluxDev } from "./image-api-clients"
 import { getTask, DEV_DAILY_TASK_ID } from "./store"

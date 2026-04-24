@@ -55,8 +55,8 @@
     },
     "enabled": true,
     "createdAt": "2026-03-25T07:01:48.226Z",
-    "lastRunAt": "2026-03-31T17:36:02.905Z",
-    "lastStatus": "success"
+    "lastRunAt": "2026-04-24T11:03:55.605Z",
+    "lastStatus": "failed"
   },
   {
     "name": "同步 Mac 相册旅行照片自动发布",

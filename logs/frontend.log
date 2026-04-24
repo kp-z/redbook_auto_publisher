@@ -6,8 +6,11 @@
 - Local:         http://localhost:3721
 - Network:       http://10.12.68.233:3721
 - Environments: .env.local
-✓ Ready in 323ms
+✓ Ready in 256ms
 [profile-sync] 已注册定时任务：每天 20:00 同步小红书 profile
 [dev-daily] 已注册定时任务：每天 21:00 生成 AI 开发日报
 
-[profile-sync] 已更新 profile 缓存: 2026/4/24 18:53:57
+[profile-sync] 已更新 profile 缓存: 2026/4/24 19:03:27
+[dev-daily] 扫描到 5 条 commit，开始生成日报
+[dev-daily] 失败: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaNV66Wtbe5bTvx77PH4G"}
+ POST /api/tasks/__dev_daily__/run 400 in 961ms (next.js: 503ms, application-code: 458ms)
