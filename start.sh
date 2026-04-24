@@ -95,7 +95,7 @@ mkdir -p logs
 
 # 启动后端
 echo -e "${GREEN}启动后端服务 (端口 $BACKEND_PORT)...${NC}"
-go run main.go > logs/backend.log 2>&1 &
+go run *.go > logs/backend.log 2>&1 &
 BACKEND_PID=$!
 echo $BACKEND_PID > logs/backend.pid
 echo "后端 PID: $BACKEND_PID"

@@ -4,46 +4,10 @@
 
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3721
-- Network:       http://10.12.127.146:3721
+- Network:       http://10.12.68.233:3721
 - Environments: .env.local
-✓ Ready in 703ms
+✓ Ready in 323ms
 [profile-sync] 已注册定时任务：每天 20:00 同步小红书 profile
 [dev-daily] 已注册定时任务：每天 21:00 生成 AI 开发日报
-[profile-sync] 同步失败: fetch failed
 
- GET / 200 in 304ms (next.js: 119ms, application-code: 186ms)
- GET /api/tasks 200 in 174ms (next.js: 135ms, application-code: 40ms)
- GET /api/history 200 in 191ms (next.js: 189ms, application-code: 2ms)
- GET /api/profile 200 in 230ms (next.js: 226ms, application-code: 4ms)
- GET /api/me 200 in 238ms (next.js: 210ms, application-code: 29ms)
- GET / 200 in 56ms (next.js: 10ms, application-code: 45ms)
- GET /api/tasks 200 in 23ms (next.js: 18ms, application-code: 5ms)
- GET /api/history 200 in 28ms (next.js: 24ms, application-code: 3ms)
- GET /api/profile 200 in 32ms (next.js: 29ms, application-code: 4ms)
- GET /api/me 200 in 37ms (next.js: 7ms, application-code: 30ms)
- GET / 200 in 47ms (next.js: 11ms, application-code: 37ms)
- GET /api/history 200 in 13ms (next.js: 7ms, application-code: 5ms)
- GET /api/tasks 200 in 21ms (next.js: 16ms, application-code: 5ms)
- GET /api/profile 200 in 24ms (next.js: 21ms, application-code: 3ms)
- GET /api/me 200 in 29ms (next.js: 13ms, application-code: 17ms)
- GET / 200 in 47ms (next.js: 8ms, application-code: 39ms)
- GET /api/tasks 200 in 8ms (next.js: 4ms, application-code: 4ms)
- GET /api/history 200 in 11ms (next.js: 9ms, application-code: 1697µs)
- GET /api/profile 200 in 14ms (next.js: 12ms, application-code: 1921µs)
- GET /api/me 200 in 18ms (next.js: 2ms, application-code: 16ms)
- GET / 200 in 63ms (next.js: 11ms, application-code: 52ms)
- GET /api/tasks 200 in 9ms (next.js: 6ms, application-code: 3ms)
- GET /api/history 200 in 14ms (next.js: 10ms, application-code: 3ms)
- GET /api/profile 200 in 17ms (next.js: 15ms, application-code: 2ms)
- GET /api/me 200 in 20ms (next.js: 2ms, application-code: 18ms)
- GET / 200 in 23ms (next.js: 1925µs, application-code: 21ms)
- GET /api/tasks 200 in 5ms (next.js: 4ms, application-code: 1616µs)
- GET /api/history 200 in 2ms (next.js: 944µs, application-code: 1373µs)
- GET /api/profile 200 in 4ms (next.js: 3ms, application-code: 1407µs)
- GET /api/me 200 in 12ms (next.js: 1244µs, application-code: 11ms)
- GET / 200 in 30ms (next.js: 3ms, application-code: 27ms)
- GET /api/tasks 200 in 15ms (next.js: 9ms, application-code: 6ms)
- GET /api/history 200 in 23ms (next.js: 17ms, application-code: 7ms)
- GET /api/profile 200 in 33ms (next.js: 28ms, application-code: 4ms)
- GET /api/me 200 in 38ms (next.js: 3ms, application-code: 35ms)
-[?25h
+[profile-sync] 已更新 profile 缓存: 2026/4/24 18:53:57
