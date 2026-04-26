@@ -57,3 +57,225 @@ time="2026-04-24T22:43:08+08:00" level=info msg="GET /api/v1/user/me ai-report 2
 [GIN] 2026/04/24 - 22:43:08 | 200 |  8.932821708s |             ::1 | GET      "/api/v1/user/me"
 time="2026-04-24T22:43:12+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
 [GIN] 2026/04/24 - 22:43:12 | 200 |  9.487156959s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:44:42+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:44:42 | 200 |  9.814747667s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:45:23+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:45:23 | 200 |   9.14147375s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:49:15+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:49:15 | 200 |   8.89381625s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:49:31+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:49:31 | 200 |  9.271456041s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:49:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:49:34 | 200 |  8.917339792s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:54:23+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:54:23 | 200 |  9.683572084s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:05+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:05 | 200 |  9.000939917s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:10+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:10 | 200 |  8.289997542s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:16+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:16 | 200 |  8.519276042s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:20+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:20 | 200 |  8.402774834s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:29+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:29 | 200 |   8.94287025s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:31+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:31 | 200 | 10.261150291s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:33+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:33 | 200 |  9.582432333s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:58:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:58:34 | 200 |  9.625685666s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T09:59:14+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 09:59:14 | 200 | 22.571166125s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:28:54+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:28:54 | 200 | 10.580766083s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:28:55+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:28:55 | 200 | 10.317611833s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:28:58+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:28:58 | 200 |  9.517605667s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:21+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:21 | 200 |  8.544679166s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:29+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:29 | 200 | 10.120896958s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:29+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:29 | 200 |  9.571402625s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:31+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:31 | 200 | 10.388568209s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:34 | 200 |  9.988122292s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:37+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:37 | 200 |  9.032308709s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:55+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:55 | 200 |  9.483871709s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:57+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:57 | 200 |  9.718847083s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:29:59+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:29:59 | 200 | 10.277513667s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:01+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:01 | 200 |  9.796650542s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:06+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:06 | 200 | 10.170811417s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:08+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:08 | 200 |   10.1512745s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:10+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:10 | 200 |  9.828153542s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:13+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:13 | 200 | 10.707035209s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:18+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:18 | 200 |    9.1852815s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:21+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:21 | 200 |  9.387001792s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:24+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:24 | 200 | 10.626521958s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:29+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:29 | 200 | 11.216734958s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:30+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:30 | 200 | 10.237902625s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:32+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:32 | 200 | 10.457575708s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:35+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:35 | 200 |  9.924903167s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T10:30:39+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 10:30:39 | 200 |  9.000559458s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T13:44:47+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 13:44:47 | 200 | 14.450412125s |             ::1 | GET      "/api/v1/user/me"
+
+
+[31m2026/04/25 15:41:40 [Recovery] 2026/04/25 - 15:41:40 panic recovered:
+navigation failed: net::ERR_INTERNET_DISCONNECTED
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x100ddd243)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x100e25dd3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:232 (0x100e041cb)
+	(*Page).MustNavigate: p.e(p.Navigate(url))
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:20 (0x100e1d0a7)
+	(*NavigateAction).ToExplorePage: page.MustNavigate("https://www.xiaohongshu.com/explore").
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x100e1d12f)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x100e24597)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:589 (0x100e37d47)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:579 (0x100e37aa3)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:587 (0x100e37bdb)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:286 (0x100e29687)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d2fd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x100e37f53)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d34227)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x100d34210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d34227)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x100d34210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d33603)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x100d335e8)
+	LoggerWithConfig.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d32bb3)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x100d326fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x100d32483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x100c1cecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x100c012bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x100a5e863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-04-25T15:41:40+08:00" level=error msg="服务器内部错误: navigation failed: net::ERR_INTERNET_DISCONNECTED, path: /api/v1/user/me"
+time="2026-04-25T15:41:40+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/04/25 - 15:41:40 | 500 |  2.318787333s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-25T18:31:51+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/25 - 18:31:51 | 200 |     9.516696s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T00:34:38+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 00:34:38 | 200 |  10.28564925s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:17:47+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:17:47 | 200 |  9.281844709s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:19:08+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:19:08 | 200 |  8.672215041s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:20:49+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:20:49 | 200 |  8.714331666s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:21:28+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:21:28 | 200 |  8.584895459s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:25:47+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:25:47 | 200 |  8.737539666s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:26:22+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:26:22 | 200 |  8.910108333s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:27:15+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:27:15 | 200 |  9.289838875s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:33:42+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:33:42 | 200 | 12.852831709s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:33:57+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:33:57 | 200 | 11.602136792s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:37:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:37:34 | 200 | 12.602504667s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:37:47+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:37:47 | 200 | 13.417250292s |             ::1 | GET      "/api/v1/user/me"
+time="2026-04-26T01:38:16+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/04/26 - 01:38:16 | 200 | 11.373484792s |             ::1 | GET      "/api/v1/user/me"
+
+
+[31m2026/04/26 01:40:44 [Recovery] 2026/04/26 - 01:40:44 panic recovered:
+navigation failed: net::ERR_NETWORK_CHANGED
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x100ddd243)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x100e25dd3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:232 (0x100e041cb)
+	(*Page).MustNavigate: p.e(p.Navigate(url))
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:20 (0x100e1d0a7)
+	(*NavigateAction).ToExplorePage: page.MustNavigate("https://www.xiaohongshu.com/explore").
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x100e1d12f)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x100e24597)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:589 (0x100e37d47)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:579 (0x100e37aa3)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:587 (0x100e37bdb)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:286 (0x100e29687)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d2fd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x100e37f53)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d34227)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x100d34210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d34227)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x100d34210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d33603)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x100d335e8)
+	LoggerWithConfig.func1: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x100d32bb3)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x100d326fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x100d32483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x100c1cecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x100c012bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x100a5e863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-04-26T01:40:44+08:00" level=error msg="服务器内部错误: navigation failed: net::ERR_NETWORK_CHANGED, path: /api/v1/user/me"
+time="2026-04-26T01:40:44+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/04/26 - 01:40:44 | 500 |   4.42617175s |             ::1 | GET      "/api/v1/user/me"
