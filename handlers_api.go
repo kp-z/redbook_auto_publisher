@@ -2,8 +2,10 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/xpzouying/xiaohongshu-mcp/cookies"
+	"github.com/xpzouying/xiaohongshu-mcp/pkg/metrics"
 	"github.com/xpzouying/xiaohongshu-mcp/xiaohongshu"
 
 	"github.com/gin-gonic/gin"
@@ -292,4 +294,40 @@ func (s *AppServer) myProfileHandler(c *gin.Context) {
 
 	c.Set("account", "ai-report")
 	respondSuccess(c, map[string]any{"data": result}, "获取我的主页成功")
+}
+
+// metricsHandler 获取发布统计指标
+func (s *AppServer) metricsHandler(c *gin.Context) {
+	m := metrics.GetMetrics()
+
+	// 检查是否有时间范围查询参数
+	startStr := c.Query("start")
+	endStr := c.Query("end")
+
+	var stats metrics.Stats
+
+	if startStr != "" && endStr != "" {
+		// 解析时间范围
+		start, err := time.Parse(time.RFC3339, startStr)
+		if err != nil {
+			respondError(c, http.StatusBadRequest, "INVALID_TIME_FORMAT",
+				"开始时间格式错误，请使用 RFC3339 格式", err.Error())
+			return
+		}
+
+		end, err := time.Parse(time.RFC3339, endStr)
+		if err != nil {
+			respondError(c, http.StatusBadRequest, "INVALID_TIME_FORMAT",
+				"结束时间格式错误，请使用 RFC3339 格式", err.Error())
+			return
+		}
+
+		stats = m.GetStatsByTimeRange(start, end)
+	} else {
+		// 返回全部统计数据
+		stats = m.GetStats()
+	}
+
+	c.Set("account", "ai-report")
+	respondSuccess(c, stats, "获取发布统计成功")
 }

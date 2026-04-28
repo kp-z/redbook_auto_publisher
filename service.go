@@ -15,6 +15,7 @@ import (
 	"github.com/xpzouying/xiaohongshu-mcp/configs"
 	"github.com/xpzouying/xiaohongshu-mcp/cookies"
 	"github.com/xpzouying/xiaohongshu-mcp/pkg/downloader"
+	"github.com/xpzouying/xiaohongshu-mcp/pkg/metrics"
 	"github.com/xpzouying/xiaohongshu-mcp/pkg/xhsutil"
 	"github.com/xpzouying/xiaohongshu-mcp/xiaohongshu"
 )
@@ -250,6 +251,9 @@ func (s *XiaohongshuService) processImages(images []string) ([]string, error) {
 
 // publishContent 执行内容发布
 func (s *XiaohongshuService) publishContent(ctx context.Context, content xiaohongshu.PublishImageContent) error {
+	startTime := time.Now()
+	m := metrics.GetMetrics()
+
 	b := newBrowser()
 	defer b.Close()
 
@@ -258,11 +262,36 @@ func (s *XiaohongshuService) publishContent(ctx context.Context, content xiaohon
 
 	action, err := xiaohongshu.NewPublishImageAction(page)
 	if err != nil {
+		// 记录失败
+		m.Record(metrics.PublishResult{
+			Success:      false,
+			RetryCount:   0,
+			Duration:     time.Since(startTime),
+			ErrorMessage: err.Error(),
+			ContentType:  "image",
+		})
 		return err
 	}
 
 	// 执行发布
-	return action.Publish(ctx, content)
+	err = action.Publish(ctx, content)
+	duration := time.Since(startTime)
+
+	// 记录结果
+	m.Record(metrics.PublishResult{
+		Success:    err == nil,
+		RetryCount: 0,
+		Duration:   duration,
+		ErrorMessage: func() string {
+			if err != nil {
+				return err.Error()
+			}
+			return ""
+		}(),
+		ContentType: "image",
+	})
+
+	return err
 }
 
 // PublishVideo 发布视频（本地文件）
@@ -333,6 +362,9 @@ func (s *XiaohongshuService) PublishVideo(ctx context.Context, req *PublishVideo
 
 // publishVideo 执行视频发布
 func (s *XiaohongshuService) publishVideo(ctx context.Context, content xiaohongshu.PublishVideoContent) error {
+	startTime := time.Now()
+	m := metrics.GetMetrics()
+
 	b := newBrowser()
 	defer b.Close()
 
@@ -341,10 +373,35 @@ func (s *XiaohongshuService) publishVideo(ctx context.Context, content xiaohongs
 
 	action, err := xiaohongshu.NewPublishVideoAction(page)
 	if err != nil {
+		// 记录失败
+		m.Record(metrics.PublishResult{
+			Success:      false,
+			RetryCount:   0,
+			Duration:     time.Since(startTime),
+			ErrorMessage: err.Error(),
+			ContentType:  "video",
+		})
 		return err
 	}
 
-	return action.PublishVideo(ctx, content)
+	err = action.PublishVideo(ctx, content)
+	duration := time.Since(startTime)
+
+	// 记录结果
+	m.Record(metrics.PublishResult{
+		Success:    err == nil,
+		RetryCount: 0,
+		Duration:   duration,
+		ErrorMessage: func() string {
+			if err != nil {
+				return err.Error()
+			}
+			return ""
+		}(),
+		ContentType: "video",
+	})
+
+	return err
 }
 
 // ListFeeds 获取Feeds列表
