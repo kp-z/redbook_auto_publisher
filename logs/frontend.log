@@ -444,3 +444,9 @@
  GET /api/history 200 in 16ms (next.js: 12ms, application-code: 4ms)
  GET /api/profile 200 in 11ms (next.js: 7ms, application-code: 3ms)
  GET /api/me 200 in 5.5min (next.js: 3ms, application-code: 5.5min)
+[2026-04-26T12:01:18.145Z] [PID: 21849] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Sun Apr 26 2026 20:00:00 GMT+0800 (中国标准时间)! Possible blocking IO or high CPU user at the same process used by node-cron.
+[2026-04-26T13:06:38.612Z] [PID: 21849] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Sun Apr 26 2026 21:00:00 GMT+0800 (中国标准时间)! Possible blocking IO or high CPU user at the same process used by node-cron.
+[profile-sync] 已更新 profile 缓存: 2026/4/27 20:00:22
+[dev-daily] 扫描到 3 条 commit，开始生成日报
+[dev-daily] 失败: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaUKNEdMRgwz3MREGoaZb"}
+[?25h
