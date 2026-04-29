@@ -1,6 +1,14 @@
 import Anthropic from "@anthropic-ai/sdk"
+import { getConfig } from "./config-store"
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+function getClient(): Anthropic {
+  const config = getConfig()
+  const apiKey = config.anthropicApiKey || process.env.ANTHROPIC_API_KEY
+  if (!apiKey) {
+    throw new Error("Anthropic API Key 未配置，请在设置页面配置")
+  }
+  return new Anthropic({ apiKey })
+}
 
 export interface GeneratedContent {
   title: string
@@ -8,6 +16,7 @@ export interface GeneratedContent {
 }
 
 export async function generateXhsContent(topicPrompt: string): Promise<GeneratedContent> {
+  const client = getClient()
   const message = await client.messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 1024,

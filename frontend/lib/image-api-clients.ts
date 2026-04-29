@@ -1,8 +1,14 @@
 import Replicate from "replicate"
+import { getConfig } from "./config-store"
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
-})
+function getReplicateClient(): Replicate {
+  const config = getConfig()
+  const token = config.replicateApiToken || process.env.REPLICATE_API_TOKEN
+  if (!token) {
+    throw new Error("Replicate API Token 未配置，请在设置页面配置")
+  }
+  return new Replicate({ auth: token })
+}
 
 export interface ImageResult {
   provider: string
@@ -18,6 +24,7 @@ export async function generateWithFluxPro(
   prompt: string,
   aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1"
 ): Promise<ImageResult> {
+  const replicate = getReplicateClient()
   const output = await replicate.run("black-forest-labs/flux-1.1-pro", {
     input: {
       prompt,
@@ -44,6 +51,7 @@ export async function generateWithFluxDev(
   prompt: string,
   aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1"
 ): Promise<ImageResult> {
+  const replicate = getReplicateClient()
   const output = await replicate.run("black-forest-labs/flux-dev", {
     input: {
       prompt,
@@ -66,6 +74,7 @@ export async function generateWithFluxDev(
  * Replicate Stable Diffusion 3.5 - 备用方案
  */
 export async function generateWithSD35(prompt: string): Promise<ImageResult> {
+  const replicate = getReplicateClient()
   const output = await replicate.run(
     "stability-ai/stable-diffusion-3.5-large",
     {

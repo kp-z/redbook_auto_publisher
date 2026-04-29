@@ -2,6 +2,22 @@
   {
     "taskId": "__dev_daily__",
     "taskName": "AI 开发日报",
+    "runAt": "2026-04-29T07:53:22.538Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaXhbs2JCMr5tncRsayYH\"}",
+    "id": "d08a647d-9c8e-46c5-a1ce-eb07769fdecd"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
+    "runAt": "2026-04-29T07:53:18.448Z",
+    "status": "failed",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaXhbZRsp4LfARdhazeWd\"}",
+    "id": "31936738-e929-4e8e-a878-3e54af242850"
+  },
+  {
+    "taskId": "__dev_daily__",
+    "taskName": "AI 开发日报",
     "runAt": "2026-04-24T11:25:20.565Z",
     "status": "failed",
     "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CaNWimfxdfBy7y2Vfk4T2\"}",

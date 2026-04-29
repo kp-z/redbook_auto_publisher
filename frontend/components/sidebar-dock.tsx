@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, Image, History, CheckCircle, XCircle, Plus, Activity } from "lucide-react"
+import { LayoutDashboard, Image, History, CheckCircle, XCircle, Plus, Activity, Settings } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -12,6 +12,7 @@ const navItems = [
   { href: "/image-gen", icon: Image, label: "AI 图片" },
   { href: "/history", icon: History, label: "历史记录" },
   { href: "/mcp", icon: Activity, label: "MCP 状态" },
+  { href: "/settings", icon: Settings, label: "设置" },
 ]
 
 const CACHE_KEY = "xhs_user_cache"
