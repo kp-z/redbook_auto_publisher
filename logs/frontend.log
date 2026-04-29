@@ -52,3 +52,124 @@
  POST /api/config 200 in 6ms (next.js: 4ms, application-code: 2ms)
  POST /api/generate-image 400 in 270ms (next.js: 268ms, application-code: 2ms)
  GET /settings 200 in 955ms (next.js: 880ms, application-code: 75ms)
+ GET / 200 in 155ms (next.js: 27ms, application-code: 129ms)
+ GET /api/tasks 200 in 57ms (next.js: 55ms, application-code: 2ms)
+ GET /api/history 200 in 74ms (next.js: 72ms, application-code: 1983µs)
+ GET /api/profile 200 in 94ms (next.js: 91ms, application-code: 3ms)
+ GET /settings 200 in 15ms (next.js: 4ms, application-code: 11ms)
+ GET /api/config 200 in 8ms (next.js: 5ms, application-code: 3ms)
+ GET /api/config 200 in 8ms (next.js: 1939µs, application-code: 6ms)
+ GET /mcp 200 in 47ms (next.js: 24ms, application-code: 23ms)
+ GET /settings 200 in 75ms (next.js: 8ms, application-code: 67ms)
+ GET /api/config 200 in 25ms (next.js: 22ms, application-code: 4ms)
+ GET /api/config 200 in 22ms (next.js: 14ms, application-code: 8ms)
+ GET /api/mcp-status 200 in 3.1s (next.js: 72ms, application-code: 3.0s)
+ GET /api/me 200 in 10.0s (next.js: 33ms, application-code: 9.9s)
+ GET /api/mcp-status 200 in 3.0s (next.js: 1417µs, application-code: 3.0s)
+ GET / 200 in 105ms (next.js: 16ms, application-code: 89ms)
+ GET /api/tasks 200 in 10ms (next.js: 6ms, application-code: 3ms)
+ GET /api/history 200 in 13ms (next.js: 11ms, application-code: 2ms)
+ GET /api/profile 200 in 17ms (next.js: 14ms, application-code: 3ms)
+ GET /settings 200 in 22ms (next.js: 6ms, application-code: 17ms)
+ GET /api/config 200 in 20ms (next.js: 14ms, application-code: 6ms)
+ GET /api/config 200 in 3ms (next.js: 800µs, application-code: 2ms)
+ POST /api/generate-image 400 in 7ms (next.js: 3ms, application-code: 4ms)
+ GET /api/me 200 in 9.6s (next.js: 2ms, application-code: 9.5s)
+ GET / 200 in 26ms (next.js: 6ms, application-code: 20ms)
+ GET /api/tasks 200 in 6ms (next.js: 1696µs, application-code: 4ms)
+ GET /api/history 200 in 6ms (next.js: 3ms, application-code: 3ms)
+ GET /api/profile 200 in 10ms (next.js: 7ms, application-code: 3ms)
+ GET /api/tasks 200 in 5ms (next.js: 3ms, application-code: 2ms)
+ GET /api/history 200 in 7ms (next.js: 5ms, application-code: 1352µs)
+ GET /api/profile 200 in 4ms (next.js: 3ms, application-code: 1570µs)
+ GET /image-gen 200 in 40ms (next.js: 28ms, application-code: 13ms)
+Image agent error: Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaXjM6zVRHYCiav2Mk5TT"}
+    at async runImageAgent (lib/image-agent.ts:119:18)
+    at async POST (app/api/generate-image/route.ts:12:42)
+  117 |   ]
+  118 |
+> 119 |   let response = await client.messages.create({
+      |                  ^
+  120 |     model: "claude-sonnet-4-6",
+  121 |     max_tokens: 2048,
+  122 |     system: SYSTEM_PROMPT, {
+  status: 401,
+  headers: Headers {
+    date: 'Wed, 29 Apr 2026 08:16:15 GMT',
+    'content-type': 'application/json',
+    'content-length': '130',
+    connection: 'keep-alive',
+    'x-should-retry': 'false',
+    'request-id': 'req_011CaXjM6zVRHYCiav2Mk5TT',
+    'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
+    server: 'cloudflare',
+    'x-envoy-upstream-service-time': '4',
+    'set-cookie': '_cfuvid=jLY5HFeQBn1PZPIqbHN5FXlSkhvKRE1n_NNWWvpVdH8-1777450575.7850728-1.0.1.1-3YYYXWpC.qnijm9wSKWvXsPoCkL.2vHcATaJZge.buU; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com',
+    'x-robots-tag': 'none',
+    'cf-cache-status': 'DYNAMIC',
+    'content-security-policy': "default-src 'none'; frame-ancestors 'none'",
+    'cf-ray': '9f3cdd12ad87e350-NRT'
+  },
+  requestID: 'req_011CaXjM6zVRHYCiav2Mk5TT',
+  error: {
+    type: 'error',
+    error: { type: 'authentication_error', message: 'invalid x-api-key' },
+    request_id: 'req_011CaXjM6zVRHYCiav2Mk5TT'
+  }
+}
+ POST /api/generate-image 500 in 488ms (next.js: 4ms, application-code: 483ms)
+ GET /history 200 in 65ms (next.js: 39ms, application-code: 26ms)
+ GET /api/history 200 in 4ms (next.js: 1419µs, application-code: 3ms)
+ GET /api/history 200 in 4ms (next.js: 782µs, application-code: 3ms)
+ GET /mcp 200 in 24ms (next.js: 4ms, application-code: 21ms)
+ GET /history 200 in 17ms (next.js: 1827µs, application-code: 15ms)
+ GET /api/history 200 in 4ms (next.js: 1116µs, application-code: 3ms)
+ GET /api/history 200 in 16ms (next.js: 3ms, application-code: 13ms)
+ GET /api/mcp-status 200 in 3.0s (next.js: 1904µs, application-code: 3.0s)
+ GET / 200 in 23ms (next.js: 6ms, application-code: 17ms)
+ GET /api/tasks 200 in 14ms (next.js: 7ms, application-code: 7ms)
+ GET /api/history 200 in 17ms (next.js: 14ms, application-code: 3ms)
+ GET /api/profile 200 in 7ms (next.js: 3ms, application-code: 4ms)
+ GET /api/history 200 in 5ms (next.js: 2ms, application-code: 3ms)
+ GET /api/tasks 200 in 11ms (next.js: 2ms, application-code: 9ms)
+ GET /api/profile 200 in 18ms (next.js: 13ms, application-code: 5ms)
+ GET /api/mcp-status 200 in 3.0s (next.js: 6ms, application-code: 3.0s)
+ GET /settings 200 in 24ms (next.js: 6ms, application-code: 18ms)
+ GET /api/config 200 in 5ms (next.js: 4ms, application-code: 1812µs)
+ GET /api/config 200 in 29ms (next.js: 10ms, application-code: 19ms)
+ GET / 200 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET /api/tasks 200 in 22ms (next.js: 7ms, application-code: 16ms)
+ GET /api/history 200 in 30ms (next.js: 23ms, application-code: 7ms)
+ GET /api/profile 200 in 34ms (next.js: 31ms, application-code: 3ms)
+ GET /api/history 200 in 6ms (next.js: 3ms, application-code: 2ms)
+ GET /api/profile 200 in 8ms (next.js: 6ms, application-code: 1852µs)
+ GET /api/tasks 200 in 11ms (next.js: 9ms, application-code: 1574µs)
+ GET /image-gen 200 in 24ms (next.js: 6ms, application-code: 19ms)
+ GET /settings 200 in 27ms (next.js: 5ms, application-code: 22ms)
+ GET /api/config 200 in 6ms (next.js: 3ms, application-code: 4ms)
+ GET /api/config 200 in 4ms (next.js: 1910µs, application-code: 2ms)
+ GET / 200 in 22ms (next.js: 5ms, application-code: 17ms)
+ GET /api/tasks 200 in 7ms (next.js: 3ms, application-code: 4ms)
+ GET /api/history 200 in 12ms (next.js: 10ms, application-code: 3ms)
+ GET /api/profile 200 in 8ms (next.js: 6ms, application-code: 2ms)
+ GET /api/history 200 in 4ms (next.js: 1712µs, application-code: 1961µs)
+ GET /api/tasks 200 in 11ms (next.js: 6ms, application-code: 5ms)
+ GET /api/profile 200 in 13ms (next.js: 12ms, application-code: 1733µs)
+ GET /settings 200 in 26ms (next.js: 7ms, application-code: 19ms)
+ GET /api/config 200 in 5ms (next.js: 1943µs, application-code: 3ms)
+ GET /api/config 200 in 5ms (next.js: 2ms, application-code: 3ms)
+ GET / 200 in 35ms (next.js: 3ms, application-code: 32ms)
+ GET /api/tasks 200 in 16ms (next.js: 13ms, application-code: 3ms)
+ GET /api/history 200 in 19ms (next.js: 16ms, application-code: 3ms)
+ GET /api/profile 200 in 19ms (next.js: 18ms, application-code: 1679µs)
+ GET /settings 200 in 13ms (next.js: 1435µs, application-code: 12ms)
+ GET /api/config 200 in 6ms (next.js: 3ms, application-code: 3ms)
+ GET /api/config 200 in 2ms (next.js: 761µs, application-code: 1455µs)
+ GET /api/me 200 in 10.0s (next.js: 6ms, application-code: 10.0s)
+ GET / 200 in 19ms (next.js: 4ms, application-code: 16ms)
+ GET /api/tasks 200 in 19ms (next.js: 4ms, application-code: 15ms)
+ GET /api/history 200 in 29ms (next.js: 26ms, application-code: 3ms)
+ GET /api/profile 200 in 14ms (next.js: 9ms, application-code: 5ms)
+ GET /api/history 200 in 3ms (next.js: 1364µs, application-code: 1572µs)
+ GET /api/tasks 200 in 5ms (next.js: 3ms, application-code: 1616µs)
+ GET /api/profile 200 in 7ms (next.js: 5ms, application-code: 1318µs)
