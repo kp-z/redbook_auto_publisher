@@ -24,6 +24,12 @@ MCP for 小红书 / xiaohongshu.com。让你的 AI 助手直接访问小红书�
 > - **零配置**：安装插件即用，无需任何代码、代理或复杂的环境配置。
 > - **安全稳定**：直接在常用浏览器 (Chrome/Edge) 及本地网络运行，无服务器 IP 风险，且能解决 90% 的部署报错。
 
+> [!NOTE]
+> #### 🖥️ 方案 C：本项目自带 Web 管理后台
+> - **不想配置 MCP 客户端？直接用浏览器管理**：任务管理、定时 / Webhook 发布、AI 生成内容与配图、发布历史、MCP 状态。
+> - 一条命令启动：`./start.sh`，然后打开 [http://localhost:3721](http://localhost:3721)
+> - 功能截图与详细说明：[Web 管理后台](#web-ui)
+
 ### 📖 相关资源
 
 - **我的博客文章**：[haha.ai/xiaohongshu-mcp](https://www.haha.ai/xiaohongshu-mcp)
@@ -316,6 +322,115 @@ https://github.com/user-attachments/assets/cc385b6c-422c-489b-a5fc-63e92c695b80
 一周左右的成果
 
 <img width="1840" height="582" alt="CleanShot 2025-09-05 at 01 33 13@2x" src="https://github.com/user-attachments/assets/fb367944-dc48-4bbd-8ece-934caa86323e" />
+
+<a id="web-ui"></a>
+
+## 🖥️ Web 管理后台（本项目扩展）
+
+> 在原 `xiaohongshu-mcp` 的基础上，本项目增加了一套可视化 Web 管理后台，把「AI 生成内容 → 自动配图 → 定时 / Webhook 发布 → 查看发布结果」串成一条流水线。不写 MCP 客户端配置，也能直接用浏览器管理小红书内容。
+
+![Web 管理后台 - 仪表板](assets/web-ui/dashboard.png)
+
+*仪表板：发布热力图、核心指标与任务列表，开关即可启停任务。*
+
+### 功能一览
+
+| 功能 | 说明 |
+| --- | --- |
+| 📊 仪表板 | 发布热力图，发布数 / 运行任务 / 粉丝与获赞统计 |
+| 🗓️ 任务管理 | 手动、定时（可视化 Cron）、Webhook 三种触发方式；支持立即执行 / 暂停 / 编辑 / 删除 |
+| ✍️ AI 内容生成 | 按任务提示词调用 Claude 生成标题、正文与话题标签 |
+| 🖼️ AI 配图 | 从本地图片目录随机选图；也可对话式生成配图（FLUX 1.1 Pro / FLUX Dev / SD 3.5） |
+| 🕘 发布历史 | 记录每次执行的标题、状态与失败原因 |
+| 🔌 MCP 状态 | 查看后端健康状态、登录状态、MCP Endpoint 与 13 个 MCP 工具的参数说明 |
+| ⚙️ 设置 | 在页面中配置 Anthropic / Replicate API Key，并测试连通性 |
+| 🌗 界面 | 亮色 / 暗色 / 跟随系统三种主题 |
+
+### 快速开始
+
+> 依赖：**Go 1.24+**、**Node.js 20+**，并先完成一次小红书扫码登录（见 [1.2 登录](#12-登录)）。
+
+```bash
+# 一键启动后端 + Web 前台（自动做健康检查）
+./start.sh
+
+# 浏览器打开 http://localhost:3721
+open http://localhost:3721
+
+# 停止服务
+./stop.sh
+```
+
+也可以分开启动：
+
+```bash
+# 后端（默认监听 18060）
+go run *.go
+
+# 前端（默认监听 3721）
+cd frontend
+npm install
+npm run dev
+```
+
+**配置 API Key（任选一种）：**
+
+```bash
+# 方式一：写入 frontend/.env.local
+ANTHROPIC_API_KEY=sk-ant-...
+REPLICATE_API_TOKEN=r8_...
+XHS_API_BASE=http://localhost:18060
+```
+
+方式二：启动后在 **设置** 页填写并保存，配置会写入 `frontend/data/config.json`。
+
+> [!TIP]
+> - AI 内容生成需要 Anthropic API Key，AI 配图还需要 Replicate API Token。
+> - 任务、发布历史、Profile 缓存都保存在 `frontend/data/*.json`，首次启动自动创建。
+> - 服务启动时会注册定时任务：每天 20:00 同步 Profile、21:00 生成 AI 开发日报（时区 `Asia/Shanghai`）。
+> - Webhook 任务保存后会生成 `http://localhost:3721/api/webhook/<token>`，向该地址发送 `POST` 请求即可触发发布：
+
+```bash
+curl -X POST http://localhost:3721/api/webhook/<token>
+```
+
+### 界面截图
+
+> 以下截图使用演示数据。
+
+**新建 / 编辑任务**：三种触发方式任选；定时触发支持可视化配置 Cron 并实时预览（如「每天 21:00」）；编辑 AI 开发日报任务时可配置要扫描的本地项目工作区。
+
+![新建任务](assets/web-ui/task-new.png)
+
+![编辑任务](assets/web-ui/task-edit.png)
+
+**发布历史**：每次任务执行的结果、标题与失败原因都有记录。
+
+![发布历史](assets/web-ui/history.png)
+
+**AI 图片生成**：对话式生成小红书配图，自动在 FLUX / Stable Diffusion 等模型之间选择。
+
+![AI 图片生成](assets/web-ui/image-gen.png)
+
+**MCP 状态**：查看后端运行状态、登录状态，以及全部 MCP 工具和参数说明。
+
+![MCP 状态](assets/web-ui/mcp.png)
+
+**设置**：配置 Anthropic / Replicate 的 API Key，支持一键测试连通性。
+
+![设置](assets/web-ui/settings.png)
+
+**暗色模式**：支持跟随系统 / 亮色 / 暗色三种主题。
+
+![暗色模式](assets/web-ui/dashboard-dark.png)
+
+### 技术栈
+
+- **前端**：Next.js 16 / React 19 / Tailwind CSS / shadcn/ui
+- **AI**：Anthropic Claude（内容生成）、Replicate FLUX / Stable Diffusion（配图）
+- **调度**：node-cron（定时任务）、Webhook（外部触发）
+- **数据**：本地 JSON 文件（`frontend/data`）
+- **后端**：Go + MCP（复用仓库原有服务）
 
 ## 1. 使用教程
 

@@ -298,6 +298,115 @@ Results after about a week
 
 <img width="1840" height="582" alt="CleanShot 2025-09-05 at 01 33 13@2x" src="https://github.com/user-attachments/assets/fb367944-dc48-4bbd-8ece-934caa86323e" />
 
+<a id="web-ui"></a>
+
+## 🖥️ Web Dashboard (Added in This Fork)
+
+> On top of the original `xiaohongshu-mcp`, this fork ships a visual Web dashboard that turns "AI content generation → automatic image selection → scheduled / Webhook publishing → reviewing publish results" into a single pipeline. You can manage RedNote content directly in the browser, without configuring any MCP client.
+
+![Web Dashboard - Dashboard](assets/web-ui/dashboard.png)
+
+*Dashboard: publishing heatmap, key metrics and the task list — toggle a switch to start or pause a task.*
+
+### Features
+
+| Feature | Description |
+| --- | --- |
+| 📊 Dashboard | Publishing heatmap; post count / running tasks / followers and likes statistics |
+| 🗓️ Task Management | Manual, scheduled (visual Cron) and Webhook triggers; run now / pause / edit / delete |
+| ✍️ AI Content Generation | Calls Claude with the task prompt to generate titles, body text and hashtags |
+| 🖼️ AI Images | Picks random images from a local directory; also generates images in a chat-style UI (FLUX 1.1 Pro / FLUX Dev / SD 3.5) |
+| 🕘 Publish History | Records the title, status and failure reason of every run |
+| 🔌 MCP Status | Shows backend health, login status, the MCP endpoint and the parameters of all 13 MCP tools |
+| ⚙️ Settings | Configure and test the Anthropic / Replicate API keys right in the UI |
+| 🌗 UI | Light / dark / system themes |
+
+### Quick Start
+
+> Requirements: **Go 1.24+** and **Node.js 20+**, and complete the RedNote QR-code login once first (see [1.2 Login](#12-login)).
+
+```bash
+# Start both the backend and the web frontend (with health checks)
+./start.sh
+
+# Open http://localhost:3721 in your browser
+open http://localhost:3721
+
+# Stop the services
+./stop.sh
+```
+
+You can also start them separately:
+
+```bash
+# Backend (listens on 18060 by default)
+go run *.go
+
+# Frontend (listens on 3721 by default)
+cd frontend
+npm install
+npm run dev
+```
+
+**Configure the API keys (pick either way):**
+
+```bash
+# Option 1: write frontend/.env.local
+ANTHROPIC_API_KEY=sk-ant-...
+REPLICATE_API_TOKEN=r8_...
+XHS_API_BASE=http://localhost:18060
+```
+
+Option 2: fill the keys in on the **Settings** page after startup; they are saved to `frontend/data/config.json`.
+
+> [!TIP]
+> - AI content generation requires an Anthropic API key, and AI images additionally require a Replicate API token.
+> - Tasks, publish history and the profile cache are stored as JSON files in `frontend/data/*.json`, created automatically on first launch.
+> - Scheduled tasks are registered at startup: sync the profile every day at 20:00 and generate the AI dev daily report at 21:00 (time zone `Asia/Shanghai`).
+> - Saving a Webhook task generates `http://localhost:3721/api/webhook/<token>`; send a `POST` request to that URL to trigger a publish:
+
+```bash
+curl -X POST http://localhost:3721/api/webhook/<token>
+```
+
+### Screenshots
+
+> Screenshots use demo data.
+
+**New / Edit Task**: choose any of the three trigger types; scheduled triggers support a visual Cron editor with a live preview (e.g. "every day at 21:00"); when editing the AI dev daily report task you can configure which local project workspaces to scan.
+
+![New Task](assets/web-ui/task-new.png)
+
+![Edit Task](assets/web-ui/task-edit.png)
+
+**Publish History**: the result, title and failure reason of every task run are recorded.
+
+![Publish History](assets/web-ui/history.png)
+
+**AI Image Generation**: generate RedNote images in a chat-style UI, automatically choosing between FLUX / Stable Diffusion and other models.
+
+![AI Image Generation](assets/web-ui/image-gen.png)
+
+**MCP Status**: check the backend running status and login status, plus every MCP tool and its parameters.
+
+![MCP Status](assets/web-ui/mcp.png)
+
+**Settings**: configure the Anthropic / Replicate API keys with one-click connectivity tests.
+
+![Settings](assets/web-ui/settings.png)
+
+**Dark Mode**: supports system / light / dark themes.
+
+![Dark Mode](assets/web-ui/dashboard-dark.png)
+
+### Tech Stack
+
+- **Frontend**: Next.js 16 / React 19 / Tailwind CSS / shadcn/ui
+- **AI**: Anthropic Claude (content generation), Replicate FLUX / Stable Diffusion (images)
+- **Scheduling**: node-cron (scheduled tasks), Webhook (external triggers)
+- **Data**: local JSON files (`frontend/data`)
+- **Backend**: Go + MCP (reuses the existing service in this repository)
+
 ## 1. Usage Tutorial
 
 ### 1.1. Quick Start (Recommended)
