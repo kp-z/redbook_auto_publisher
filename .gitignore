@@ -36,6 +36,10 @@ go.work.sum
 
 # Build artifacts
 xiaohongshu-mcp
+/backend
+
+# 运行时 PID 文件
+logs/*.pid
 
 # Test scripts
 test_*.sh

@@ -1,255 +1,527 @@
-time="2026-04-29T15:52:43+08:00" level=info msg="Registered 13 MCP tools"
-time="2026-04-29T15:52:43+08:00" level=info msg="MCP Server initialized with official SDK"
-time="2026-04-29T15:52:43+08:00" level=info msg="启动 HTTP 服务器: :18060"
-time="2026-04-29T15:52:45+08:00" level=info msg="GET /health  200"
-[GIN] 2026/04/29 - 15:52:45 | 200 |     501.792µs |             ::1 | GET      "/health"
-time="2026-04-29T15:52:57+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:52:57 | 200 |  9.879686459s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T15:53:16+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:53:16 | 200 |  9.115243625s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T15:55:57+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:55:57 | 200 | 10.193831792s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T15:56:02+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:56:02 | 200 |    9.9637195s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T15:56:06+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:56:06 | 200 | 10.141410834s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T15:56:07+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 15:56:07 | 200 |   10.1795845s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T16:11:32+08:00" level=info msg="GET /health  200"
-[GIN] 2026/04/29 - 16:11:32 | 200 |     200.375µs |             ::1 | GET      "/health"
-time="2026-04-29T16:11:35+08:00" level=info msg="GET /health  200"
-[GIN] 2026/04/29 - 16:11:35 | 200 |      90.834µs |             ::1 | GET      "/health"
+time="2026-10-21T18:51:48+08:00" level=info msg="Registered 13 MCP tools"
+time="2026-10-21T18:51:48+08:00" level=info msg="MCP Server initialized with official SDK"
+time="2026-10-21T18:51:48+08:00" level=info msg="启动 HTTP 服务器: :18060"
+time="2026-10-21T18:51:52+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/21 - 18:51:52 | 200 |     283.917µs |       127.0.0.1 | GET      "/health"
+time="2026-10-21T18:52:08+08:00" level=info msg="GET /api/v1/login/status ai-report 200"
+[GIN] 2026/10/21 - 18:52:08 | 200 | 11.224252584s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T18:52:08+08:00" level=info msg="GET /api/v1/metrics ai-report 200"
+[GIN] 2026/10/21 - 18:52:08 | 200 |     132.167µs |       127.0.0.1 | GET      "/api/v1/metrics"
+[GIN] 2026/10/21 - 18:52:42 | 200 |     309.833µs |       127.0.0.1 | POST     "/mcp"
+[GIN] 2026/10/21 - 18:53:44 | 200 |     806.625µs |       127.0.0.1 | POST     "/mcp"
 
 
-[31m2026/04/29 16:11:35 [Recovery] 2026/04/29 - 16:11:35 panic recovered:
+[31m2026/10/21 18:54:47 [Recovery] 2026/10/21 - 18:54:47 panic recovered:
 context canceled
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x10304e213)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
 	init.func2: var Panic = func(v interface{}) { panic(v) }
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x103096da3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
 	New.New.(*Browser).WithPanic.genE.func1: fail(err)
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:457 (0x103075547)
-	(*Page).MustWaitLoad: p.e(p.WaitLoad())
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:21 (0x10308e07b)
-	(*NavigateAction).ToExplorePage: MustWaitLoad().
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x10308e0ff)
-	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x103095567)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:583 (0x104d917c7)
+	(*Page).MustElement: p.e(err)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:38 (0x104daa12b)
+	(*NavigateAction).ToProfilePage: profileLink := page.MustElement(`div.main-container li.user.side-bar-component a.link-wrapper span.channel`)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
 	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x1030a9307)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
 	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x1030a9063)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
 	withBrowserPage: return fn(page)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x1030a919b)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
 	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
-/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x10309a657)
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
 	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102f9fd17)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x1030a9513)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
 	setupRoutes.corsMiddleware.func2: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa3603)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x102fa35e8)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
 	LoggerWithConfig.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa2bb3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x102fa26fc)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
 	(*Engine).handleHTTPRequest: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x102fa2483)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
 	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x102e8cecf)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
 	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x102e712bb)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
 	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x102cce863)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
 	goexit: MOVD	R0, R0	// NOP
 [0m
-time="2026-04-29T16:11:35+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
-time="2026-04-29T16:11:35+08:00" level=error msg="GET /api/v1/user/me  500"
-[GIN] 2026/04/29 - 16:11:35 | 500 |  3.110638667s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T16:11:37+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 16:11:37 | 200 |      9.87291s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T18:54:47+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-21T18:54:47+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/21 - 18:54:47 | 500 |          1m0s |       127.0.0.1 | GET      "/api/v1/user/me"
+time="2026-10-21T18:55:03+08:00" level=info msg="GET /api/v1/login/qrcode  200"
+[GIN] 2026/10/21 - 18:55:03 | 200 |    9.8459445s |       127.0.0.1 | GET      "/api/v1/login/qrcode"
+time="2026-10-21T18:55:15+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/21 - 18:55:15 | 200 |     196.459µs |       127.0.0.1 | GET      "/health"
+time="2026-10-21T18:55:23+08:00" level=info msg="MCP: 检查登录状态"
+[GIN] 2026/10/21 - 18:55:36 | 200 | 12.587991791s |       127.0.0.1 | POST     "/mcp"
 
 
-[31m2026/04/29 16:11:39 [Recovery] 2026/04/29 - 16:11:39 panic recovered:
+[31m2026/10/21 18:57:24 [Recovery] 2026/10/21 - 18:57:24 panic recovered:
 context canceled
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x10304e213)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
 	init.func2: var Panic = func(v interface{}) { panic(v) }
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x103096da3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
 	New.New.(*Browser).WithPanic.genE.func1: fail(err)
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:457 (0x103075547)
-	(*Page).MustWaitLoad: p.e(p.WaitLoad())
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:21 (0x10308e07b)
-	(*NavigateAction).ToExplorePage: MustWaitLoad().
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x10308e0ff)
-	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x103095567)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:583 (0x104d917c7)
+	(*Page).MustElement: p.e(err)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:38 (0x104daa12b)
+	(*NavigateAction).ToProfilePage: profileLink := page.MustElement(`div.main-container li.user.side-bar-component a.link-wrapper span.channel`)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
 	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x1030a9307)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
 	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x1030a9063)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
 	withBrowserPage: return fn(page)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x1030a919b)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
 	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
-/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x10309a657)
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
 	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102f9fd17)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x1030a9513)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
 	setupRoutes.corsMiddleware.func2: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa3603)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x102fa35e8)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
 	LoggerWithConfig.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa2bb3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x102fa26fc)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
 	(*Engine).handleHTTPRequest: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x102fa2483)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
 	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x102e8cecf)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
 	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x102e712bb)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
 	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x102cce863)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
 	goexit: MOVD	R0, R0	// NOP
 [0m
-time="2026-04-29T16:11:39+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
-time="2026-04-29T16:11:39+08:00" level=error msg="GET /api/v1/user/me  500"
-[GIN] 2026/04/29 - 16:11:39 | 500 |  3.228589084s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T16:13:05+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 16:13:05 | 200 |   9.52731625s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T16:16:25+08:00" level=info msg="GET /health  200"
-[GIN] 2026/04/29 - 16:16:25 | 200 |     189.583µs |             ::1 | GET      "/health"
-time="2026-04-29T16:16:29+08:00" level=info msg="GET /health  200"
-[GIN] 2026/04/29 - 16:16:29 | 200 |     185.083µs |             ::1 | GET      "/health"
+time="2026-10-21T18:57:24+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-21T18:57:24+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/21 - 18:57:24 | 500 |         5m10s |             ::1 | GET      "/api/v1/user/me"
 
 
-[31m2026/04/29 16:16:29 [Recovery] 2026/04/29 - 16:16:29 panic recovered:
+[31m2026/10/21 18:57:48 [Recovery] 2026/10/21 - 18:57:48 panic recovered:
 context canceled
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x10304e213)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
 	init.func2: var Panic = func(v interface{}) { panic(v) }
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x103096da3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
 	New.New.(*Browser).WithPanic.genE.func1: fail(err)
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:457 (0x103075547)
-	(*Page).MustWaitLoad: p.e(p.WaitLoad())
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:21 (0x10308e07b)
-	(*NavigateAction).ToExplorePage: MustWaitLoad().
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x10308e0ff)
-	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x103095567)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:583 (0x104d917c7)
+	(*Page).MustElement: p.e(err)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:38 (0x104daa12b)
+	(*NavigateAction).ToProfilePage: profileLink := page.MustElement(`div.main-container li.user.side-bar-component a.link-wrapper span.channel`)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
 	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x1030a9307)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
 	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x1030a9063)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
 	withBrowserPage: return fn(page)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x1030a919b)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
 	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
-/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x10309a657)
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
 	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102f9fd17)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x1030a9513)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
 	setupRoutes.corsMiddleware.func2: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa3603)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x102fa35e8)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
 	LoggerWithConfig.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa2bb3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x102fa26fc)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
 	(*Engine).handleHTTPRequest: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x102fa2483)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
 	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x102e8cecf)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
 	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x102e712bb)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
 	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x102cce863)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
 	goexit: MOVD	R0, R0	// NOP
 [0m
-time="2026-04-29T16:16:29+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
-time="2026-04-29T16:16:29+08:00" level=error msg="GET /api/v1/user/me  500"
-[GIN] 2026/04/29 - 16:16:29 | 500 |  3.127973834s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T18:57:48+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-21T18:57:48+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/21 - 18:57:48 | 500 |          5m6s |             ::1 | GET      "/api/v1/user/me"
 
 
-[31m2026/04/29 16:16:32 [Recovery] 2026/04/29 - 16:16:32 panic recovered:
+[31m2026/10/21 19:01:14 [Recovery] 2026/10/21 - 19:01:14 panic recovered:
 context canceled
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x10304e213)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
 	init.func2: var Panic = func(v interface{}) { panic(v) }
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:36 (0x103096da3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
 	New.New.(*Browser).WithPanic.genE.func1: fail(err)
-/Users/kp/go/pkg/mod/github.com/go-rod/rod@v0.116.2/must.go:457 (0x103075547)
-	(*Page).MustWaitLoad: p.e(p.WaitLoad())
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:21 (0x10308e07b)
-	(*NavigateAction).ToExplorePage: MustWaitLoad().
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x10308e0ff)
-	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x103095567)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:583 (0x104d917c7)
+	(*Page).MustElement: p.e(err)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:38 (0x104daa12b)
+	(*NavigateAction).ToProfilePage: profileLink := page.MustElement(`div.main-container li.user.side-bar-component a.link-wrapper span.channel`)
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
 	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x1030a9307)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
 	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x1030a9063)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
 	withBrowserPage: return fn(page)
-/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x1030a919b)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
 	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
-/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x10309a657)
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
 	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102f9fd17)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x1030a9513)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
 	setupRoutes.corsMiddleware.func2: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa4227)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x102fa4210)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
 	CustomRecoveryWithWriter.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa3603)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x102fa35e8)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
 	LoggerWithConfig.func1: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x102fa2bb3)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
 	(*Context).Next: c.handlers[c.index](c)
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x102fa26fc)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
 	(*Engine).handleHTTPRequest: c.Next()
-/Users/kp/go/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x102fa2483)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
 	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x102e8cecf)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
 	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x102e712bb)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
 	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
-/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x102cce863)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
 	goexit: MOVD	R0, R0	// NOP
 [0m
-time="2026-04-29T16:16:32+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
-time="2026-04-29T16:16:32+08:00" level=error msg="GET /api/v1/user/me  500"
-[GIN] 2026/04/29 - 16:16:32 | 500 |  3.234892958s |             ::1 | GET      "/api/v1/user/me"
-time="2026-04-29T16:19:14+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
-[GIN] 2026/04/29 - 16:19:14 | 200 |  9.936818083s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:01:14+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-21T19:01:14+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/21 - 19:01:14 | 500 |          4m0s |       127.0.0.1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:08:35+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/21 - 19:08:35 | 200 |     322.125µs |       127.0.0.1 | GET      "/health"
+time="2026-10-21T19:13:29+08:00" level=info msg="GET /api/v1/login/qrcode  200"
+[GIN] 2026/10/21 - 19:13:29 | 200 | 10.908267917s |       127.0.0.1 | GET      "/api/v1/login/qrcode"
+time="2026-10-21T19:13:41+08:00" level=info msg="GET /api/v1/login/status ai-report 200"
+[GIN] 2026/10/21 - 19:13:41 | 200 |  6.753831708s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T19:13:56+08:00" level=info msg="GET /api/v1/login/qrcode  200"
+[GIN] 2026/10/21 - 19:13:56 | 200 | 10.614459416s |       127.0.0.1 | GET      "/api/v1/login/qrcode"
+time="2026-10-21T19:13:57+08:00" level=info msg="GET /api/v1/login/status ai-report 200"
+[GIN] 2026/10/21 - 19:13:57 | 200 | 11.148911125s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T19:14:07+08:00" level=error msg="GET /api/v1/login/status  500"
+[GIN] 2026/10/21 - 19:14:07 | 500 |  5.508863958s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T19:14:25+08:00" level=info msg="GET /api/v1/login/qrcode  200"
+[GIN] 2026/10/21 - 19:14:25 | 200 | 13.237456125s |       127.0.0.1 | GET      "/api/v1/login/qrcode"
+time="2026-10-21T19:14:55+08:00" level=info msg="GET /api/v1/login/status ai-report 200"
+[GIN] 2026/10/21 - 19:14:55 | 200 |  7.536842959s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T19:15:14+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 19:15:14 | 200 | 14.271986209s |       127.0.0.1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:16:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 19:16:34 | 200 | 15.180042208s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:24:32+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 19:24:32 | 200 | 13.404572084s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:25:42+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 19:25:42 | 200 | 13.894421291s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:26:40+08:00" level=info msg="GET /api/v1/login/qrcode  200"
+[GIN] 2026/10/21 - 19:26:40 | 200 | 10.281894625s |       127.0.0.1 | GET      "/api/v1/login/qrcode"
+time="2026-10-21T19:26:52+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 19:26:52 | 200 | 10.368819458s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-21T19:27:46+08:00" level=info msg="GET /api/v1/login/status ai-report 200"
+[GIN] 2026/10/21 - 19:27:46 | 200 |  8.072666667s |       127.0.0.1 | GET      "/api/v1/login/status"
+time="2026-10-21T20:00:13+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/21 - 20:00:13 | 200 | 13.297689833s |             ::1 | GET      "/api/v1/user/me"
+[GIN] 2026/10/21 - 20:09:57 | 200 |    3.277042ms |             ::1 | POST     "/mcp"
+[GIN] 2026/10/21 - 20:09:57 | 200 |    2.533959ms |             ::1 | POST     "/mcp"
+time="2026-10-21T23:38:03+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/21 - 23:38:03 | 200 |    3.813917ms |       127.0.0.1 | GET      "/health"
+[GIN] 2026/10/23 - 00:34:59 | 404 |     521.208µs |       127.0.0.1 | GET      "/"
+[GIN] 2026/10/23 - 00:35:28 | 404 |       2.625µs |       127.0.0.1 | GET      "/api/v1/health"
+time="2026-10-23T00:35:29+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/23 - 00:35:29 | 200 |    8.767833ms |             ::1 | GET      "/health"
+
+
+[31m2026/10/23 00:35:34 [Recovery] 2026/10/23 - 00:35:34 panic recovered:
+context canceled
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:232 (0x104d9119b)
+	(*Page).MustNavigate: p.e(p.Navigate(url))
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:20 (0x104daa077)
+	(*NavigateAction).ToExplorePage: page.MustNavigate("https://www.xiaohongshu.com/explore").
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x104daa0ff)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
+	LoggerWithConfig.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-10-23T00:35:34+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-23T00:35:34+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/23 - 00:35:34 | 500 |  5.374629375s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:36:04+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/23 - 00:36:04 | 200 |     481.667µs |             ::1 | GET      "/health"
+
+
+[31m2026/10/23 00:36:07 [Recovery] 2026/10/23 - 00:36:07 panic recovered:
+context canceled
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:457 (0x104d91547)
+	(*Page).MustWaitLoad: p.e(p.WaitLoad())
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:21 (0x104daa07b)
+	(*NavigateAction).ToExplorePage: MustWaitLoad().
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x104daa0ff)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
+	LoggerWithConfig.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-10-23T00:36:07+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-23T00:36:07+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/23 - 00:36:07 | 500 |  3.606518166s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:36:19+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:36:19 | 200 | 12.497661792s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:40:00+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:40:00 | 200 |    12.885225s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:41:34+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:41:34 | 200 | 11.095092875s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:44:47+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:44:47 | 200 | 10.730026542s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:44:52+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:44:52 | 200 |  9.745211583s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:15+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/23 - 00:45:15 | 200 |     304.167µs |             ::1 | GET      "/health"
+
+
+[31m2026/10/23 00:45:24 [Recovery] 2026/10/23 - 00:45:24 panic recovered:
+context canceled
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:232 (0x104d9119b)
+	(*Page).MustNavigate: p.e(p.Navigate(url))
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:20 (0x104daa077)
+	(*NavigateAction).ToExplorePage: page.MustNavigate("https://www.xiaohongshu.com/explore").
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x104daa0ff)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
+	LoggerWithConfig.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-10-23T00:45:24+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-23T00:45:24+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/23 - 00:45:24 | 500 |  9.330894541s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:24+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:24 | 200 | 21.711138417s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:25+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:25 | 200 | 18.276629292s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:27+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:27 | 200 | 17.603706166s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:28+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:28 | 200 | 23.422405583s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:33+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:33 | 200 | 17.935147458s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:33+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:33 | 200 | 20.557985083s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:45:36+08:00" level=info msg="GET /api/v1/user/me ai-report 200"
+[GIN] 2026/10/23 - 00:45:36 | 200 | 15.115431958s |             ::1 | GET      "/api/v1/user/me"
+time="2026-10-23T00:46:56+08:00" level=info msg="GET /health  200"
+[GIN] 2026/10/23 - 00:46:56 | 200 |    1.035375ms |             ::1 | GET      "/health"
+
+
+[31m2026/10/23 00:47:00 [Recovery] 2026/10/23 - 00:47:00 panic recovered:
+context canceled
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/lib/utils/utils.go:68 (0x104d6a213)
+	init.func2: var Panic = func(v interface{}) { panic(v) }
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:36 (0x104db2da3)
+	New.New.(*Browser).WithPanic.genE.func1: fail(err)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/go-rod/rod@v0.116.2/must.go:232 (0x104d9119b)
+	(*Page).MustNavigate: p.e(p.Navigate(url))
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:20 (0x104daa077)
+	(*NavigateAction).ToExplorePage: page.MustNavigate("https://www.xiaohongshu.com/explore").
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/navigate.go:31 (0x104daa0ff)
+	(*NavigateAction).ToProfilePage: if err := n.ToExplorePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/xiaohongshu/user_profile.go:114 (0x104db1567)
+	(*UserProfileAction).GetMyProfileViaSidebar: if err := navigate.ToProfilePage(ctx); err != nil {
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:646 (0x104dc5307)
+	(*XiaohongshuService).GetMyProfile.func1: result, err = action.GetMyProfileViaSidebar(ctx)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:636 (0x104dc5063)
+	withBrowserPage: return fn(page)
+/Users/kp/项目/Proj/xiaohongshu-mcp/service.go:644 (0x104dc519b)
+	(*XiaohongshuService).GetMyProfile: err = withBrowserPage(func(page *rod.Page) error {
+/Users/kp/项目/Proj/xiaohongshu-mcp/handlers_api.go:288 (0x104db6657)
+	(*AppServer).myProfileHandler: result, err := s.xiaohongshuService.GetMyProfile(c.Request.Context())
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbbd17)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/kp/项目/Proj/xiaohongshu-mcp/middleware.go:22 (0x104dc5513)
+	setupRoutes.corsMiddleware.func2: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cc0227)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/recovery.go:102 (0x104cc0210)
+	CustomRecoveryWithWriter.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbf603)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/logger.go:249 (0x104cbf5e8)
+	LoggerWithConfig.func1: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/context.go:185 (0x104cbebb3)
+	(*Context).Next: c.handlers[c.index](c)
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:644 (0x104cbe6fc)
+	(*Engine).handleHTTPRequest: c.Next()
+/var/folders/15/6h458kcn0cd_z7svmkm6hygc0000gn/T/xhs-gomodcache/github.com/gin-gonic/gin@v1.10.1/gin.go:600 (0x104cbe483)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:3311 (0x104ba8ecf)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/net/http/server.go:2073 (0x104b8d2bb)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/opt/homebrew/Cellar/go/1.26.2/libexec/src/runtime/asm_arm64.s:1447 (0x1049ea863)
+	goexit: MOVD	R0, R0	// NOP
+[0m
+time="2026-10-23T00:47:00+08:00" level=error msg="服务器内部错误: context canceled, path: /api/v1/user/me"
+time="2026-10-23T00:47:00+08:00" level=error msg="GET /api/v1/user/me  500"
+[GIN] 2026/10/23 - 00:47:00 | 500 |  3.580153542s |             ::1 | GET      "/api/v1/user/me"

@@ -4,172 +4,87 @@
 
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3721
-- Network:       http://10.12.127.27:3721
+- Network:       http://192.168.31.224:3721
 - Environments: .env.local
-✓ Ready in 292ms
+✓ Ready in 475ms
 [profile-sync] 已注册定时任务：每天 20:00 同步小红书 profile
 [dev-daily] 已注册定时任务：每天 21:00 生成 AI 开发日报
 
- GET / 200 in 274ms (next.js: 137ms, application-code: 137ms)
-[profile-sync] 已更新 profile 缓存: 2026/4/29 15:52:57
- GET / 200 in 53ms (next.js: 11ms, application-code: 41ms)
- GET /api/tasks 200 in 71ms (next.js: 67ms, application-code: 4ms)
- GET /api/profile 200 in 96ms (next.js: 94ms, application-code: 2ms)
- GET /api/history 200 in 113ms (next.js: 110ms, application-code: 2ms)
- GET /api/me 200 in 9.2s (next.js: 43ms, application-code: 9.2s)
-[dev-daily] 扫描到 3 条 commit，开始生成日报
-[dev-daily] 失败: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaXhbZRsp4LfARdhazeWd"}
- POST /api/tasks/__dev_daily__/run 400 in 1144ms (next.js: 574ms, application-code: 570ms)
- GET /api/tasks 200 in 10ms (next.js: 5ms, application-code: 5ms)
- GET /api/history 200 in 15ms (next.js: 11ms, application-code: 4ms)
-[dev-daily] 扫描到 3 条 commit，开始生成日报
-[dev-daily] 失败: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaXhbs2JCMr5tncRsayYH"}
- POST /api/tasks/__dev_daily__/run 400 in 417ms (next.js: 6ms, application-code: 411ms)
- GET /api/tasks 200 in 5ms (next.js: 1287µs, application-code: 3ms)
- GET /api/history 200 in 8ms (next.js: 5ms, application-code: 3ms)
- GET / 200 in 43ms (next.js: 4ms, application-code: 38ms)
- GET /api/tasks 200 in 5ms (next.js: 3ms, application-code: 3ms)
- GET /api/history 200 in 13ms (next.js: 10ms, application-code: 3ms)
- GET /api/profile 200 in 20ms (next.js: 16ms, application-code: 4ms)
- GET /api/me 200 in 5.4s (next.js: 6ms, application-code: 5.4s)
- GET / 200 in 53ms (next.js: 2ms, application-code: 51ms)
- GET /api/tasks 200 in 8ms (next.js: 6ms, application-code: 2ms)
- GET /api/history 200 in 10ms (next.js: 9ms, application-code: 1283µs)
- GET /api/profile 200 in 13ms (next.js: 11ms, application-code: 2ms)
- GET /api/me 200 in 2.4s (next.js: 2ms, application-code: 2.4s)
- GET / 200 in 117ms (next.js: 1155µs, application-code: 116ms)
- GET /api/tasks 200 in 32ms (next.js: 29ms, application-code: 3ms)
- GET /api/history 200 in 36ms (next.js: 32ms, application-code: 4ms)
- GET /api/profile 200 in 40ms (next.js: 36ms, application-code: 3ms)
- GET /api/me 200 in 909ms (next.js: 26ms, application-code: 883ms)
- GET / 200 in 135ms (next.js: 3ms, application-code: 132ms)
- GET /api/tasks 200 in 26ms (next.js: 18ms, application-code: 8ms)
- GET /api/history 200 in 32ms (next.js: 27ms, application-code: 5ms)
- GET /api/profile 200 in 36ms (next.js: 31ms, application-code: 4ms)
- GET /api/me 200 in 1133ms (next.js: 12ms, application-code: 1121ms)
- GET /api/config 200 in 536ms (next.js: 529ms, application-code: 7ms)
- GET /api/config 200 in 4ms (next.js: 1692µs, application-code: 1972µs)
- POST /api/config 200 in 6ms (next.js: 4ms, application-code: 2ms)
- POST /api/generate-image 400 in 270ms (next.js: 268ms, application-code: 2ms)
- GET /settings 200 in 955ms (next.js: 880ms, application-code: 75ms)
- GET / 200 in 155ms (next.js: 27ms, application-code: 129ms)
- GET /api/tasks 200 in 57ms (next.js: 55ms, application-code: 2ms)
- GET /api/history 200 in 74ms (next.js: 72ms, application-code: 1983µs)
- GET /api/profile 200 in 94ms (next.js: 91ms, application-code: 3ms)
- GET /settings 200 in 15ms (next.js: 4ms, application-code: 11ms)
- GET /api/config 200 in 8ms (next.js: 5ms, application-code: 3ms)
- GET /api/config 200 in 8ms (next.js: 1939µs, application-code: 6ms)
- GET /mcp 200 in 47ms (next.js: 24ms, application-code: 23ms)
- GET /settings 200 in 75ms (next.js: 8ms, application-code: 67ms)
- GET /api/config 200 in 25ms (next.js: 22ms, application-code: 4ms)
- GET /api/config 200 in 22ms (next.js: 14ms, application-code: 8ms)
- GET /api/mcp-status 200 in 3.1s (next.js: 72ms, application-code: 3.0s)
- GET /api/me 200 in 10.0s (next.js: 33ms, application-code: 9.9s)
- GET /api/mcp-status 200 in 3.0s (next.js: 1417µs, application-code: 3.0s)
- GET / 200 in 105ms (next.js: 16ms, application-code: 89ms)
- GET /api/tasks 200 in 10ms (next.js: 6ms, application-code: 3ms)
- GET /api/history 200 in 13ms (next.js: 11ms, application-code: 2ms)
- GET /api/profile 200 in 17ms (next.js: 14ms, application-code: 3ms)
- GET /settings 200 in 22ms (next.js: 6ms, application-code: 17ms)
- GET /api/config 200 in 20ms (next.js: 14ms, application-code: 6ms)
- GET /api/config 200 in 3ms (next.js: 800µs, application-code: 2ms)
- POST /api/generate-image 400 in 7ms (next.js: 3ms, application-code: 4ms)
- GET /api/me 200 in 9.6s (next.js: 2ms, application-code: 9.5s)
- GET / 200 in 26ms (next.js: 6ms, application-code: 20ms)
- GET /api/tasks 200 in 6ms (next.js: 1696µs, application-code: 4ms)
- GET /api/history 200 in 6ms (next.js: 3ms, application-code: 3ms)
- GET /api/profile 200 in 10ms (next.js: 7ms, application-code: 3ms)
- GET /api/tasks 200 in 5ms (next.js: 3ms, application-code: 2ms)
- GET /api/history 200 in 7ms (next.js: 5ms, application-code: 1352µs)
- GET /api/profile 200 in 4ms (next.js: 3ms, application-code: 1570µs)
- GET /image-gen 200 in 40ms (next.js: 28ms, application-code: 13ms)
-Image agent error: Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaXjM6zVRHYCiav2Mk5TT"}
-    at async runImageAgent (lib/image-agent.ts:119:18)
-    at async POST (app/api/generate-image/route.ts:12:42)
-  117 |   ]
-  118 |
-> 119 |   let response = await client.messages.create({
-      |                  ^
-  120 |     model: "claude-sonnet-4-6",
-  121 |     max_tokens: 2048,
-  122 |     system: SYSTEM_PROMPT, {
-  status: 401,
-  headers: Headers {
-    date: 'Wed, 29 Apr 2026 08:16:15 GMT',
-    'content-type': 'application/json',
-    'content-length': '130',
-    connection: 'keep-alive',
-    'x-should-retry': 'false',
-    'request-id': 'req_011CaXjM6zVRHYCiav2Mk5TT',
-    'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
-    server: 'cloudflare',
-    'x-envoy-upstream-service-time': '4',
-    'set-cookie': '_cfuvid=jLY5HFeQBn1PZPIqbHN5FXlSkhvKRE1n_NNWWvpVdH8-1777450575.7850728-1.0.1.1-3YYYXWpC.qnijm9wSKWvXsPoCkL.2vHcATaJZge.buU; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com',
-    'x-robots-tag': 'none',
-    'cf-cache-status': 'DYNAMIC',
-    'content-security-policy': "default-src 'none'; frame-ancestors 'none'",
-    'cf-ray': '9f3cdd12ad87e350-NRT'
-  },
-  requestID: 'req_011CaXjM6zVRHYCiav2Mk5TT',
-  error: {
-    type: 'error',
-    error: { type: 'authentication_error', message: 'invalid x-api-key' },
-    request_id: 'req_011CaXjM6zVRHYCiav2Mk5TT'
-  }
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "127.0.0.1".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['127.0.0.1'],
 }
- POST /api/generate-image 500 in 488ms (next.js: 4ms, application-code: 483ms)
- GET /history 200 in 65ms (next.js: 39ms, application-code: 26ms)
- GET /api/history 200 in 4ms (next.js: 1419µs, application-code: 3ms)
- GET /api/history 200 in 4ms (next.js: 782µs, application-code: 3ms)
- GET /mcp 200 in 24ms (next.js: 4ms, application-code: 21ms)
- GET /history 200 in 17ms (next.js: 1827µs, application-code: 15ms)
- GET /api/history 200 in 4ms (next.js: 1116µs, application-code: 3ms)
- GET /api/history 200 in 16ms (next.js: 3ms, application-code: 13ms)
- GET /api/mcp-status 200 in 3.0s (next.js: 1904µs, application-code: 3.0s)
- GET / 200 in 23ms (next.js: 6ms, application-code: 17ms)
- GET /api/tasks 200 in 14ms (next.js: 7ms, application-code: 7ms)
- GET /api/history 200 in 17ms (next.js: 14ms, application-code: 3ms)
- GET /api/profile 200 in 7ms (next.js: 3ms, application-code: 4ms)
- GET /api/history 200 in 5ms (next.js: 2ms, application-code: 3ms)
- GET /api/tasks 200 in 11ms (next.js: 2ms, application-code: 9ms)
- GET /api/profile 200 in 18ms (next.js: 13ms, application-code: 5ms)
- GET /api/mcp-status 200 in 3.0s (next.js: 6ms, application-code: 3.0s)
- GET /settings 200 in 24ms (next.js: 6ms, application-code: 18ms)
- GET /api/config 200 in 5ms (next.js: 4ms, application-code: 1812µs)
- GET /api/config 200 in 29ms (next.js: 10ms, application-code: 19ms)
- GET / 200 in 21ms (next.js: 3ms, application-code: 18ms)
- GET /api/tasks 200 in 22ms (next.js: 7ms, application-code: 16ms)
- GET /api/history 200 in 30ms (next.js: 23ms, application-code: 7ms)
- GET /api/profile 200 in 34ms (next.js: 31ms, application-code: 3ms)
- GET /api/history 200 in 6ms (next.js: 3ms, application-code: 2ms)
- GET /api/profile 200 in 8ms (next.js: 6ms, application-code: 1852µs)
- GET /api/tasks 200 in 11ms (next.js: 9ms, application-code: 1574µs)
- GET /image-gen 200 in 24ms (next.js: 6ms, application-code: 19ms)
- GET /settings 200 in 27ms (next.js: 5ms, application-code: 22ms)
- GET /api/config 200 in 6ms (next.js: 3ms, application-code: 4ms)
- GET /api/config 200 in 4ms (next.js: 1910µs, application-code: 2ms)
- GET / 200 in 22ms (next.js: 5ms, application-code: 17ms)
- GET /api/tasks 200 in 7ms (next.js: 3ms, application-code: 4ms)
- GET /api/history 200 in 12ms (next.js: 10ms, application-code: 3ms)
- GET /api/profile 200 in 8ms (next.js: 6ms, application-code: 2ms)
- GET /api/history 200 in 4ms (next.js: 1712µs, application-code: 1961µs)
- GET /api/tasks 200 in 11ms (next.js: 6ms, application-code: 5ms)
- GET /api/profile 200 in 13ms (next.js: 12ms, application-code: 1733µs)
- GET /settings 200 in 26ms (next.js: 7ms, application-code: 19ms)
- GET /api/config 200 in 5ms (next.js: 1943µs, application-code: 3ms)
- GET /api/config 200 in 5ms (next.js: 2ms, application-code: 3ms)
- GET / 200 in 35ms (next.js: 3ms, application-code: 32ms)
- GET /api/tasks 200 in 16ms (next.js: 13ms, application-code: 3ms)
- GET /api/history 200 in 19ms (next.js: 16ms, application-code: 3ms)
- GET /api/profile 200 in 19ms (next.js: 18ms, application-code: 1679µs)
- GET /settings 200 in 13ms (next.js: 1435µs, application-code: 12ms)
- GET /api/config 200 in 6ms (next.js: 3ms, application-code: 3ms)
- GET /api/config 200 in 2ms (next.js: 761µs, application-code: 1455µs)
- GET /api/me 200 in 10.0s (next.js: 6ms, application-code: 10.0s)
- GET / 200 in 19ms (next.js: 4ms, application-code: 16ms)
- GET /api/tasks 200 in 19ms (next.js: 4ms, application-code: 15ms)
- GET /api/history 200 in 29ms (next.js: 26ms, application-code: 3ms)
- GET /api/profile 200 in 14ms (next.js: 9ms, application-code: 5ms)
- GET /api/history 200 in 3ms (next.js: 1364µs, application-code: 1572µs)
- GET /api/tasks 200 in 5ms (next.js: 3ms, application-code: 1616µs)
- GET /api/profile 200 in 7ms (next.js: 5ms, application-code: 1318µs)
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 1099ms (next.js: 569ms, application-code: 530ms)
+[profile-sync] 已更新 profile 缓存: 2026/10/21 19:24:32
+ GET / 200 in 161ms (next.js: 6ms, application-code: 155ms)
+ GET / 200 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 200 in 29ms (next.js: 1153µs, application-code: 28ms)
+ GET / 200 in 243ms (next.js: 16ms, application-code: 227ms)
+ GET /api/tasks 200 in 94ms (next.js: 75ms, application-code: 19ms)
+ GET /api/history 200 in 131ms (next.js: 125ms, application-code: 6ms)
+ GET /api/profile 200 in 159ms (next.js: 156ms, application-code: 3ms)
+ GET /api/me 200 in 14.1s (next.js: 187ms, application-code: 13.9s)
+ GET / 200 in 47ms (next.js: 4ms, application-code: 43ms)
+ GET / 200 in 67ms (next.js: 9ms, application-code: 59ms)
+ GET / 200 in 34ms (next.js: 5ms, application-code: 29ms)
+ GET /api/tasks 200 in 12ms (next.js: 9ms, application-code: 2ms)
+ GET /api/history 200 in 15ms (next.js: 13ms, application-code: 2ms)
+ GET /api/profile 200 in 18ms (next.js: 16ms, application-code: 1863µs)
+ GET /api/me 200 in 10.4s (next.js: 4ms, application-code: 10.4s)
+ GET / 200 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 200 in 84ms (next.js: 15ms, application-code: 69ms)
+ GET / 200 in 85ms (next.js: 31ms, application-code: 54ms)
+ GET / 200 in 40ms (next.js: 7ms, application-code: 34ms)
+ GET / 200 in 35ms (next.js: 8ms, application-code: 28ms)
+ GET / 200 in 57ms (next.js: 5ms, application-code: 52ms)
+ GET / 200 in 147ms (next.js: 17ms, application-code: 130ms)
+ GET / 200 in 42ms (next.js: 7ms, application-code: 35ms)
+ GET / 200 in 58ms (next.js: 8ms, application-code: 50ms)
+ GET / 200 in 61ms (next.js: 11ms, application-code: 50ms)
+ GET / 200 in 39ms (next.js: 7ms, application-code: 33ms)
+ GET / 200 in 59ms (next.js: 10ms, application-code: 49ms)
+ GET / 200 in 29ms (next.js: 4ms, application-code: 25ms)
+[profile-sync] 已更新 profile 缓存: 2026/10/21 20:00:13
+[dev-daily] 今天无 commit，跳过发布
+ GET / 200 in 45ms (next.js: 13ms, application-code: 33ms)
+[2026-10-22T12:35:57.522Z] [PID: 97724] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Thu Oct 22 2026 20:00:00 GMT+0800 (China Standard Time)! Possible blocking IO or high CPU user at the same process used by node-cron.
+[2026-10-22T13:47:38.612Z] [PID: 97724] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Thu Oct 22 2026 21:00:00 GMT+0800 (China Standard Time)! Possible blocking IO or high CPU user at the same process used by node-cron.
+ GET / 200 in 52ms (next.js: 15ms, application-code: 38ms)
+ GET / 200 in 41ms (next.js: 3ms, application-code: 37ms)
+ GET /tasks 404 in 2.2s (next.js: 2.2s, application-code: 70ms)
+ GET /tasks/new 200 in 94ms (next.js: 36ms, application-code: 57ms)
+ GET /history 200 in 39ms (next.js: 17ms, application-code: 22ms)
+ GET /image-gen 200 in 81ms (next.js: 28ms, application-code: 53ms)
+ GET /mcp 200 in 164ms (next.js: 67ms, application-code: 97ms)
+ GET /settings 200 in 70ms (next.js: 31ms, application-code: 39ms)
+ GET /api/mcp-status 200 in 3.2s (next.js: 72ms, application-code: 3.1s)
+ GET / 200 in 39ms (next.js: 3ms, application-code: 36ms)
+ GET /history 200 in 25ms (next.js: 1484µs, application-code: 24ms)
+ GET /image-gen 200 in 32ms (next.js: 2ms, application-code: 29ms)
+ GET /mcp 200 in 56ms (next.js: 1794µs, application-code: 54ms)
+ GET /settings 200 in 25ms (next.js: 2ms, application-code: 23ms)
+ GET /tasks/new 200 in 35ms (next.js: 2ms, application-code: 33ms)
+ GET /api/tasks 200 in 9ms (next.js: 2ms, application-code: 7ms)
+ GET /api/history 200 in 6ms (next.js: 1939µs, application-code: 4ms)
+ GET /api/mcp-status 200 in 3.0s (next.js: 12ms, application-code: 3.0s)
+ GET /api/profile 200 in 8ms (next.js: 3ms, application-code: 5ms)
+ GET /api/me 200 in 12.5s (next.js: 3ms, application-code: 12.5s)
+ GET /api/config 200 in 44ms (next.js: 39ms, application-code: 5ms)
+ GET / 200 in 40ms (next.js: 2ms, application-code: 37ms)
+ GET / 200 in 43ms (next.js: 4ms, application-code: 39ms)
+ GET /history 200 in 28ms (next.js: 1448µs, application-code: 27ms)
+ GET / 200 in 71ms (next.js: 5ms, application-code: 66ms)
+ GET /mcp 200 in 55ms (next.js: 9ms, application-code: 46ms)
+ GET / 200 in 36ms (next.js: 3ms, application-code: 33ms)
+ GET / 200 in 65ms (next.js: 4ms, application-code: 61ms)
+ GET / 200 in 83ms (next.js: 3ms, application-code: 81ms)
+ GET / 200 in 218ms (next.js: 11ms, application-code: 206ms)
+ GET / 200 in 28ms (next.js: 3ms, application-code: 25ms)
+[?25h
