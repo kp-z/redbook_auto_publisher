@@ -1,0 +1,166 @@
+{
+  "version": "1.0",
+  "project_id": 6,
+  "project_name": "xiaohongshu-mcp",
+  "created_at": "2026-04-23T11:34:27.452328+00:00",
+  "updated_at": "2026-04-28T15:47:39.140168+00:00",
+  "_id_counters": {
+    "obj": 2,
+    "kr": 2,
+    "task": 19
+  },
+  "okr": {
+    "objectives": [
+      {
+        "id": "obj-2",
+        "progress": 0.0,
+        "key_results": [
+          {
+            "id": "kr-2",
+            "title": "发布成功率提升至 95% 以上",
+            "description": "",
+            "target": 95.0,
+            "current": 0.0,
+            "unit": "%",
+            "status": "not-started"
+          }
+        ],
+        "title": "提升小红书 MCP 自动发布的稳定性与可靠性",
+        "description": "",
+        "quarter": null,
+        "status": "not-started",
+        "priority": "high",
+        "deadline": null,
+        "alignment": null
+      }
+    ]
+  },
+  "phases": [],
+  "tasks": [
+    {
+      "id": "task-12",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "优化浏览器会话管理和超时控制",
+      "description": "改进 browser/browser.go 和 configs/timeout.go，增加浏览器会话复用、超时自动恢复机制\n\n验收标准：\n- 浏览器会话超时后自动重启\n- 发布超时后自动清理浏览器资源\n- 支持动态调整超时时间（根据网络状况）\n- 记录超时事件到监控系统",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "high",
+      "blocked_by": [
+        "task-13"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    },
+    {
+      "id": "task-15",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "完善错误分类和智能重试策略",
+      "description": "扩展 errors/publish_errors.go，细化错误类型（网络错误、验证错误、平台限流等），针对不同错误类型设置不同重试策略\n\n验收标准：\n- 定义至少 5 种可重试错误类型（网络超时、临时故障、限流等）\n- 定义不可重试错误类型（参数错误、权限错误等）\n- 实现智能重试：网络错误快速重试，限流错误延长等待\n- 更新 publish_retry.go 使用新的错误分类",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "critical",
+      "blocked_by": [
+        "task-13"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    },
+    {
+      "id": "task-16",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "完善发布链路集成测试",
+      "description": "扩展 xiaohongshu/publish_test.go，增加端到端集成测试，覆盖正常流程、异常流程、重试流程\n\n验收标准：\n- 测试正常发布流程（图文、视频）\n- 测试网络异常、超时、限流等异常场景\n- 测试重试机制的正确性\n- 测试覆盖率达到 70% 以上",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "medium",
+      "blocked_by": [
+        "task-15",
+        "task-14"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    },
+    {
+      "id": "task-17",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "编写发布稳定性优化文档",
+      "description": "更新 ROBUSTNESS_OPTIMIZATION.md，记录所有优化措施、监控指标、故障排查指南\n\n验收标准：\n- 文档包含监控指标说明和查询方法\n- 文档包含常见错误类型和解决方案\n- 文档包含发布失败排查流程图\n- 文档包含性能调优建议",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "medium",
+      "blocked_by": [
+        "task-13",
+        "task-15",
+        "task-14",
+        "task-18",
+        "task-12"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    },
+    {
+      "id": "task-18",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "增强资源管理和临时文件清理",
+      "description": "优化 pkg/downloader/images.go，实现临时文件自动清理机制，防止磁盘空间耗尽\n\n验收标准：\n- 下载的临时文件在发布成功后自动删除\n- 发布失败后保留临时文件 24 小时用于排查\n- 启动时清理超过 7 天的临时文件\n- 磁盘空间不足时拒绝新任务并告警",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "high",
+      "blocked_by": [
+        "task-14"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    },
+    {
+      "id": "task-19",
+      "progress": 0,
+      "plan": null,
+      "logs": [],
+      "title": "发布链路性能分析和优化",
+      "description": "分析发布各阶段耗时（上传、填表、提交），识别性能瓶颈并优化\n\n验收标准：\n- 记录每个阶段的耗时（上传图片、填写表单、点击发布等）\n- 识别耗时超过 5 秒的慢操作\n- 优化图片上传速度（并行上传、压缩等）\n- 发布总耗时降低 20% 以上",
+      "kr_id": "kr-2",
+      "status": "todo",
+      "priority": "medium",
+      "blocked_by": [
+        "task-13"
+      ],
+      "assigned_agents": [
+        {
+          "id": 35,
+          "name": "xiaohongshu-mcp-workspace"
+        }
+      ]
+    }
+  ]
+}

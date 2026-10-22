@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk"
+import { getConfig } from "./config-store"
 import {
   generateWithFluxPro,
   generateWithFluxDev,
@@ -6,7 +7,14 @@ import {
   type ImageResult,
 } from "./image-api-clients"
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+// 优先读取设置页保存的 Key，未配置时回退到环境变量
+function getClient(): Anthropic {
+  const apiKey = getConfig().anthropicApiKey || process.env.ANTHROPIC_API_KEY
+  if (!apiKey) {
+    throw new Error("Anthropic API Key 未配置，请在设置页面配置")
+  }
+  return new Anthropic({ apiKey })
+}
 
 type AspectRatio = "1:1" | "16:9" | "9:16" | "4:3" | "3:4"
 
@@ -116,7 +124,7 @@ export async function runImageAgent(
     { role: "user", content: userInput },
   ]
 
-  let response = await client.messages.create({
+  let response = await getClient().messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 2048,
     system: SYSTEM_PROMPT,
@@ -193,7 +201,7 @@ export async function runImageAgent(
       ],
     })
 
-    response = await client.messages.create({
+    response = await getClient().messages.create({
       model: "claude-sonnet-4-6",
       max_tokens: 2048,
       system: SYSTEM_PROMPT,

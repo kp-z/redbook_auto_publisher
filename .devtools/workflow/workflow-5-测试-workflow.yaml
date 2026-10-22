@@ -1,0 +1,91 @@
+version: '1.1'
+project:
+  id: 21
+  name: xiaohongshu-mcp
+  slug: xiaohongshu-mcp
+  path: /Users/kp/项目/Proj/xiaohongshu-mcp
+  workspace_agent_id: 35
+workflow:
+  id: 5
+  name: 测试 workflow
+  description: KR kr-2 的执行流程
+  version: 0.1.0
+  active: true
+  project_id: 21
+  kr_id: kr-2
+  workspace_agent_id: 35
+  workflow_manager_agent_id: 50
+  meta:
+    source: workspace_kr_kanban
+    workspace_project_id: 21
+agents:
+- id: 35
+  name: xiaohongshu-mcp-workspace
+  scope: project
+  framework: claude_code
+  model: inherit
+  is_active: true
+- id: 50
+  name: workflow-manager
+  scope: plugin
+  framework: claude_code
+  model: inherit
+  is_active: true
+tasks:
+- node_id: 14
+  node_name: 新任务
+  opp_project_id: 21
+  opp_task_id: task-13
+  opp_task_title: 实现发布成功率监控统计系统
+nodes:
+- id: 14
+  name: 新任务
+  type: task
+  linked_task_id: 36
+  preferred_agent_ids:
+  - 35
+  capability_filter_ids: []
+  config:
+    description: ''
+    prompt_template: ''
+    opp_project_id: 21
+    execution:
+      after_complete: continue
+      loop_target_node_id: null
+      loop_max_iterations: 3
+      loop_agent_id: null
+      loop_prompt: ''
+      loop_stop_condition: ''
+      loop_auto_skill: null
+      wait_for: manual
+      max_tokens: null
+      timeout_seconds: null
+    opp_task_id: task-13
+    opp_task_title: 实现发布成功率监控统计系统
+  position:
+    x: 120
+    y: 80
+  condition_expression: null
+  parallel_mode: null
+- id: 15
+  name: 检查并优化整个发布链路的鲁棒性
+  type: task
+  linked_task_id: 45
+  preferred_agent_ids: []
+  capability_filter_ids: []
+  config: {}
+  position:
+    x: 100
+    y: 100
+  condition_expression: null
+  parallel_mode: null
+edges: []
+meta:
+  workflow_id: 5
+  workflow_name: 测试 workflow
+  workflow_slug: 测试-workflow
+  generated_at: '2026-04-28T07:35:56.854828+00:00'
+  generated_by: workflow_yaml_mirror_service
+  schema_version: '1.1'
+  write_source: db_sync
+  etag: '2026-04-28T07:35:56.854828+00:00'

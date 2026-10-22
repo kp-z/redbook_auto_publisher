@@ -5,6 +5,7 @@ import Anthropic from "@anthropic-ai/sdk"
 import { publishContent } from "./xhs-client"
 import { generateWithFluxDev } from "./image-api-clients"
 import { getTask, DEV_DAILY_TASK_ID } from "./store"
+import { getConfig } from "./config-store"
 import type { ProjectConfig } from "./store"
 
 // 默认扫描项目：当任务中未配置 projects 时自动使用
@@ -160,7 +161,8 @@ async function generateDevSummary(
   allCommits: ProjectCommits[],
   promptTemplate: string
 ): Promise<{ title: string; content: string }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  // 优先读取设置页保存的 Key，未配置时回退到环境变量
+  const apiKey = getConfig().anthropicApiKey || process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
     throw new Error("缺少 ANTHROPIC_API_KEY，无法生成 AI 开发日报")
   }
